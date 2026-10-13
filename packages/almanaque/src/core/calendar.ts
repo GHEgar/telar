@@ -1,8 +1,8 @@
 import {
-    clampIso, daysInMonth, monthOf, normalizeIso, parseIso, shiftMonth, toIso, todayIso,
+    clampIso, compareMonths, daysInMonth, monthOf, normalizeIso, parseIso, shiftMonth, toIso, todayIso,
     type IsoDate, type YearMonth,
 } from './date.js';
-import { resolveKey } from './keyboard.js';
+import { resolveChipKey, resolveKey, type ChipAction } from './keyboard.js';
 import { buildLabels } from './labels.js';
 import { createLimits } from './limits.js';
 import { normalizeRange, pickRange, sameRange } from './range.js';
@@ -81,7 +81,35 @@ export const createCalendar = (initial: CalendarOptions = {}): Calendar => {
         options.onRangeChange?.(range);
     };
 
-    return {
+    const monthTarget = (action: Exclude<ChipAction, null>): YearMonth | null => {
+        if (action.type === 'step') return shiftMonth(state.anchor, action.by);
+        if (action.type === 'edge') return { year: state.anchor.year, month: action.to === 'first' ? 1 : 12 };
+        return null;
+    };
+
+    const yearTarget = (action: Exclude<ChipAction, null>): YearMonth | null => {
+        const years = snapshot.yearCells;
+        const first = years[0]?.year ?? state.anchor.year;
+        const last = years.at(-1)?.year ?? state.anchor.year;
+        let year: number | null = null;
+        if (action.type === 'step') year = Math.min(last, Math.max(first, state.anchor.year + action.by));
+        if (action.type === 'edge') year = action.to === 'first' ? first : last;
+        return year === null ? null : { year, month: state.anchor.month };
+    };
+
+    const chipKey = (action: ChipAction, target: (action: Exclude<ChipAction, null>) => YearMonth | null, pick: (value: number) => void): boolean => {
+        if (!action) return false;
+        if (action.type === 'close') commit({ view: 'days' });
+        else if (action.type === 'select') pick(state.view === 'months' ? state.anchor.month : state.anchor.year);
+        else {
+            const anchor = target(action);
+            const blocked = !anchor || (state.view === 'months' ? config.limits.isMonthDisabled(anchor) : config.limits.isYearDisabled(anchor.year));
+            if (!blocked && compareMonths(anchor, state.anchor) !== 0) commit({ anchor });
+        }
+        return true;
+    };
+
+    const api: Calendar = {
         subscribe(listener) {
             listeners.add(listener);
             return () => listeners.delete(listener);
@@ -123,7 +151,8 @@ export const createCalendar = (initial: CalendarOptions = {}): Calendar => {
             if (iso !== state.focused) moveFocus(iso);
         },
         keyDown(key: string, modifiers?: KeyModifiers) {
-            if (state.view !== 'days') return false;
+            if (state.view === 'months') return chipKey(resolveChipKey(key, 12), monthTarget, (month) => api.pickMonth(month));
+            if (state.view === 'years') return chipKey(resolveChipKey(key, 12), yearTarget, (year) => api.pickYear(year));
             const action = resolveKey(state.focused, key, modifiers);
             if (!action) return false;
             if (action.type === 'select') select(state.focused);
@@ -162,4 +191,5 @@ export const createCalendar = (initial: CalendarOptions = {}): Calendar => {
             commit(next);
         },
     };
+    return api;
 };

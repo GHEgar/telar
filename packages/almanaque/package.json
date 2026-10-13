@@ -1,6 +1,6 @@
 {
     "name": "@ghegar/almanaque",
-    "version": "0.1.0",
+    "version": "0.2.0",
     "description": "Headless calendar for React in es-MX: Monday-first weeks, timezone-free ISO dates, day/month/year views, limits and ranges.",
     "license": "AGPL-3.0-only",
     "author": "Edgar Villarreal",

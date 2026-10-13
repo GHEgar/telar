@@ -54,13 +54,13 @@ export const useCalendar = (options: CalendarOptions = {}): UseCalendar => {
     useEffect(() => {
         if (!fromKeyboard.current) return;
         fromKeyboard.current = false;
-        const target = root.current?.querySelector<HTMLElement>(`[data-iso="${snapshot.focused}"]:not([data-outside])`);
-        target?.focus();
-    }, [snapshot.focused, snapshot.year, snapshot.month]);
+        const selector = snapshot.view === 'days' ? `[data-iso="${snapshot.focused}"]:not([data-outside])` : '[data-chip][data-current]';
+        root.current?.querySelector<HTMLElement>(selector)?.focus();
+    }, [snapshot.focused, snapshot.year, snapshot.month, snapshot.view]);
 
     useEffect(() => {
         if (snapshot.view !== 'years') return;
-        root.current?.querySelector<HTMLElement>('[data-year][data-current]')?.scrollIntoView?.({ block: 'center' });
+        root.current?.querySelector<HTMLElement>('[data-chip][data-current]')?.scrollIntoView?.({ block: 'center' });
     }, [snapshot.view]);
 
     const setRoot = useCallback((element: HTMLElement | null) => {
@@ -94,9 +94,12 @@ export const useCalendar = (options: CalendarOptions = {}): UseCalendar => {
             type: 'button',
             'aria-pressed': view === target,
             'aria-label': target === 'months' ? text.chooseMonth : text.chooseYear,
-            onClick: () => calendar.toggleView(target),
+            onClick: () => {
+                fromKeyboard.current = true;
+                calendar.toggleView(target);
+            },
         }),
-        getMonthProps: (cell) => monthProps(calendar, cell),
-        getYearProps: (cell) => yearProps(calendar, cell),
+        getMonthProps: (cell) => monthProps(calendar, cell, markKeyboard),
+        getYearProps: (cell) => yearProps(calendar, cell, markKeyboard),
     };
 };

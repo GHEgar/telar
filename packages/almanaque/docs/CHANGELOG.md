@@ -5,6 +5,19 @@ Formato basado en [Keep a Changelog](https://keepachangelog.com/es-ES/1.1.0/) y 
 
 ## [No publicado]
 
+## [0.2.0] - 2026-10-13
+
+### Agregado
+
+- Teclado en las vistas de meses y años: flechas (de tres en tres en vertical), Inicio, Fin, RePág,
+  AvPág, Enter o Espacio para elegir y Escape para volver a los días.
+- Foco itinerante en los botones de mes y año (`tabIndex` y `data-chip`); al abrir una vista o elegir,
+  el foco pasa al elemento actual.
+
+### Cambiado
+
+- `getMonthProps` y `getYearProps` traen `tabIndex` y `onKeyDown`.
+
 ## [0.1.0] - 2026-10-13
 
 ### Agregado

@@ -57,6 +57,13 @@ Style it through the attributes: `[data-selected]`, `[data-today]`, `[data-disab
 Arrows move by day and week, Home/End go to the start and end of the week, PageUp/PageDown change the
 month (with Shift, the year), Enter or Space selects. Focus is roving: only the focused day is tabbable.
 
+In the months and years views, arrows move between buttons (up and down by three), Home/End jump to the
+first and last, PageUp/PageDown move a year (months) or twelve (years), Enter or Space picks and Escape
+goes back to days. Opening a view or picking moves DOM focus to the current element.
+
+Disabled days inside a range keep `inRange` and `preview`: they are part of the range. Give
+`[data-disabled]` the last word in your styles if they should not look selected.
+
 ## Without React
 
 `createCalendar(options)` returns the same store (`subscribe`, `getSnapshot`, `select`, `keyDown`, …), and

@@ -22,6 +22,9 @@ const Picker = (options: CalendarOptions) => {
             {calendar.view === 'months' && calendar.monthCells.map((cell) => (
                 <button key={cell.month} {...calendar.getMonthProps(cell)}>{cell.shortLabel}</button>
             ))}
+            {calendar.view === 'years' && calendar.yearCells.map((cell) => (
+                <button key={cell.year} {...calendar.getYearProps(cell)}>{cell.year}</button>
+            ))}
         </div>
     );
 };
@@ -84,5 +87,19 @@ describe('useCalendar', () => {
         expect(cell('2026-10-02').getAttribute('aria-disabled')).toBeNull();
         rerender(<Picker today="2026-10-13" min="2026-10-05" />);
         expect(cell('2026-10-02').getAttribute('aria-disabled')).toBe('true');
+    });
+
+    it('drives the months view from the keyboard', () => {
+        render(<Picker today="2026-10-13" />);
+        fireEvent.click(screen.getByRole('button', { name: 'Elegir mes' }));
+        const october = screen.getByText('Oct');
+        expect(document.activeElement).toBe(october);
+        expect(october.tabIndex).toBe(0);
+        expect(screen.getByText('Sep').tabIndex).toBe(-1);
+        fireEvent.keyDown(october, { key: 'ArrowUp' });
+        expect(document.activeElement).toBe(screen.getByText('Jul'));
+        fireEvent.keyDown(document.activeElement as Element, { key: 'Enter' });
+        expect(screen.getByRole('grid').getAttribute('aria-label')).toBe('Julio 2026');
+        expect(document.activeElement).toBe(cell('2026-07-13'));
     });
 });

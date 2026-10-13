@@ -47,14 +47,23 @@ export interface DayProps {
 export interface ButtonProps {
     type: 'button';
     disabled?: boolean;
+    tabIndex?: number;
     'aria-label'?: string;
     'aria-pressed'?: boolean;
     'data-current'?: true;
+    'data-chip'?: true;
     'data-year'?: number;
     onClick: () => void;
+    onKeyDown?: (event: KeyboardEvent) => void;
 }
 
 const flag = (value: boolean): true | undefined => (value ? true : undefined);
+
+const keyHandler = (calendar: Calendar, onKey: () => void) => (event: KeyboardEvent): void => {
+    if (!calendar.keyDown(event.key, { shiftKey: event.shiftKey })) return;
+    event.preventDefault();
+    onKey();
+};
 
 export const rootProps = (snapshot: CalendarSnapshot, calendar: Calendar, ref: RefCallback<HTMLElement>): RootProps => ({
     ref,
@@ -96,26 +105,34 @@ export const dayProps = (calendar: Calendar, cell: DayCell, onKey: () => void): 
     onClick: () => calendar.select(cell.iso),
     onMouseEnter: () => calendar.hover(cell.iso),
     onFocus: () => calendar.focus(cell.iso),
-    onKeyDown: (event) => {
-        if (!calendar.keyDown(event.key, { shiftKey: event.shiftKey })) return;
-        event.preventDefault();
-        onKey();
-    },
+    onKeyDown: keyHandler(calendar, onKey),
 } as DayProps);
 
-export const monthProps = (calendar: Calendar, cell: MonthCell): ButtonProps => ({
+export const monthProps = (calendar: Calendar, cell: MonthCell, onKey: () => void): ButtonProps => ({
     type: 'button',
     disabled: cell.disabled,
+    tabIndex: cell.current ? 0 : -1,
     'aria-pressed': cell.current,
     'data-current': flag(cell.current),
-    onClick: () => calendar.pickMonth(cell.month),
+    'data-chip': true,
+    onClick: () => {
+        onKey();
+        calendar.pickMonth(cell.month);
+    },
+    onKeyDown: keyHandler(calendar, onKey),
 } as ButtonProps);
 
-export const yearProps = (calendar: Calendar, cell: YearCell): ButtonProps => ({
+export const yearProps = (calendar: Calendar, cell: YearCell, onKey: () => void): ButtonProps => ({
     type: 'button',
     disabled: cell.disabled,
+    tabIndex: cell.current ? 0 : -1,
     'aria-pressed': cell.current,
     'data-current': flag(cell.current),
+    'data-chip': true,
     'data-year': cell.year,
-    onClick: () => calendar.pickYear(cell.year),
+    onClick: () => {
+        onKey();
+        calendar.pickYear(cell.year);
+    },
+    onKeyDown: keyHandler(calendar, onKey),
 } as ButtonProps);
