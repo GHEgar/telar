@@ -17,14 +17,14 @@ const describe = (rejection: FileRejection): string => `${rejection.file.name}: 
 
 const Images = () => {
     const [files, setFiles] = useState<File[]>([]);
-    const zone = useDropzone({ files, onChange: setFiles, accept: IMAGES, multiple: true, maxFiles: 3, maxSize: 2 * MB });
+    const zone = useDropzone({ files, onChange: setFiles, accept: IMAGES, multiple: true, maxFiles: 3, maxSize: 2 * MB, paste: 'document' });
     return (
         <section className="card">
             <h2>Imágenes, hasta 3</h2>
             <div className="dropzone" data-testid="images" {...zone.getRootProps()}>
                 <input data-testid="images-input" {...zone.getInputProps()} />
                 <strong>{zone.full ? 'Ya no caben más' : 'Sube tus imágenes'}</strong>
-                <span>Da clic o arrastra dentro de este recuadro ({describeAccept(IMAGES)}, hasta 2 MB)</span>
+                <span>Da clic, arrastra o pega con Ctrl+V ({describeAccept(IMAGES)}, hasta 2 MB)</span>
             </div>
             {zone.rejections.length > 0 && (
                 <ul className="errors" role="alert">

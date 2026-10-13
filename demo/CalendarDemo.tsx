@@ -12,7 +12,7 @@ export const CalendarDemo = () => {
         <>
             <section className="card">
                 <h2>Una fecha</h2>
-                <p className="hint">Entre hoy menos un año y hoy más 90 días. Flechas, Inicio, Fin, RePág y AvPág (con Shift, por año).</p>
+                <p className="hint">Entre hoy menos un año y hoy más 90 días. Flechas, Inicio, Fin, RePág y AvPág (con Shift, por año); en meses y años también, y Esc regresa.</p>
                 <Calendar value={value} onSelect={setValue} min={addDays(today, -365)} max={addDays(today, 90)} />
                 <output data-testid="single-value">{value ?? 'sin fecha'}</output>
             </section>

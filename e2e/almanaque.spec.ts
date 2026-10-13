@@ -53,3 +53,20 @@ test('picks a range with limits across two months', async ({ page }) => {
     await expect(page.getByTestId('range-value')).toHaveText('2026-10-14 → 2026-10-22');
     await expect(day(range, '2026-10-19')).toHaveAttribute('data-in-range', 'true');
 });
+
+test('drives the months and years views with the keyboard', async ({ page }) => {
+    const [single] = await open(page);
+    await single.getByRole('button', { name: 'Elegir mes' }).focus();
+    await page.keyboard.press('Enter');
+    await expect(single.getByRole('button', { name: 'Oct' })).toBeFocused();
+    await page.keyboard.press('ArrowDown');
+    await expect(single.getByRole('button', { name: 'Ene' })).toBeFocused();
+    await page.keyboard.press('Enter');
+    await expect(single.getByRole('grid')).toHaveAttribute('aria-label', 'Enero 2027');
+    await expect(day(single, '2027-01-11')).toBeFocused();
+    await single.getByRole('button', { name: 'Elegir año' }).click();
+    await expect(single.getByRole('button', { name: '2027' })).toBeFocused();
+    await page.keyboard.press('ArrowLeft');
+    await page.keyboard.press('Escape');
+    await expect(single.getByRole('grid')).toHaveAttribute('aria-label', 'Enero 2026');
+});

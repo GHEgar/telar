@@ -47,3 +47,17 @@ test('replaces the single PDF and opens from the keyboard', async ({ page }) => 
     await (await chooser).setFiles([file('tres.pdf', 'application/pdf')]);
     await expect(page.getByTestId('pdf-file')).toHaveText(/tres\.pdf/);
 });
+
+test('takes pasted images and ignores files dropped outside', async ({ page }) => {
+    const prevented = await page.evaluate(() => {
+        const data = new DataTransfer();
+        data.items.add(new File(['x'], 'captura.png', { type: 'image/png' }));
+        document.body.dispatchEvent(new ClipboardEvent('paste', { clipboardData: data, bubbles: true, cancelable: true }));
+        const drop = new DragEvent('drop', { dataTransfer: data, bubbles: true, cancelable: true });
+        document.body.dispatchEvent(drop);
+        return drop.defaultPrevented;
+    });
+    expect(prevented).toBe(true);
+    await expect(page.locator('.thumbs img')).toHaveCount(1);
+    await expect(page.locator('.thumbs img')).toHaveAttribute('alt', 'captura.png');
+});

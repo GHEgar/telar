@@ -72,7 +72,7 @@ output { display: block; margin-top: 12px; font-family: ui-monospace, monospace;
 
 .day[data-selected] { background: var(--accent); color: white; border-radius: 50%; }
 
-.day[data-disabled] { color: #cdc8d0; cursor: not-allowed; }
+.day[data-disabled] { color: #cdc8d0; cursor: not-allowed; background: none; }
 
 .chips { display: grid; grid-template-columns: repeat(3, 1fr); gap: 6px; width: 252px; }
 
