@@ -28,6 +28,7 @@ test('drives the menu from the keyboard', async ({ page }) => {
     await expect(menu.getByRole('menuitem', { name: 'Editar' })).toBeFocused();
     await page.keyboard.press('ArrowDown');
     await page.keyboard.press('ArrowDown');
+    await page.keyboard.press('ArrowDown');
     await expect(menu.getByRole('menuitem', { name: 'Archivar' })).toBeFocused();
     await page.keyboard.press('e');
     await expect(menu.getByRole('menuitem', { name: 'Eliminar' })).toBeFocused();
@@ -45,4 +46,26 @@ test('closes the menu with an outside click and ignores disabled items', async (
     await page.mouse.click(5, 300);
     await expect(menu).toBeHidden();
     await expect(page.getByTestId('menu-value')).toHaveText('nada');
+});
+
+test('opens a submenu from the keyboard and toggles a checkbox item', async ({ page }) => {
+    const button = page.getByRole('button', { name: 'Acciones' });
+    await button.focus();
+    await page.keyboard.press('ArrowDown');
+    await page.keyboard.press('e');
+    const trigger = page.getByRole('menuitem', { name: /Exportar/ });
+    await expect(trigger).toBeFocused();
+    await page.keyboard.press('ArrowRight');
+    await expect(page.getByRole('menuitem', { name: 'PNG' })).toBeFocused();
+    await page.keyboard.press('ArrowLeft');
+    await expect(trigger).toBeFocused();
+    await expect(page.getByRole('menuitem', { name: 'PNG' })).toBeHidden();
+    await page.keyboard.press('Enter');
+    await page.keyboard.press('ArrowDown');
+    await page.keyboard.press('Enter');
+    await expect(page.getByTestId('menu-value')).toHaveText('Exportar PDF');
+    await expect(page.getByRole('menu')).toHaveCount(0);
+    await button.click();
+    await page.getByRole('menuitemcheckbox', { name: /Fijar/ }).click();
+    await expect(page.getByRole('menuitemcheckbox', { name: /Fijar/ })).toHaveAttribute('aria-checked', 'true');
 });

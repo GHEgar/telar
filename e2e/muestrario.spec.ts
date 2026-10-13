@@ -45,3 +45,22 @@ test('searches remotely after two letters', async ({ page }) => {
     await expect(page.getByRole('option', { name: 'Guadalajara' })).toBeVisible();
     await expect(page.getByTestId('async-status')).toHaveText('1 resultado');
 });
+
+test('creates a new tag from the typed text', async ({ page }) => {
+    const input = page.getByRole('combobox', { name: 'Etiquetas' });
+    await input.fill('Río');
+    await expect(page.getByRole('option', { name: 'Crear «Río»' })).toHaveAttribute('data-active', 'true');
+    await page.keyboard.press('Enter');
+    await expect(page.getByTestId('tags').locator('.tag')).toHaveText(['río✕']);
+});
+
+test('scrolls a virtual list of 2000 options with the keyboard', async ({ page }) => {
+    await page.getByRole('combobox', { name: 'Lista larga (2000)' }).click();
+    const list = page.getByTestId('virtual');
+    expect(await list.getByRole('option').count()).toBeLessThan(30);
+    await page.keyboard.press('ArrowUp');
+    const last = page.getByRole('option', { name: 'Manzana 2000' });
+    await expect(last).toBeInViewport();
+    await expect(last).toHaveAttribute('aria-posinset', '2000');
+    await expect(last).toHaveAttribute('aria-setsize', '2000');
+});

@@ -81,6 +81,44 @@ const AsyncPicker = () => {
     );
 };
 
+const TagsPicker = () => {
+    const combo = useCombobox<string>({ items: ['agua', 'bosque', 'clima'], getLabel: (tag) => tag, multiple: true, onCreate: (text) => text.toLowerCase() });
+    return (
+        <div className="field">
+            <span aria-hidden="true">Etiquetas</span>
+            <span className="combo chips-field" data-testid="tags" {...combo.getAnchorProps()}>
+                {combo.values.map((tag) => <span key={tag} className="tag">{tag}<button {...combo.getRemoveProps(tag)}>✕</button></span>)}
+                <input aria-label="Etiquetas" {...combo.getInputProps()} />
+            </span>
+            {combo.open && createPortal(
+                <ul className="listbox" {...combo.getListboxProps()}>
+                    {combo.items.map((tag, index) => <li key={tag} className="option" {...combo.getOptionProps(tag, index)}>{tag}</li>)}
+                    {combo.createText && <li className="option create" {...combo.getCreateProps()}>{combo.createText}</li>}
+                </ul>,
+                document.body,
+            )}
+        </div>
+    );
+};
+
+const MANY = Array.from({ length: 2000 }, (_, index) => `Manzana ${String(index + 1).padStart(4, '0')}`);
+
+const VirtualPicker = () => {
+    const combo = useCombobox<string>({ items: MANY, getLabel: (item) => item, virtual: { itemHeight: 32, height: 240 } });
+    return (
+        <label className="field">Lista larga (2000)
+            <span className="combo" {...combo.getAnchorProps()}><input {...combo.getInputProps()} /></span>
+            {combo.open && createPortal(
+                <ul className="listbox virtual" data-testid="virtual" {...combo.getListboxProps()}>
+                    <li {...combo.getSizerProps()} />
+                    {combo.virtualItems?.map(({ item, index, style }) => <li key={item} className="option" style={style} {...combo.getOptionProps(item, index)}>{item}</li>)}
+                </ul>,
+                document.body,
+            )}
+        </label>
+    );
+};
+
 export const ComboboxDemo = () => (
     <section className="card combobox-card">
         <h2>Combobox</h2>
@@ -88,5 +126,7 @@ export const ComboboxDemo = () => (
         <StatePicker />
         <TownsPicker />
         <AsyncPicker />
+        <TagsPicker />
+        <VirtualPicker />
     </section>
 );
