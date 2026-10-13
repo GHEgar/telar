@@ -1,0 +1,35 @@
+{
+    "name": "@ghegar/almanaque",
+    "version": "0.1.0",
+    "description": "Headless calendar for React in es-MX: Monday-first weeks, timezone-free ISO dates, day/month/year views, limits and ranges.",
+    "license": "AGPL-3.0-only",
+    "author": "Edgar Villarreal",
+    "type": "module",
+    "sideEffects": false,
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/GHEgar/telar.git",
+        "directory": "packages/almanaque"
+    },
+    "files": [
+        "dist"
+    ],
+    "exports": {
+        ".": {
+            "types": "./dist/core/index.d.ts",
+            "import": "./dist/core/index.js"
+        },
+        "./react": {
+            "types": "./dist/react/index.d.ts",
+            "import": "./dist/react/index.js"
+        }
+    },
+    "peerDependencies": {
+        "react": ">=19"
+    },
+    "peerDependenciesMeta": {
+        "react": {
+            "optional": true
+        }
+    }
+}
