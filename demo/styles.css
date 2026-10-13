@@ -177,3 +177,23 @@ p.errors { padding-left: 0; }
 .grid .chip { border: 1px solid var(--line); }
 
 .grid .chip[data-active] { border-color: var(--accent); }
+
+.position-card { position: relative; width: 640px; }
+
+.placements { width: auto; grid-template-columns: repeat(6, auto); margin-bottom: 16px; }
+
+.chip[aria-pressed='true'] { background: var(--accent); color: white; }
+
+.stage { display: grid; place-items: center; height: 260px; border: 1px dashed var(--line); border-radius: 12px; }
+
+.popover { background: var(--paper); border: 1px solid var(--line); border-radius: 10px; padding: 12px 14px; box-shadow: 0 6px 24px #0002; display: flex; flex-direction: column; gap: 4px; font-size: 13px; width: 220px; }
+
+.arrow-tip { width: 10px; height: 10px; background: var(--paper); border: 1px solid var(--line); transform: translate(-50%, -50%) rotate(45deg); }
+
+.popover[data-side='bottom'] .arrow-tip { top: 0; border-right: 0; border-bottom: 0; }
+
+.popover[data-side='top'] .arrow-tip { top: 100%; border-left: 0; border-top: 0; }
+
+.popover[data-side='right'] .arrow-tip { left: 0; border-top: 0; border-right: 0; }
+
+.popover[data-side='left'] .arrow-tip { left: 100%; border-bottom: 0; border-left: 0; }

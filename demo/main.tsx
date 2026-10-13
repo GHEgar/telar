@@ -3,6 +3,7 @@ import { createRoot } from 'react-dom/client';
 import { CalendarDemo } from './CalendarDemo.js';
 import { DialogDemo } from './DialogDemo.js';
 import { DropzoneDemo } from './DropzoneDemo.js';
+import { PositionDemo } from './PositionDemo.js';
 import { TabsDemo } from './TabsDemo.js';
 
 const PAGES = {
@@ -10,6 +11,7 @@ const PAGES = {
     buzon: DropzoneDemo,
     postigo: DialogDemo,
     solapa: TabsDemo,
+    plomada: PositionDemo,
 };
 
 type Page = keyof typeof PAGES;

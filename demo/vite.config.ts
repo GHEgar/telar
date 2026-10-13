@@ -19,6 +19,8 @@ export default defineConfig({
             { find: /^@ghegar\/lanzadera\/react$/, replacement: pkg('lanzadera/src/react/index.ts') },
             { find: /^@ghegar\/lanzadera$/, replacement: pkg('lanzadera/src/core/index.ts') },
             { find: /^@ghegar\/solapa$/, replacement: pkg('solapa/src/index.ts') },
+            { find: /^@ghegar\/plomada\/react$/, replacement: pkg('plomada/src/react/index.ts') },
+            { find: /^@ghegar\/plomada$/, replacement: pkg('plomada/src/core/index.ts') },
         ],
     },
     build: {
