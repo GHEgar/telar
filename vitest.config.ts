@@ -19,6 +19,7 @@ export default defineConfig({
             { find: /^@ghegar\/plomada$/, replacement: pkg('plomada/src/core/index.ts') },
             { find: /^@ghegar\/glosa$/, replacement: pkg('glosa/src/index.ts') },
             { find: /^@ghegar\/abanico$/, replacement: pkg('abanico/src/index.ts') },
+            { find: /^@ghegar\/muestrario$/, replacement: pkg('muestrario/src/index.ts') },
         ],
     },
     test: {
@@ -32,6 +33,7 @@ export default defineConfig({
             { test: { name: 'plomada', include: ['packages/plomada/test/**/*.test.{ts,tsx}'] } },
             { test: { name: 'glosa', include: ['packages/glosa/test/**/*.test.{ts,tsx}'] } },
             { test: { name: 'abanico', include: ['packages/abanico/test/**/*.test.{ts,tsx}'] } },
+            { test: { name: 'muestrario', include: ['packages/muestrario/test/**/*.test.{ts,tsx}'] } },
         ],
     },
 });

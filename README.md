@@ -12,6 +12,7 @@ state, events, ARIA and `data-*` attributes.
 | [`@ghegar/plomada`](packages/plomada) | Floating positioning: side and alignment, flip, shift, available space, arrow, auto update |
 | [`@ghegar/glosa`](packages/glosa) | Tooltip: hover and focus with delays, hoverable, Escape, aria-describedby |
 | [`@ghegar/abanico`](packages/abanico) | Menu button: keyboard opening, roving focus with typeahead, disabled items, Escape and outside click |
+| [`@ghegar/muestrario`](packages/muestrario) | Combobox: accent-insensitive filter, async loading, groups, multiple values with chips |
 | [`@ghegar/postigo`](packages/postigo) | Modal dialog: layer stack, focus trap and return, Escape and outside click for the top layer, counted scroll lock |
 
 ```bash

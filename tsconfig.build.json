@@ -8,6 +8,7 @@
         { "path": "./packages/solapa/tsconfig.build.json" },
         { "path": "./packages/plomada/tsconfig.build.json" },
         { "path": "./packages/glosa/tsconfig.build.json" },
-        { "path": "./packages/abanico/tsconfig.build.json" }
+        { "path": "./packages/abanico/tsconfig.build.json" },
+        { "path": "./packages/muestrario/tsconfig.build.json" }
     ]
 }

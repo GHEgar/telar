@@ -1,0 +1,30 @@
+{
+    "name": "@ghegar/muestrario",
+    "version": "0.1.0",
+    "description": "Headless combobox for React: accent-insensitive filtering, async loading with debounce and abort, groups, multiple selection with chips, aria-activedescendant and positioning by plomada.",
+    "license": "AGPL-3.0-only",
+    "author": "Edgar Villarreal",
+    "type": "module",
+    "sideEffects": false,
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/GHEgar/telar.git",
+        "directory": "packages/muestrario"
+    },
+    "files": [
+        "dist"
+    ],
+    "exports": {
+        ".": {
+            "types": "./dist/index.d.ts",
+            "import": "./dist/index.js"
+        }
+    },
+    "dependencies": {
+        "@ghegar/lanzadera": "^0.1.0",
+        "@ghegar/plomada": "^0.1.0"
+    },
+    "peerDependencies": {
+        "react": ">=19"
+    }
+}
