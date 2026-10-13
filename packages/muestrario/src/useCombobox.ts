@@ -1,60 +1,11 @@
 import { useEffect, useId, useState, type KeyboardEvent, type MouseEvent } from 'react';
 import { moveIndex } from '@ghegar/lanzadera';
-import { usePosition, type Placement, type Position } from '@ghegar/plomada/react';
-import { filterItems, groupItems, type Group } from './filter.js';
-import { DEFAULT_LABELS, type ComboboxLabels } from './labels.js';
-import type {
-    AnchorProps, ButtonProps, GroupLabelProps, GroupProps, InputProps, ListboxProps, OptionProps, StatusProps,
-} from './props.js';
-import { useAsyncItems, type AsyncStatus, type Loader } from './useAsyncItems.js';
-
-export interface UseComboboxOptions<T> {
-    getLabel: (item: T) => string;
-    getKey?: (item: T) => string;
-    items?: readonly T[];
-    load?: Loader<T>;
-    filter?: ((item: T, query: string) => boolean) | false;
-    groupBy?: (item: T) => string;
-    isDisabled?: (item: T) => boolean;
-    multiple?: boolean;
-    value?: T | null;
-    defaultValue?: T | null;
-    onChange?: (value: T | null) => void;
-    values?: readonly T[];
-    defaultValues?: readonly T[];
-    onValuesChange?: (values: T[]) => void;
-    minChars?: number;
-    debounce?: number;
-    openOnFocus?: boolean;
-    placement?: Placement;
-    offset?: number;
-    labels?: Partial<ComboboxLabels>;
-}
-
-export interface UseCombobox<T> {
-    open: boolean;
-    inputValue: string;
-    items: readonly T[];
-    groups: Group<T>[] | null;
-    activeIndex: number;
-    value: T | null;
-    values: readonly T[];
-    status: AsyncStatus;
-    statusText: string;
-    position: Position | null;
-    setOpen(open: boolean): void;
-    select(item: T): void;
-    clear(): void;
-    getAnchorProps(): AnchorProps;
-    getInputProps(): InputProps;
-    getListboxProps(): ListboxProps;
-    getOptionProps(item: T, index: number): OptionProps;
-    getGroupProps(group: Group<T>): GroupProps;
-    getGroupLabelProps(group: Group<T>): GroupLabelProps;
-    getRemoveProps(item: T): ButtonProps;
-    getClearProps(): ButtonProps;
-    getStatusProps(): StatusProps;
-}
+import { usePosition } from '@ghegar/plomada/react';
+import { filterItems, groupItems, normalize } from './filter.js';
+import { DEFAULT_LABELS } from './labels.js';
+import type { UseCombobox, UseComboboxOptions } from './types.js';
+import { useAsyncItems } from './useAsyncItems.js';
+import { useVirtual } from './useVirtual.js';
 
 const FIRST = -2;
 const keep = (event: MouseEvent): void => event.preventDefault();
@@ -65,6 +16,7 @@ export const useCombobox = <T>(options: UseComboboxOptions<T>): UseCombobox<T> =
     const labels = { ...DEFAULT_LABELS, ...options.labels };
     const base = useId();
     const listId = `${base}-listbox`;
+    const createId = `${base}-create`;
     const [open, setOpenState] = useState(false);
     const [singleInner, setSingleInner] = useState<T | null>(options.defaultValue ?? null);
     const [valuesInner, setValuesInner] = useState<readonly T[]>(options.defaultValues ?? []);
@@ -84,35 +36,43 @@ export const useCombobox = <T>(options: UseComboboxOptions<T>): UseCombobox<T> =
     const query = filtering ? input : '';
     const remote = useAsyncItems(options.load, query, open, minChars, debounce);
     const local = options.items ?? [];
+    const custom = options.filter;
     const source = options.load
         ? remote.items
-        : options.filter === false ? local
-            : options.filter ? local.filter((item) => !query.trim() || (options.filter as (item: T, query: string) => boolean)(item, query))
+        : custom === false ? local
+            : custom ? local.filter((item) => !query.trim() || custom(item, query))
                 : filterItems(local, query, getLabel);
     const groups = groupBy ? groupItems(source, groupBy) : null;
     const items = groups ? groups.flatMap((group) => group.options.map((option) => option.item)) : source;
-    const disabledAt = (index: number): boolean => { const item = items[index]; return item === undefined || (isDisabled?.(item) ?? false); };
-    const firstEnabled = items.findIndex((_, index) => !disabledAt(index));
-    const activeIndex = !open ? -1 : active === FIRST ? firstEnabled : active < items.length && !disabledAt(active) ? active : -1;
+    const text = input.trim();
+    const canCreate = !!options.onCreate && filtering && !!text && !items.some((item) => normalize(getLabel(item)) === normalize(text));
+    const createIndex = canCreate ? items.length : -1;
+    const total = items.length + (canCreate ? 1 : 0);
+    const disabledAt = (index: number): boolean => {
+        if (index === createIndex) return false;
+        const item = items[index];
+        return item === undefined || (isDisabled?.(item) ?? false);
+    };
+    const firstEnabled = Array.from({ length: total }, (_, index) => index).find((index) => !disabledAt(index)) ?? -1;
+    const activeIndex = !open ? -1 : active === FIRST ? firstEnabled : active < total && !disabledAt(active) ? active : -1;
     const isChosen = (item: T): boolean => (multiple ? values.some((other) => getKey(other) === getKey(item)) : !!value && getKey(value) === getKey(item));
-    const optionId = (index: number): string => `${base}-option-${index}`;
+    const optionId = (index: number): string => (index === createIndex ? createId : `${base}-option-${index}`);
 
     const position = usePosition({ open, sameWidth: true, placement: options.placement ?? 'bottom-start', ...(options.offset === undefined ? {} : { offset: options.offset }) });
+    const virtual = useVirtual(options.virtual, items.length, activeIndex);
 
     useEffect(() => {
-        if (activeIndex >= 0) document.getElementById(optionId(activeIndex))?.scrollIntoView?.({ block: 'nearest' });
+        if (activeIndex >= 0 && !options.virtual) document.getElementById(optionId(activeIndex))?.scrollIntoView?.({ block: 'nearest' });
     });
 
     const setOpen = (next: boolean, start = -1): void => {
         setOpenState(next);
         setActive(next ? start : -1);
     };
-
     const setSingle = (next: T | null): void => {
         setSingleInner(next);
         options.onChange?.(next);
     };
-
     const setMany = (next: T[]): void => {
         setValuesInner(next);
         options.onValuesChange?.(next);
@@ -131,6 +91,11 @@ export const useCombobox = <T>(options: UseComboboxOptions<T>): UseCombobox<T> =
         setOpen(false);
     };
 
+    const create = (): void => {
+        const made = options.onCreate?.(text);
+        if (made !== undefined && made !== null) select(made);
+    };
+
     const clear = (): void => {
         setInput('');
         setFiltering(false);
@@ -140,50 +105,42 @@ export const useCombobox = <T>(options: UseComboboxOptions<T>): UseCombobox<T> =
 
     const step = (key: string): void => {
         if (!open) {
-            setOpen(true, key === 'ArrowUp' ? items.length - 1 : FIRST);
+            setOpen(true, key === 'ArrowUp' ? total - 1 : FIRST);
             return;
         }
         const from = activeIndex < 0 ? (key === 'ArrowUp' ? 'End' : 'Home') : key;
-        const next = moveIndex(activeIndex, from, { count: items.length, orientation: 'vertical', isDisabled: disabledAt });
+        const next = moveIndex(activeIndex, from, { count: total, orientation: 'vertical', isDisabled: disabledAt });
         if (next !== null) setActive(next);
     };
 
     const onKeyDown = (event: KeyboardEvent<HTMLInputElement>): void => {
-        switch (event.key) {
-            case 'ArrowDown':
-            case 'ArrowUp':
-                event.preventDefault();
-                if (event.altKey && event.key === 'ArrowDown') setOpen(true);
-                else step(event.key);
-                return;
-            case 'Enter': {
-                const item = items[activeIndex];
-                if (!open || item === undefined) return;
-                event.preventDefault();
-                select(item);
-                return;
-            }
-            case 'Escape':
-                if (open) setOpen(false);
-                else if (input) {
-                    setInput('');
-                    setFiltering(false);
-                } else return;
-                event.preventDefault();
-                return;
-            case 'Backspace':
-                if (multiple && !input && values.length) setMany(values.slice(0, -1));
-                return;
-            case 'Tab':
-                setOpen(false);
-                return;
-            default:
-                return;
+        const { key } = event;
+        if (key === 'ArrowDown' || key === 'ArrowUp') {
+            event.preventDefault();
+            if (event.altKey && key === 'ArrowDown') setOpen(true);
+            else step(key);
+        } else if (key === 'Enter') {
+            if (!open || activeIndex < 0) return;
+            event.preventDefault();
+            const item = items[activeIndex];
+            if (activeIndex === createIndex) create();
+            else if (item !== undefined) select(item);
+        } else if (key === 'Escape') {
+            if (open) setOpen(false);
+            else if (input) {
+                setInput('');
+                setFiltering(false);
+            } else return;
+            event.preventDefault();
+        } else if (key === 'Backspace') {
+            if (multiple && !input && values.length) setMany(values.slice(0, -1));
+        } else if (key === 'Tab') {
+            setOpen(false);
         }
     };
 
     const statusText = (() => {
-        if (options.load && open && input.trim().length < minChars) return labels.typeMore(minChars);
+        if (options.load && open && text.length < minChars) return labels.typeMore(minChars);
         if (remote.status === 'loading') return labels.loading;
         if (remote.status === 'error') return labels.error;
         if (!open) return '';
@@ -192,6 +149,20 @@ export const useCombobox = <T>(options: UseComboboxOptions<T>): UseCombobox<T> =
 
     const reference = position.getReferenceProps();
     const floating = position.getFloatingProps();
+    const optionProps = (index: number, chosen: boolean, disabled: boolean, onClick: () => void) => ({
+        id: optionId(index),
+        role: 'option' as const,
+        'aria-selected': multiple ? chosen : index === activeIndex,
+        ...(virtual && index !== createIndex ? { 'aria-setsize': items.length, 'aria-posinset': index + 1 } : {}),
+        ...(disabled ? { 'aria-disabled': true as const, 'data-disabled': true as const } : {}),
+        ...(index === activeIndex ? { 'data-active': true as const } : {}),
+        ...(chosen ? { 'data-selected': true as const } : {}),
+        onClick,
+        onMouseDown: keep,
+        onPointerMove: () => {
+            if (!disabled && index !== activeIndex) setActive(index);
+        },
+    });
 
     return {
         open,
@@ -203,6 +174,11 @@ export const useCombobox = <T>(options: UseComboboxOptions<T>): UseCombobox<T> =
         values,
         status: remote.status,
         statusText,
+        createText: canCreate ? labels.create(text) : null,
+        virtualItems: virtual ? virtual.items.flatMap(({ index, style }) => {
+            const item = items[index];
+            return item === undefined ? [] : [{ item, index, style }];
+        }) : null,
         position: position.position,
         setOpen: (next) => setOpen(next),
         select,
@@ -231,7 +207,7 @@ export const useCombobox = <T>(options: UseComboboxOptions<T>): UseCombobox<T> =
             onBlur: () => {
                 setOpen(false);
                 setFiltering(false);
-                setInput(multiple || !value ? '' : getLabel(value));
+                if (!options.freeText || multiple) setInput(multiple || !value ? '' : getLabel(value));
             },
             onClick: () => {
                 if (!open) setOpen(true);
@@ -239,29 +215,22 @@ export const useCombobox = <T>(options: UseComboboxOptions<T>): UseCombobox<T> =
         }),
         getListboxProps: () => ({
             ...floating,
+            ...(virtual ? {
+                ref: (element: HTMLElement | null) => {
+                    floating.ref(element);
+                    virtual.scrollerRef(element);
+                },
+                onScroll: virtual.onScroll,
+            } : {}),
             id: listId,
             role: 'listbox',
             ...(multiple ? { 'aria-multiselectable': true as const } : {}),
             ...(remote.status === 'loading' ? { 'aria-busy': true as const } : {}),
             onMouseDown: keep,
         }),
-        getOptionProps: (item, index) => {
-            const disabled = isDisabled?.(item) ?? false;
-            const chosen = isChosen(item);
-            return {
-                id: optionId(index),
-                role: 'option',
-                'aria-selected': multiple ? chosen : index === activeIndex,
-                ...(disabled ? { 'aria-disabled': true as const, 'data-disabled': true as const } : {}),
-                ...(index === activeIndex ? { 'data-active': true as const } : {}),
-                ...(chosen ? { 'data-selected': true as const } : {}),
-                onClick: () => select(item),
-                onMouseDown: keep,
-                onPointerMove: () => {
-                    if (!disabled && index !== activeIndex) setActive(index);
-                },
-            };
-        },
+        getOptionProps: (item, index) => optionProps(index, isChosen(item), isDisabled?.(item) ?? false, () => select(item)),
+        getCreateProps: () => optionProps(createIndex, false, false, create),
+        getSizerProps: () => ({ 'aria-hidden': true, style: virtual?.sizerStyle ?? {} }),
         getGroupProps: (group) => ({ role: 'group', 'aria-labelledby': `${base}-group-${groups?.indexOf(group) ?? 0}` }),
         getGroupLabelProps: (group) => ({ id: `${base}-group-${groups?.indexOf(group) ?? 0}`, role: 'presentation' }),
         getRemoveProps: (item) => ({

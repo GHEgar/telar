@@ -1,4 +1,4 @@
-import type { ChangeEvent, FocusEvent, KeyboardEvent, MouseEvent, RefCallback } from 'react';
+import type { ChangeEvent, FocusEvent, KeyboardEvent, MouseEvent, RefCallback, UIEvent } from 'react';
 import type { FloatingProps } from '@ghegar/plomada/react';
 
 export interface AnchorProps {
@@ -24,6 +24,7 @@ export interface InputProps {
 }
 
 export interface ListboxProps extends FloatingProps {
+    onScroll?: (event: UIEvent<HTMLElement>) => void;
     id: string;
     role: 'listbox';
     'aria-multiselectable'?: true;
@@ -35,6 +36,8 @@ export interface OptionProps {
     id: string;
     role: 'option';
     'aria-selected': boolean;
+    'aria-setsize'?: number;
+    'aria-posinset'?: number;
     'aria-disabled'?: true;
     'data-active'?: true;
     'data-selected'?: true;
