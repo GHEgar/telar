@@ -1,6 +1,6 @@
 {
     "name": "@ghegar/buzon",
-    "version": "0.1.0",
+    "version": "0.2.0",
     "description": "Headless file dropzone for React: type, size, count and duplicate validation, accumulation, rejections and previews.",
     "license": "AGPL-3.0-only",
     "author": "Edgar Villarreal",

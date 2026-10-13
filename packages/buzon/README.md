@@ -54,6 +54,8 @@ extension rules can only be checked on drop, so they yield `unknown`.
 | `onReject` | | Rejections of each batch |
 | `disabled` | `false` | |
 | `labels` | `{ remove: 'Quitar' }` | Used by `getRemoveProps` |
+| `paste` | `false` | `true`: pasted files while the zone has focus; `'document'`: anywhere on the page |
+| `preventDocumentDrop` | `true` | Files dropped outside the zone do not make the browser open them |
 
 Rejection codes, in check order: `type`, `size`, `duplicate`, `custom`, `count`. Uploading is up to you.
 

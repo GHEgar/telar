@@ -5,6 +5,19 @@ Formato basado en [Keep a Changelog](https://keepachangelog.com/es-ES/1.1.0/) y 
 
 ## [No publicado]
 
+## [0.2.0] - 2026-10-13
+
+### Agregado
+
+- `paste` en `useDropzone`: `true` toma los archivos pegados con la zona enfocada y `'document'` los
+  toma de toda la página.
+- `preventDocumentDrop` (activo por defecto): un archivo soltado fuera de la zona ya no hace que el
+  navegador lo abra.
+
+### Cambiado
+
+- `getRootProps` trae `ref`.
+
 ## [0.1.0] - 2026-10-13
 
 ### Agregado

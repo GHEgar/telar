@@ -1,4 +1,4 @@
-import type { ChangeEvent, DragEvent, KeyboardEvent, MouseEvent, RefObject } from 'react';
+import type { ChangeEvent, ClipboardEvent, DragEvent, KeyboardEvent, MouseEvent, RefCallback, RefObject } from 'react';
 import type { Dropzone, DropzoneSnapshot } from '../core/index.js';
 
 export interface DropzoneLabels {
@@ -8,6 +8,7 @@ export interface DropzoneLabels {
 export const DEFAULT_LABELS: DropzoneLabels = { remove: 'Quitar' };
 
 export interface RootProps {
+    ref: RefCallback<HTMLElement>;
     role: 'button';
     tabIndex: number;
     'aria-disabled'?: true;
@@ -21,6 +22,7 @@ export interface RootProps {
     onDragOver: (event: DragEvent) => void;
     onDragLeave: (event: DragEvent) => void;
     onDrop: (event: DragEvent) => void;
+    onPaste?: (event: ClipboardEvent) => void;
 }
 
 export interface InputProps {
@@ -43,7 +45,16 @@ export interface RemoveProps {
 
 const flag = (value: boolean): true | undefined => (value ? true : undefined);
 
-export const rootProps = (snapshot: DropzoneSnapshot, dropzone: Dropzone, open: () => void): RootProps => ({
+export const pastedFiles = (data: DataTransfer | null | undefined): File[] => Array.from(data?.files ?? []);
+
+export const rootProps = (
+    snapshot: DropzoneSnapshot,
+    dropzone: Dropzone,
+    open: () => void,
+    ref: RefCallback<HTMLElement>,
+    paste: boolean,
+): RootProps => ({
+    ref,
     role: 'button',
     tabIndex: snapshot.disabled ? -1 : 0,
     'aria-disabled': flag(snapshot.disabled),
@@ -70,6 +81,14 @@ export const rootProps = (snapshot: DropzoneSnapshot, dropzone: Dropzone, open: 
         event.preventDefault();
         dropzone.drop(event.dataTransfer?.files ?? []);
     },
+    ...(paste ? {
+        onPaste: (event: ClipboardEvent) => {
+            const files = pastedFiles(event.clipboardData);
+            if (!files.length) return;
+            event.preventDefault();
+            dropzone.add(files);
+        },
+    } : {}),
 } as RootProps);
 
 export const inputProps = (snapshot: DropzoneSnapshot, dropzone: Dropzone, ref: RefObject<HTMLInputElement | null>): InputProps => ({

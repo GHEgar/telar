@@ -74,4 +74,28 @@ describe('useDropzone', () => {
         fireEvent.click(screen.getByRole('button', { name: 'Quitar one.png' }));
         expect(screen.queryByText('one.png')).toBeNull();
     });
+
+    it('stops the browser from opening files dropped outside the zone', () => {
+        render(<Zone />);
+        const outside = { dataTransfer: { types: ['Files'], files: [] } };
+        expect(fireEvent.drop(document.body, outside)).toBe(false);
+        expect(fireEvent.dragOver(document.body, outside)).toBe(false);
+        expect(fireEvent.drop(document.body, { dataTransfer: { types: ['text/plain'], files: [] } })).toBe(true);
+        cleanup();
+        render(<Zone preventDocumentDrop={false} />);
+        expect(fireEvent.drop(document.body, outside)).toBe(true);
+    });
+
+    it('takes pasted files on the zone or on the whole document', () => {
+        render(<Zone multiple paste />);
+        fireEvent.paste(screen.getByTestId('zone'), { clipboardData: { files: [makeFile('captura.png', 'image/png')] } });
+        expect(screen.getByText('captura.png')).toBeTruthy();
+        fireEvent.paste(document.body, { clipboardData: { files: [makeFile('otra.png', 'image/png')] } });
+        expect(screen.queryByText('otra.png')).toBeNull();
+        cleanup();
+        render(<Zone multiple paste="document" />);
+        expect(fireEvent.paste(document.body, { clipboardData: { files: [makeFile('otra.png', 'image/png')] } })).toBe(false);
+        expect(screen.getByText('otra.png')).toBeTruthy();
+        expect(fireEvent.paste(document.body, { clipboardData: { files: [] } })).toBe(true);
+    });
 });
