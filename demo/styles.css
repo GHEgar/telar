@@ -217,3 +217,37 @@ p.errors { padding-left: 0; }
 .menu-item[data-disabled] { color: #b9b4bd; cursor: not-allowed; }
 
 .menu-item.danger { color: var(--danger); }
+
+.combobox-card { display: flex; flex-direction: column; gap: 16px; width: 420px; }
+
+.combo { display: flex; flex-wrap: wrap; gap: 4px; align-items: center; border: 1px solid var(--line); border-radius: 8px; padding: 4px; }
+
+.combo input { flex: 1; min-width: 120px; border: 0; padding: 4px; font: inherit; outline: none; }
+
+.combo:focus-within { border-color: var(--accent); }
+
+.clear { color: var(--muted); padding: 0 6px; }
+
+.tag { display: inline-flex; gap: 4px; align-items: center; background: var(--accent-soft); color: var(--accent); border-radius: 999px; padding: 2px 4px 2px 10px; font-size: 13px; }
+
+.listbox { list-style: none; margin: 0; padding: 4px; background: var(--paper); border: 1px solid var(--line); border-radius: 8px; box-shadow: 0 6px 24px #0002; overflow-y: auto; }
+
+.listbox ul { list-style: none; padding: 0; margin: 0; }
+
+.group-label { display: block; font-size: 11px; color: var(--muted); padding: 6px 8px 2px; text-transform: uppercase; }
+
+.option { padding: 6px 8px; border-radius: 6px; cursor: pointer; font-size: 14px; }
+
+.option[data-active] { background: var(--accent-soft); }
+
+.option[data-selected] { font-weight: 600; }
+
+.option[data-disabled] { color: #b9b4bd; cursor: not-allowed; }
+
+.option mark { background: none; color: var(--accent); font-weight: 700; }
+
+.empty { padding: 6px 8px; color: var(--muted); font-size: 13px; }
+
+.status { font-size: 12px; color: var(--muted); }
+
+.sr-only { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }

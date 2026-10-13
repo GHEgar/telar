@@ -1,6 +1,7 @@
 import { StrictMode, useEffect, useState } from 'react';
 import { createRoot } from 'react-dom/client';
 import { CalendarDemo } from './CalendarDemo.js';
+import { ComboboxDemo } from './ComboboxDemo.js';
 import { DialogDemo } from './DialogDemo.js';
 import { DropzoneDemo } from './DropzoneDemo.js';
 import { MenuDemo } from './MenuDemo.js';
@@ -14,6 +15,7 @@ const PAGES = {
     solapa: TabsDemo,
     plomada: PositionDemo,
     abanico: MenuDemo,
+    muestrario: ComboboxDemo,
 };
 
 type Page = keyof typeof PAGES;
