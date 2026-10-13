@@ -21,6 +21,8 @@ export default defineConfig({
             { find: /^@ghegar\/solapa$/, replacement: pkg('solapa/src/index.ts') },
             { find: /^@ghegar\/plomada\/react$/, replacement: pkg('plomada/src/react/index.ts') },
             { find: /^@ghegar\/plomada$/, replacement: pkg('plomada/src/core/index.ts') },
+            { find: /^@ghegar\/glosa$/, replacement: pkg('glosa/src/index.ts') },
+            { find: /^@ghegar\/abanico$/, replacement: pkg('abanico/src/index.ts') },
         ],
     },
     build: {

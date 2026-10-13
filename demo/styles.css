@@ -197,3 +197,23 @@ p.errors { padding-left: 0; }
 .popover[data-side='right'] .arrow-tip { left: 0; border-top: 0; border-right: 0; }
 
 .popover[data-side='left'] .arrow-tip { left: 100%; border-bottom: 0; border-left: 0; }
+
+.toolbar { display: flex; gap: 8px; }
+
+.tooltip { background: var(--ink); color: white; font-size: 12px; padding: 6px 10px; border-radius: 6px; max-width: 220px; }
+
+.tooltip-arrow { width: 8px; height: 8px; background: var(--ink); transform: translate(-50%, -50%) rotate(45deg); }
+
+.tooltip[data-side='top'] .tooltip-arrow { top: 100%; }
+
+.tooltip[data-side='bottom'] .tooltip-arrow { top: 0; }
+
+.menu { background: var(--paper); border: 1px solid var(--line); border-radius: 10px; padding: 4px; box-shadow: 0 6px 24px #0002; min-width: 180px; outline: none; }
+
+.menu-item { padding: 8px 12px; border-radius: 6px; cursor: pointer; font-size: 14px; outline: none; }
+
+.menu-item[data-active] { background: var(--accent-soft); }
+
+.menu-item[data-disabled] { color: #b9b4bd; cursor: not-allowed; }
+
+.menu-item.danger { color: var(--danger); }
