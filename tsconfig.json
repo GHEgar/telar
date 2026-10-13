@@ -6,7 +6,9 @@
             "@ghegar/almanaque/react": ["./packages/almanaque/src/react/index.ts"],
             "@ghegar/almanaque": ["./packages/almanaque/src/core/index.ts"],
             "@ghegar/buzon/react": ["./packages/buzon/src/react/index.ts"],
-            "@ghegar/buzon": ["./packages/buzon/src/core/index.ts"]
+            "@ghegar/buzon": ["./packages/buzon/src/core/index.ts"],
+            "@ghegar/postigo/react": ["./packages/postigo/src/react/index.ts"],
+            "@ghegar/postigo": ["./packages/postigo/src/core/index.ts"]
         }
     },
     "include": [

@@ -2,6 +2,7 @@
     "files": [],
     "references": [
         { "path": "./packages/almanaque/tsconfig.build.json" },
-        { "path": "./packages/buzon/tsconfig.build.json" }
+        { "path": "./packages/buzon/tsconfig.build.json" },
+        { "path": "./packages/postigo/tsconfig.build.json" }
     ]
 }
