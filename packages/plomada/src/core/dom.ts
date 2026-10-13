@@ -37,3 +37,33 @@ export const autoUpdate = (reference: Element, floating: HTMLElement, update: ()
         observer?.disconnect();
     };
 };
+
+const clips = (element: Element): boolean => {
+    const { overflow, overflowX, overflowY } = getComputedStyle(element);
+    return /auto|scroll|hidden|clip/.test(`${overflow}${overflowX}${overflowY}`);
+};
+
+export const isReferenceHidden = (reference: Element): boolean => {
+    const rect = reference.getBoundingClientRect();
+    const view = viewportRect();
+    let left = view.left;
+    let top = view.top;
+    let right = view.left + view.width;
+    let bottom = view.top + view.height;
+    for (let node = reference.parentElement; node && node !== document.body; node = node.parentElement) {
+        if (!clips(node)) continue;
+        const box = node.getBoundingClientRect();
+        left = Math.max(left, box.left);
+        top = Math.max(top, box.top);
+        right = Math.min(right, box.right);
+        bottom = Math.min(bottom, box.bottom);
+    }
+    return rect.right <= left || rect.left >= right || rect.bottom <= top || rect.top >= bottom;
+};
+
+export const offsetOrigin = (floating: HTMLElement): { left: number; top: number } => {
+    const parent = floating.offsetParent;
+    if (!(parent instanceof HTMLElement)) return { left: 0, top: 0 };
+    const box = parent.getBoundingClientRect();
+    return { left: box.left + parent.clientLeft - parent.scrollLeft, top: box.top + parent.clientTop - parent.scrollTop };
+};
