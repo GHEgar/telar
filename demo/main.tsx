@@ -1,16 +1,21 @@
 import { StrictMode, useEffect, useState } from 'react';
 import { createRoot } from 'react-dom/client';
 import { CalendarDemo } from './CalendarDemo.js';
+import { DialogDemo } from './DialogDemo.js';
 import { DropzoneDemo } from './DropzoneDemo.js';
 
 const PAGES = {
     almanaque: CalendarDemo,
     buzon: DropzoneDemo,
+    postigo: DialogDemo,
 };
 
 type Page = keyof typeof PAGES;
 
-const current = (): Page => (location.hash.slice(1) === 'buzon' ? 'buzon' : 'almanaque');
+const current = (): Page => {
+    const hash = location.hash.slice(1);
+    return hash in PAGES ? hash as Page : 'almanaque';
+};
 
 const App = () => {
     const [page, setPage] = useState<Page>(current);

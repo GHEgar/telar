@@ -113,3 +113,25 @@ p.errors { padding-left: 0; }
 .file { display: flex; gap: 8px; align-items: center; font-size: 13px; margin: 12px 0 0; }
 
 .toggle { display: flex; gap: 6px; align-items: center; font-size: 13px; margin-bottom: 12px; }
+
+.tall { min-height: 140vh; }
+
+.button { padding: 8px 14px; border-radius: 8px; border: 1px solid var(--accent); color: var(--accent); }
+
+.button.danger { border-color: var(--danger); color: var(--danger); }
+
+.backdrop { position: fixed; inset: 0; background: #1d1b2066; display: grid; place-items: center; padding: 16px; }
+
+.dialog { background: var(--paper); border-radius: 14px; padding: 22px; max-width: 420px; width: 100%; box-shadow: 0 8px 32px #0003; display: flex; flex-direction: column; gap: 12px; }
+
+.dialog h3 { margin: 0; }
+
+.dialog p { margin: 0; font-size: 14px; color: var(--muted); }
+
+.field { display: flex; flex-direction: column; gap: 4px; font-size: 13px; }
+
+.field input { padding: 8px; border: 1px solid var(--line); border-radius: 8px; font: inherit; }
+
+.actions { display: flex; gap: 8px; justify-content: flex-end; }
+
+.log { font-family: ui-monospace, monospace; font-size: 12px; color: var(--muted); }

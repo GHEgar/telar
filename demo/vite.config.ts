@@ -14,6 +14,8 @@ export default defineConfig({
             { find: /^@ghegar\/almanaque$/, replacement: pkg('almanaque/src/core/index.ts') },
             { find: /^@ghegar\/buzon\/react$/, replacement: pkg('buzon/src/react/index.ts') },
             { find: /^@ghegar\/buzon$/, replacement: pkg('buzon/src/core/index.ts') },
+            { find: /^@ghegar\/postigo\/react$/, replacement: pkg('postigo/src/react/index.ts') },
+            { find: /^@ghegar\/postigo$/, replacement: pkg('postigo/src/core/index.ts') },
         ],
     },
     build: {
