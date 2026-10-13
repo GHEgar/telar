@@ -1,0 +1,46 @@
+# @ghegar/lanzadera
+
+Headless roving focus for React: one tab stop for a group, arrow keys that follow its orientation (or
+both axes in a grid), Home/End, looping, right-to-left, disabled items and typeahead that ignores
+accents. It is the keyboard layer under `@ghegar/solapa` and the other telar pieces.
+
+```bash
+npm install @ghegar/lanzadera
+```
+
+```tsx
+import { useRovingFocus } from '@ghegar/lanzadera/react';
+
+function Toolbar({ items }: { items: string[] }) {
+    const roving = useRovingFocus({ count: items.length, orientation: 'horizontal', getLabel: (i) => items[i] ?? '' });
+    return (
+        <div role="toolbar">
+            {items.map((item, i) => <button key={item} {...roving.getItemProps(i)}>{item}</button>)}
+        </div>
+    );
+}
+```
+
+## Options
+
+| Option | Default | |
+|---|---|---|
+| `count` | | Number of items |
+| `orientation` | `'both'` | `'horizontal'`, `'vertical'` or `'both'` |
+| `columns` | | Up and down move by this many items, without wrapping |
+| `loop` | `true` | Left and right wrap around |
+| `rtl` | `false` | Swap left and right |
+| `isDisabled(index)` | | Skipped by every key |
+| `activeIndex`, `defaultIndex`, `onActiveChange` | first enabled | Controlled when `activeIndex` is passed |
+| `getLabel(index)` | | Enables typeahead |
+| `typeaheadTimeout` | `500` | Milliseconds before the typed query resets |
+
+`handleKey(event)` lets a wrapper run the same logic from its own `onKeyDown`.
+
+## Without React
+
+`moveIndex(current, key, options)` and `createTypeahead()` are exported from `@ghegar/lanzadera`.
+
+## License
+
+AGPL-3.0-only
