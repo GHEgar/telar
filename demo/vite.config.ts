@@ -1,0 +1,23 @@
+import { fileURLToPath } from 'node:url';
+import react from '@vitejs/plugin-react';
+import { defineConfig } from 'vite';
+
+const pkg = (path: string): string => fileURLToPath(new URL(`../packages/${path}`, import.meta.url));
+
+export default defineConfig({
+    root: fileURLToPath(new URL('.', import.meta.url)),
+    base: './',
+    plugins: [react()],
+    resolve: {
+        alias: [
+            { find: /^@ghegar\/almanaque\/react$/, replacement: pkg('almanaque/src/react/index.ts') },
+            { find: /^@ghegar\/almanaque$/, replacement: pkg('almanaque/src/core/index.ts') },
+            { find: /^@ghegar\/buzon\/react$/, replacement: pkg('buzon/src/react/index.ts') },
+            { find: /^@ghegar\/buzon$/, replacement: pkg('buzon/src/core/index.ts') },
+        ],
+    },
+    build: {
+        outDir: fileURLToPath(new URL('../demo-dist', import.meta.url)),
+        emptyOutDir: true,
+    },
+});
