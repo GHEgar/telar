@@ -22,6 +22,7 @@ export interface CalendarOptions {
     isDisabled?: (iso: IsoDate) => boolean;
     minDays?: number;
     maxDays?: number;
+    contiguous?: boolean;
     today?: IsoDate;
     initialMonth?: YearMonth;
     months?: number;

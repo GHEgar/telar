@@ -1,4 +1,4 @@
-import { diffDays, type IsoDate } from './date.js';
+import { addDays, diffDays, type IsoDate } from './date.js';
 import type { DateRange } from './types.js';
 
 export const EMPTY_RANGE: DateRange = { start: null, end: null };
@@ -28,3 +28,11 @@ export const normalizeRange = (range: DateRange | null | undefined): DateRange =
 };
 
 export const sameRange = (a: DateRange, b: DateRange): boolean => a.start === b.start && a.end === b.end;
+
+export const findBarrier = (start: IsoDate, toward: IsoDate, isBlocked: (iso: IsoDate) => boolean): IsoDate | null => {
+    const step = toward > start ? 1 : -1;
+    for (let cursor = addDays(start, step); step > 0 ? cursor < toward : cursor > toward; cursor = addDays(cursor, step)) {
+        if (isBlocked(cursor)) return cursor;
+    }
+    return null;
+};

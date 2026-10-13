@@ -46,6 +46,7 @@ Style it through the attributes: `[data-selected]`, `[data-today]`, `[data-disab
 | `range`, `onRangeChange` | | `{ start, end }`, controlled when `range` is passed |
 | `min`, `max`, `isDisabled` | | Limits; they also disable months, years and arrows |
 | `minDays`, `maxDays` | | Range length in days, both ends included |
+| `contiguous` | `false` | A range cannot cross a disabled day |
 | `months` | `1` | Months shown side by side; arrows move one month |
 | `fixedWeeks` | `false` | Always six weeks per month |
 | `today` | local date | Injectable for tests |
@@ -61,7 +62,8 @@ In the months and years views, arrows move between buttons (up and down by three
 first and last, PageUp/PageDown move a year (months) or twelve (years), Enter or Space picks and Escape
 goes back to days. Opening a view or picking moves DOM focus to the current element.
 
-Disabled days inside a range keep `inRange` and `preview`: they are part of the range. Give
+Disabled days inside a range keep `inRange` and `preview`: they are part of the range (pass
+`contiguous` to forbid that). Give
 `[data-disabled]` the last word in your styles if they should not look selected.
 
 ## Without React

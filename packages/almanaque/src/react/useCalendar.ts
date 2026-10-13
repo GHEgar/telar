@@ -28,15 +28,15 @@ export const useCalendar = (options: CalendarOptions = {}): UseCalendar => {
     const root = useRef<HTMLElement | null>(null);
     const fromKeyboard = useRef(false);
 
-    const { mode, min, max, isDisabled, minDays, maxDays, today, months, fixedWeeks, yearsBack, yearsForward, locale, labels } = options;
+    const { mode, min, max, isDisabled, minDays, maxDays, contiguous, today, months, fixedWeeks, yearsBack, yearsForward, locale, labels } = options;
     const mounted = useRef(false);
     useEffect(() => {
         if (!mounted.current) {
             mounted.current = true;
             return;
         }
-        calendar.update({ mode, min, max, isDisabled, minDays, maxDays, today, months, fixedWeeks, yearsBack, yearsForward, locale, labels } as CalendarOptions);
-    }, [calendar, mode, min, max, isDisabled, minDays, maxDays, today, months, fixedWeeks, yearsBack, yearsForward, locale, labels]);
+        calendar.update({ mode, min, max, isDisabled, minDays, maxDays, contiguous, today, months, fixedWeeks, yearsBack, yearsForward, locale, labels } as CalendarOptions);
+    }, [calendar, mode, min, max, isDisabled, minDays, maxDays, contiguous, today, months, fixedWeeks, yearsBack, yearsForward, locale, labels]);
 
     const { value } = options;
     const controlledValue = value !== undefined;

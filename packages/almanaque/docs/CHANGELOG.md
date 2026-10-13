@@ -5,6 +5,13 @@ Formato basado en [Keep a Changelog](https://keepachangelog.com/es-ES/1.1.0/) y 
 
 ## [No publicado]
 
+## [0.3.0] - 2026-10-13
+
+### Agregado
+
+- `contiguous` en modo rango: con el inicio elegido, se deshabilitan los días que quedan detrás del
+  primer día deshabilitado en cada dirección, también fuera de los meses visibles.
+
 ## [0.2.0] - 2026-10-13
 
 ### Agregado

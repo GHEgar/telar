@@ -18,6 +18,7 @@ const buildConfig = (options: CalendarOptions): CalendarConfig => ({
     fixedWeeks: options.fixedWeeks ?? false,
     minDays: options.minDays,
     maxDays: options.maxDays,
+    contiguous: options.contiguous ?? false,
     yearsBack: options.yearsBack ?? 100,
     yearsForward: options.yearsForward ?? 10,
 });
