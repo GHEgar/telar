@@ -3,11 +3,13 @@ import { createRoot } from 'react-dom/client';
 import { CalendarDemo } from './CalendarDemo.js';
 import { DialogDemo } from './DialogDemo.js';
 import { DropzoneDemo } from './DropzoneDemo.js';
+import { TabsDemo } from './TabsDemo.js';
 
 const PAGES = {
     almanaque: CalendarDemo,
     buzon: DropzoneDemo,
     postigo: DialogDemo,
+    solapa: TabsDemo,
 };
 
 type Page = keyof typeof PAGES;

@@ -135,3 +135,45 @@ p.errors { padding-left: 0; }
 .actions { display: flex; gap: 8px; justify-content: flex-end; }
 
 .log { font-family: ui-monospace, monospace; font-size: 12px; color: var(--muted); }
+
+@keyframes rise { from { opacity: 0; transform: translateY(12px) scale(0.98); } }
+
+@keyframes sink { to { opacity: 0; transform: translateY(12px) scale(0.98); } }
+
+@keyframes fade-in { from { opacity: 0; } }
+
+@keyframes fade-out { to { opacity: 0; } }
+
+.backdrop[data-state='open'] { animation: fade-in 160ms ease-out; }
+
+.backdrop[data-state='closed'] { animation: fade-out 180ms ease-in forwards; }
+
+.dialog[data-state='open'] { animation: rise 180ms ease-out; }
+
+.dialog[data-state='closed'] { animation: sink 180ms ease-in forwards; }
+
+@media (prefers-reduced-motion: reduce) {
+    .backdrop, .dialog { animation: none !important; }
+}
+
+.tabs { display: flex; gap: 4px; border-bottom: 1px solid var(--line); margin-bottom: 12px; }
+
+.tabs.column { flex-direction: column; border-bottom: 0; border-right: 1px solid var(--line); margin: 0; padding-right: 8px; }
+
+.tab { padding: 8px 12px; border-radius: 8px 8px 0 0; color: var(--muted); }
+
+.tab[data-state='active'] { color: var(--accent); box-shadow: inset 0 -2px 0 var(--accent); font-weight: 600; }
+
+.tabs.column .tab { border-radius: 8px; text-align: left; }
+
+.tabs.column .tab[data-state='active'] { box-shadow: inset 2px 0 0 var(--accent); }
+
+.panel { font-size: 14px; padding: 4px 0; }
+
+.vertical { display: flex; gap: 16px; }
+
+.grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 6px; }
+
+.grid .chip { border: 1px solid var(--line); }
+
+.grid .chip[data-active] { border-color: var(--accent); }

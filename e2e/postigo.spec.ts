@@ -12,6 +12,7 @@ test('opens from the keyboard, traps Tab and returns focus', async ({ page }) =>
     await expect(dialog).toBeVisible();
     await expect(dialog.getByRole('textbox', { name: 'Motivo' })).toBeFocused();
     await expect(page.locator('body')).toHaveCSS('overflow', 'hidden');
+    await expect(page.locator('#root')).toHaveAttribute('inert', '');
     await dialog.getByRole('button', { name: 'Guardar' }).focus();
     await page.keyboard.press('Tab');
     await expect(dialog.getByRole('textbox', { name: 'Motivo' })).toBeFocused();
@@ -20,6 +21,7 @@ test('opens from the keyboard, traps Tab and returns focus', async ({ page }) =>
     await page.keyboard.press('Escape');
     await expect(dialog).toBeHidden();
     await expect(trigger).toBeFocused();
+    await expect(page.locator('#root')).not.toHaveAttribute('inert');
     await expect(page.locator('body')).not.toHaveCSS('overflow', 'hidden');
     await expect(page.getByTestId('dialog-log')).toContainText('cierra: escape');
 });

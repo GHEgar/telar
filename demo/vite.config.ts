@@ -16,6 +16,9 @@ export default defineConfig({
             { find: /^@ghegar\/buzon$/, replacement: pkg('buzon/src/core/index.ts') },
             { find: /^@ghegar\/postigo\/react$/, replacement: pkg('postigo/src/react/index.ts') },
             { find: /^@ghegar\/postigo$/, replacement: pkg('postigo/src/core/index.ts') },
+            { find: /^@ghegar\/lanzadera\/react$/, replacement: pkg('lanzadera/src/react/index.ts') },
+            { find: /^@ghegar\/lanzadera$/, replacement: pkg('lanzadera/src/core/index.ts') },
+            { find: /^@ghegar\/solapa$/, replacement: pkg('solapa/src/index.ts') },
         ],
     },
     build: {

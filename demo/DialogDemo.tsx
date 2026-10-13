@@ -3,8 +3,8 @@ import { createPortal } from 'react-dom';
 import { useDialog, type UseDialog } from '@ghegar/postigo/react';
 import { Calendar } from './Calendar.js';
 
-const Layer = ({ dialog, children }: { dialog: UseDialog; children: ReactNode }) => (dialog.open
-    ? createPortal(<div className="backdrop"><div className="dialog" {...dialog.getDialogProps()}>{children}</div></div>, document.body)
+const Layer = ({ dialog, children }: { dialog: UseDialog; children: ReactNode }) => (dialog.mounted
+    ? createPortal(<div className="backdrop" data-state={dialog.open ? 'open' : 'closed'}><div className="dialog" {...dialog.getDialogProps()}>{children}</div></div>, document.body)
     : null);
 
 const Confirm = ({ onConfirm }: { onConfirm: () => void }) => {
@@ -27,7 +27,7 @@ const Confirm = ({ onConfirm }: { onConfirm: () => void }) => {
 export const DialogDemo = () => {
     const [log, setLog] = useState<string[]>([]);
     const [date, setDate] = useState<string | null>(null);
-    const dialog = useDialog({ onOpenChange: (open, reason) => setLog((lines) => [`${open ? 'abre' : 'cierra'}: ${reason}`, ...lines].slice(0, 6)) });
+    const dialog = useDialog({ exit: 300, onOpenChange: (open, reason) => setLog((lines) => [`${open ? 'abre' : 'cierra'}: ${reason}`, ...lines].slice(0, 6)) });
     return (
         <section className="card tall">
             <h2>Solicitud</h2>
