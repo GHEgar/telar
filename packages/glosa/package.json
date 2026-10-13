@@ -1,0 +1,29 @@
+{
+    "name": "@ghegar/glosa",
+    "version": "0.1.0",
+    "description": "Headless tooltip for React: hover and focus with delays and warm-up, hoverable content, Escape, aria-describedby and positioning by plomada.",
+    "license": "AGPL-3.0-only",
+    "author": "Edgar Villarreal",
+    "type": "module",
+    "sideEffects": false,
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/GHEgar/telar.git",
+        "directory": "packages/glosa"
+    },
+    "files": [
+        "dist"
+    ],
+    "exports": {
+        ".": {
+            "types": "./dist/index.d.ts",
+            "import": "./dist/index.js"
+        }
+    },
+    "dependencies": {
+        "@ghegar/plomada": "^0.1.0"
+    },
+    "peerDependencies": {
+        "react": ">=19"
+    }
+}
