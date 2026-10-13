@@ -1,5 +1,5 @@
 import { useCallback, useEffect, useId, useLayoutEffect, useRef, useState, type RefObject } from 'react';
-import { focusFirst, lockScroll, pushLayer, trapFocus } from '../core/index.js';
+import { focusFirst, inertOthers, lockScroll, pushLayer, trapFocus } from '../core/index.js';
 import type { CloseProps, DialogProps, DialogRole, OpenChangeReason, TitleProps, TriggerProps } from './props.js';
 
 export interface UseDialogOptions {
@@ -14,10 +14,13 @@ export interface UseDialogOptions {
     returnFocus?: boolean | RefObject<HTMLElement | null>;
     closeOnEscape?: boolean;
     closeOnOutsideClick?: boolean;
+    inert?: boolean;
+    exit?: number;
 }
 
 export interface UseDialog {
     open: boolean;
+    mounted: boolean;
     setOpen(open: boolean): void;
     close(): void;
     getTriggerProps(): TriggerProps;
@@ -38,6 +41,13 @@ export const useDialog = (options: UseDialogOptions = {}): UseDialog => {
     const dialog = useRef<HTMLElement | null>(null);
     const trigger = useRef<HTMLElement | null>(null);
     const settings = useRef(options);
+    const exit = options.exit ?? 0;
+    const [previousOpen, setPreviousOpen] = useState(open);
+    const [closing, setClosing] = useState(false);
+    if (previousOpen !== open) {
+        setPreviousOpen(open);
+        setClosing(!open && exit > 0);
+    }
 
     useLayoutEffect(() => {
         settings.current = options;
@@ -52,6 +62,7 @@ export const useDialog = (options: UseDialogOptions = {}): UseDialog => {
         if (!open) return undefined;
         const previous = document.activeElement;
         const release = modal ? lockScroll() : () => undefined;
+        const restore = modal && options.inert !== false && dialog.current ? inertOthers(dialog.current) : () => undefined;
         const remove = pushLayer({
             element: () => dialog.current,
             ignore: () => [trigger.current],
@@ -68,12 +79,30 @@ export const useDialog = (options: UseDialogOptions = {}): UseDialog => {
         return () => {
             remove();
             release();
+            restore();
             const { returnFocus } = settings.current;
             if (returnFocus === false) return;
             const target = typeof returnFocus === 'object' ? returnFocus.current : previous;
             if (focusable(target)) target.focus();
         };
-    }, [open, modal, change]);
+    }, [open, modal, change, options.inert]);
+
+    useEffect(() => {
+        if (!closing) return undefined;
+        const element = dialog.current;
+        const done = (event?: Event): void => {
+            if (event && event.target !== element) return;
+            setClosing(false);
+        };
+        const timer = setTimeout(done, exit);
+        element?.addEventListener('animationend', done);
+        element?.addEventListener('transitionend', done);
+        return () => {
+            clearTimeout(timer);
+            element?.removeEventListener('animationend', done);
+            element?.removeEventListener('transitionend', done);
+        };
+    }, [closing, exit]);
 
     const setDialog = useCallback((element: HTMLElement | null) => {
         dialog.current = element;
@@ -88,6 +117,7 @@ export const useDialog = (options: UseDialogOptions = {}): UseDialog => {
 
     return {
         open,
+        mounted: open || closing,
         setOpen,
         close,
         getTriggerProps: () => ({
@@ -109,7 +139,7 @@ export const useDialog = (options: UseDialogOptions = {}): UseDialog => {
             'data-state': open ? 'open' : 'closed',
             onKeyDown: (event) => {
                 const container = event.currentTarget;
-                if (!modal || !(container instanceof HTMLElement) || !container.contains(event.target as Node)) return;
+                if (!open || !modal || !(container instanceof HTMLElement) || !container.contains(event.target as Node)) return;
                 trapFocus(container, event);
             },
         }),

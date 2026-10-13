@@ -1,5 +1,5 @@
 import { afterEach, describe, expect, it, vi } from 'vitest';
-import { getTabbables, layerCount, lockScroll, pushLayer, scrollLocks, trapFocus } from '@ghegar/postigo';
+import { getTabbables, inertOthers, layerCount, lockScroll, pushLayer, scrollLocks, trapFocus } from '@ghegar/postigo';
 
 afterEach(() => {
     document.body.innerHTML = '';
@@ -108,5 +108,29 @@ describe('lockScroll', () => {
         second();
         expect(scrollLocks()).toBe(0);
         expect(document.body.style.overflow).toBe('scroll');
+    });
+});
+
+describe('inertOthers', () => {
+    it('marks the rest of the page and restores it, counting nested calls', () => {
+        const app = mount('<main>app</main>');
+        const kept = mount('<aside>ya inerte</aside>');
+        kept.setAttribute('inert', '');
+        const outer = mount('<div role="dialog">outer</div>');
+        const inner = mount('<div role="dialog">inner</div>');
+        const releaseOuter = inertOthers(outer);
+        expect(app.hasAttribute('inert')).toBe(true);
+        expect(inner.hasAttribute('inert')).toBe(true);
+        expect(outer.hasAttribute('inert')).toBe(false);
+        inner.removeAttribute('inert');
+        const releaseInner = inertOthers(inner);
+        expect(outer.hasAttribute('inert')).toBe(true);
+        releaseInner();
+        expect(outer.hasAttribute('inert')).toBe(false);
+        expect(app.hasAttribute('inert')).toBe(true);
+        releaseOuter();
+        releaseOuter();
+        expect(app.hasAttribute('inert')).toBe(false);
+        expect(kept.hasAttribute('inert')).toBe(true);
     });
 });

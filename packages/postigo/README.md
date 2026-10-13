@@ -3,8 +3,8 @@
 Headless modal dialog for React. Dialogs stack: Escape and outside clicks reach only the top one, Tab
 stays inside it, focus goes back where it came from, and the page scroll is locked with a counter so
 closing a nested dialog does not unlock the one below. It ships no styles and no portal: only state,
-ARIA and `data-*` attributes. The only style it touches is `overflow` and `padding-right` on `body`
-while a modal is open.
+ARIA and `data-*` attributes. The only things it touches outside the dialog are `overflow` and
+`padding-right` on `body` and the `inert` attribute on the rest of the page while a modal is open.
 
 ```bash
 npm install @ghegar/postigo
@@ -50,6 +50,11 @@ Render `getTitleProps()` on the title or pass `label`; pass `describedBy: true` 
 | `initialFocus` | first tabbable | Ref to focus on open; falls back to the dialog itself |
 | `returnFocus` | `true` | `false`, or a ref to focus on close instead of the previous element |
 | `closeOnEscape`, `closeOnOutsideClick` | `true` | |
+| `inert` | `true` | Modal only: the rest of the page gets `inert` while it is open |
+| `exit` | `0` | Milliseconds to keep it mounted after closing; `animationend` or `transitionend` end it sooner |
+
+Render with `dialog.mounted` instead of `dialog.open` when you animate the exit, and style
+`[data-state="closed"]`.
 
 An outside click is a `pointerdown` outside the dialog and its trigger, so a drag that starts inside
 and ends outside does not close it. Components inside the dialog keep Escape for themselves by calling
@@ -57,7 +62,7 @@ and ends outside does not close it. Components inside the dialog keep Escape for
 
 ## Without React
 
-`pushLayer`, `trapFocus`, `getTabbables`, `focusFirst` and `lockScroll` are exported from
+`pushLayer`, `trapFocus`, `getTabbables`, `focusFirst`, `lockScroll` and `inertOthers` are exported from
 `@ghegar/postigo`.
 
 ## License

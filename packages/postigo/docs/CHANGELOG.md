@@ -5,6 +5,16 @@ Formato basado en [Keep a Changelog](https://keepachangelog.com/es-ES/1.1.0/) y 
 
 ## [No publicado]
 
+## [0.2.0] - 2026-10-13
+
+### Agregado
+
+- `inert` (activo por defecto en los modales): el resto de la página queda inerte mientras el diálogo
+  está abierto, con un contador para los anidados y sin tocar lo que ya era inerte.
+- `exit` y `mounted`: el diálogo sigue montado con `data-state="closed"` hasta que termina su
+  animación o pasan `exit` milisegundos.
+- `inertOthers` en el core.
+
 ## [0.1.0] - 2026-10-13
 
 ### Agregado
