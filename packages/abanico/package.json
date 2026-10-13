@@ -1,6 +1,6 @@
 {
     "name": "@ghegar/abanico",
-    "version": "0.1.0",
+    "version": "0.2.0",
     "description": "Headless menu button for React: keyboard opening, roving focus with typeahead, disabled items, Escape and outside click, positioning by plomada.",
     "license": "AGPL-3.0-only",
     "author": "Edgar Villarreal",
@@ -22,7 +22,7 @@
     },
     "dependencies": {
         "@ghegar/lanzadera": "^0.1.0",
-        "@ghegar/plomada": "^0.1.0"
+        "@ghegar/plomada": "^0.2.0"
     },
     "peerDependencies": {
         "react": ">=19"

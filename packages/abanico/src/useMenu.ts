@@ -1,7 +1,8 @@
 import { useCallback, useEffect, useId, useLayoutEffect, useRef, useState, type KeyboardEvent } from 'react';
 import { useRovingFocus } from '@ghegar/lanzadera/react';
 import { usePosition, type Placement, type Position } from '@ghegar/plomada/react';
-import type { MenuButtonProps, MenuItemProps, MenuProps } from './props.js';
+import { ROLES, type ItemOptions, type MenuLink, type MenuParent } from './link.js';
+import type { GroupProps, MenuButtonProps, MenuItemProps, MenuProps, SeparatorProps, SubmenuTriggerProps } from './props.js';
 
 export interface UseMenuOptions {
     count: number;
@@ -15,30 +16,41 @@ export interface UseMenuOptions {
     loop?: boolean;
     placement?: Placement;
     offset?: number;
+    parent?: MenuParent;
 }
 
 export interface UseMenu {
     open: boolean;
     activeIndex: number;
     position: Position | null;
+    link: MenuLink;
     setOpen(open: boolean): void;
+    close(): void;
+    closeAll(): void;
     getButtonProps(): MenuButtonProps;
+    getTriggerProps(): SubmenuTriggerProps;
     getMenuProps(): MenuProps;
-    getItemProps(index: number): MenuItemProps;
+    getItemProps(index: number, item?: ItemOptions): MenuItemProps;
+    getSeparatorProps(): SeparatorProps;
+    getGroupProps(label: string): GroupProps;
 }
 
 type Target = 'first' | 'last' | null;
 
 export const useMenu = (options: UseMenuOptions): UseMenu => {
-    const { count, isDisabled, getLabel, closeOnSelect = true } = options;
+    const { count, isDisabled, getLabel, closeOnSelect = true, parent } = options;
     const id = useId();
     const buttonId = `${id}-button`;
     const menuId = `${id}-menu`;
     const [inner, setInner] = useState(options.defaultOpen ?? false);
-    const open = options.open ?? inner;
+    const reachable = !parent || (parent.link.open && parent.link.activeIndex === parent.index);
+    if (inner && !reachable) setInner(false);
+    const own = options.open ?? (inner && reachable);
+    const open = own && reachable;
     const target = useRef<Target>(null);
     const menu = useRef<HTMLElement | null>(null);
     const button = useRef<HTMLElement | null>(null);
+    const children = useRef(new Set<(node: Node) => boolean>());
     const settings = useRef(options);
 
     useLayoutEffect(() => {
@@ -51,10 +63,19 @@ export const useMenu = (options: UseMenuOptions): UseMenu => {
         settings.current.onOpenChange?.(next);
     }, []);
 
-    const closeToButton = useCallback(() => {
+    const close = useCallback(() => {
         setOpen(false);
         button.current?.focus();
     }, [setOpen]);
+
+    const closeAll = useCallback(() => {
+        setOpen(false);
+        if (settings.current.parent) settings.current.parent.link.closeAll();
+        else button.current?.focus();
+    }, [setOpen]);
+
+    const contains = useCallback((node: Node): boolean => !!menu.current?.contains(node)
+        || [...children.current].some((child) => child(node)), []);
 
     const roving = useRovingFocus({
         count,
@@ -65,8 +86,8 @@ export const useMenu = (options: UseMenuOptions): UseMenu => {
     });
     const position = usePosition({
         open,
-        placement: options.placement ?? 'bottom-start',
-        ...(options.offset === undefined ? {} : { offset: options.offset }),
+        placement: options.placement ?? (parent ? 'right-start' : 'bottom-start'),
+        offset: options.offset ?? (parent ? 0 : 8),
     });
 
     const { setActiveIndex } = roving;
@@ -89,43 +110,86 @@ export const useMenu = (options: UseMenuOptions): UseMenu => {
 
     useEffect(() => {
         if (!open) return undefined;
+        const unregister = parent?.link.register(contains);
         const onPointerDown = (event: PointerEvent): void => {
             const node = event.target as Node;
-            if (menu.current?.contains(node) || button.current?.contains(node)) return;
+            if (contains(node) || button.current?.contains(node)) return;
             setOpen(false);
         };
         document.addEventListener('pointerdown', onPointerDown, true);
-        return () => document.removeEventListener('pointerdown', onPointerDown, true);
-    }, [open, setOpen]);
+        return () => {
+            unregister?.();
+            document.removeEventListener('pointerdown', onPointerDown, true);
+        };
+    }, [open, setOpen, contains, parent?.link]);
 
-    const select = (index: number): void => {
+    const select = (index: number, kind: ItemOptions['type'] = 'item'): void => {
         if (isDisabled?.(index)) return;
         settings.current.onSelect?.(index);
-        if (closeOnSelect) closeToButton();
+        if (kind === 'item' && closeOnSelect) closeAll();
     };
 
     const menuKey = (event: KeyboardEvent): void => {
-        if (event.key === 'Escape') {
+        if (event.key === 'Escape' || (parent && event.key === 'ArrowLeft')) {
             event.preventDefault();
-            closeToButton();
+            event.stopPropagation();
+            close();
         } else if (event.key === 'Tab') {
-            setOpen(false);
+            closeAll();
         }
     };
 
+    const itemProps = (index: number, item: ItemOptions = {}): MenuItemProps => {
+        const base = roving.getItemProps(index);
+        const disabled = isDisabled?.(index) ?? false;
+        const kind = item.type ?? 'item';
+        return {
+            ...base,
+            role: ROLES[kind],
+            ...(kind === 'item' ? {} : { 'aria-checked': item.checked ?? false }),
+            ...(disabled ? { 'aria-disabled': true as const, 'data-disabled': true as const } : {}),
+            onClick: () => select(index, kind),
+            onKeyDown: (event) => {
+                if (event.key === 'Enter' || event.key === ' ') {
+                    event.preventDefault();
+                    select(index, kind);
+                    return;
+                }
+                base.onKeyDown(event);
+            },
+            onPointerMove: () => {
+                if (!disabled && index !== roving.activeIndex) setActiveIndex(index, true);
+            },
+        };
+    };
+
+    const link: MenuLink = {
+        open,
+        activeIndex: roving.activeIndex,
+        closeAll,
+        register: (child) => {
+            children.current.add(child);
+            return () => children.current.delete(child);
+        },
+        itemProps,
+    };
     const reference = position.getReferenceProps();
     const floating = position.getFloatingProps();
+    const attachButton = (element: Element | null): void => {
+        button.current = element instanceof HTMLElement ? element : null;
+        reference.ref(element);
+    };
 
     return {
         open,
         activeIndex: roving.activeIndex,
         position: position.position,
+        link,
         setOpen: (next) => setOpen(next),
+        close,
+        closeAll,
         getButtonProps: () => ({
-            ref: (element: Element | null) => {
-                button.current = element instanceof HTMLElement ? element : null;
-                reference.ref(element);
-            },
+            ref: attachButton,
             id: buttonId,
             type: 'button',
             'aria-haspopup': 'menu',
@@ -142,6 +206,33 @@ export const useMenu = (options: UseMenuOptions): UseMenu => {
                 }
             },
         }),
+        getTriggerProps: () => {
+            const base = parent ? parent.link.itemProps(parent.index) : itemProps(0);
+            return {
+                ...base,
+                ref: (element: HTMLElement | null) => {
+                    base.ref(element);
+                    attachButton(element);
+                },
+                id: buttonId,
+                'aria-haspopup': 'menu',
+                'aria-expanded': open,
+                ...(open ? { 'aria-controls': menuId } : {}),
+                onClick: () => setOpen(true, 'first'),
+                onKeyDown: (event) => {
+                    if (event.key === 'ArrowRight' || event.key === 'Enter' || event.key === ' ') {
+                        event.preventDefault();
+                        setOpen(true, 'first');
+                        return;
+                    }
+                    base.onKeyDown(event);
+                },
+                onPointerMove: () => {
+                    base.onPointerMove();
+                    if (!own) setOpen(true, null);
+                },
+            };
+        },
         getMenuProps: () => ({
             ...floating,
             ref: (element: HTMLElement | null) => {
@@ -155,26 +246,8 @@ export const useMenu = (options: UseMenuOptions): UseMenu => {
             'data-state': open ? 'open' : 'closed',
             onKeyDown: menuKey,
         }),
-        getItemProps: (index) => {
-            const item = roving.getItemProps(index);
-            const disabled = isDisabled?.(index) ?? false;
-            return {
-                ...item,
-                role: 'menuitem',
-                ...(disabled ? { 'aria-disabled': true as const, 'data-disabled': true as const } : {}),
-                onClick: () => select(index),
-                onKeyDown: (event) => {
-                    if (event.key === 'Enter' || event.key === ' ') {
-                        event.preventDefault();
-                        select(index);
-                        return;
-                    }
-                    item.onKeyDown(event);
-                },
-                onPointerMove: () => {
-                    if (!disabled && index !== roving.activeIndex) setActiveIndex(index, true);
-                },
-            };
-        },
+        getItemProps: itemProps,
+        getSeparatorProps: () => ({ role: 'separator' }),
+        getGroupProps: (label) => ({ role: 'group', 'aria-label': label }),
     };
 };

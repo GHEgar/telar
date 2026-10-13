@@ -21,9 +21,12 @@ export interface MenuProps extends FloatingProps {
     onKeyDown: (event: KeyboardEvent) => void;
 }
 
+export type ItemRole = 'menuitem' | 'menuitemcheckbox' | 'menuitemradio';
+
 export interface MenuItemProps {
     ref: RefCallback<HTMLElement>;
-    role: 'menuitem';
+    role: ItemRole;
+    'aria-checked'?: boolean;
     tabIndex: 0 | -1;
     'aria-disabled'?: true;
     'data-active'?: true;
@@ -32,4 +35,20 @@ export interface MenuItemProps {
     onKeyDown: (event: KeyboardEvent) => void;
     onFocus: () => void;
     onPointerMove: () => void;
+}
+
+export interface SubmenuTriggerProps extends MenuItemProps {
+    id: string;
+    'aria-haspopup': 'menu';
+    'aria-expanded': boolean;
+    'aria-controls'?: string;
+}
+
+export interface SeparatorProps {
+    role: 'separator';
+}
+
+export interface GroupProps {
+    role: 'group';
+    'aria-label': string;
 }
