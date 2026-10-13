@@ -11,7 +11,9 @@
             "@ghegar/postigo": ["./packages/postigo/src/core/index.ts"],
             "@ghegar/lanzadera/react": ["./packages/lanzadera/src/react/index.ts"],
             "@ghegar/lanzadera": ["./packages/lanzadera/src/core/index.ts"],
-            "@ghegar/solapa": ["./packages/solapa/src/index.ts"]
+            "@ghegar/solapa": ["./packages/solapa/src/index.ts"],
+            "@ghegar/plomada/react": ["./packages/plomada/src/react/index.ts"],
+            "@ghegar/plomada": ["./packages/plomada/src/core/index.ts"]
         }
     },
     "include": [

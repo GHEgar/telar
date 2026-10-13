@@ -5,6 +5,7 @@
         { "path": "./packages/buzon/tsconfig.build.json" },
         { "path": "./packages/postigo/tsconfig.build.json" },
         { "path": "./packages/lanzadera/tsconfig.build.json" },
-        { "path": "./packages/solapa/tsconfig.build.json" }
+        { "path": "./packages/solapa/tsconfig.build.json" },
+        { "path": "./packages/plomada/tsconfig.build.json" }
     ]
 }

@@ -1,0 +1,35 @@
+{
+    "name": "@ghegar/plomada",
+    "version": "0.1.0",
+    "description": "Headless positioning for floating elements in React: side and alignment, flip, shift into the viewport, available space, arrow offset and auto update on scroll and resize.",
+    "license": "AGPL-3.0-only",
+    "author": "Edgar Villarreal",
+    "type": "module",
+    "sideEffects": false,
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/GHEgar/telar.git",
+        "directory": "packages/plomada"
+    },
+    "files": [
+        "dist"
+    ],
+    "exports": {
+        ".": {
+            "types": "./dist/core/index.d.ts",
+            "import": "./dist/core/index.js"
+        },
+        "./react": {
+            "types": "./dist/react/index.d.ts",
+            "import": "./dist/react/index.js"
+        }
+    },
+    "peerDependencies": {
+        "react": ">=19"
+    },
+    "peerDependenciesMeta": {
+        "react": {
+            "optional": true
+        }
+    }
+}
