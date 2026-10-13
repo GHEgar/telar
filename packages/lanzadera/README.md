@@ -37,6 +37,27 @@ function Toolbar({ items }: { items: string[] }) {
 
 `handleKey(event)` lets a wrapper run the same logic from its own `onKeyDown`.
 
+## Radio groups and segmented controls
+
+There is no separate piece for them: a radio group is roving focus where the checked item follows
+focus. Control `activeIndex` with the checked value:
+
+```tsx
+function ViewSwitch({ value, onChange }: { value: number; onChange: (index: number) => void }) {
+    const modes = ['Map', 'Table', 'Both'];
+    const roving = useRovingFocus({ count: modes.length, orientation: 'horizontal', activeIndex: value, onActiveChange: onChange });
+    return (
+        <div role="radiogroup" aria-label="View">
+            {modes.map((mode, i) => (
+                <button key={mode} role="radio" aria-checked={i === value} onClick={() => onChange(i)} {...roving.getItemProps(i)}>
+                    {mode}
+                </button>
+            ))}
+        </div>
+    );
+}
+```
+
 ## Without React
 
 `moveIndex(current, key, options)` and `createTypeahead()` are exported from `@ghegar/lanzadera`.
