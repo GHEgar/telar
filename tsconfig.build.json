@@ -3,6 +3,8 @@
     "references": [
         { "path": "./packages/almanaque/tsconfig.build.json" },
         { "path": "./packages/buzon/tsconfig.build.json" },
-        { "path": "./packages/postigo/tsconfig.build.json" }
+        { "path": "./packages/postigo/tsconfig.build.json" },
+        { "path": "./packages/lanzadera/tsconfig.build.json" },
+        { "path": "./packages/solapa/tsconfig.build.json" }
     ]
 }

@@ -8,7 +8,10 @@
             "@ghegar/buzon/react": ["./packages/buzon/src/react/index.ts"],
             "@ghegar/buzon": ["./packages/buzon/src/core/index.ts"],
             "@ghegar/postigo/react": ["./packages/postigo/src/react/index.ts"],
-            "@ghegar/postigo": ["./packages/postigo/src/core/index.ts"]
+            "@ghegar/postigo": ["./packages/postigo/src/core/index.ts"],
+            "@ghegar/lanzadera/react": ["./packages/lanzadera/src/react/index.ts"],
+            "@ghegar/lanzadera": ["./packages/lanzadera/src/core/index.ts"],
+            "@ghegar/solapa": ["./packages/solapa/src/index.ts"]
         }
     },
     "include": [

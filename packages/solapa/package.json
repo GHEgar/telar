@@ -1,0 +1,29 @@
+{
+    "name": "@ghegar/solapa",
+    "version": "0.1.0",
+    "description": "Headless tabs for React: roving focus, automatic or manual activation, vertical orientation, disabled tabs and linked panels.",
+    "license": "AGPL-3.0-only",
+    "author": "Edgar Villarreal",
+    "type": "module",
+    "sideEffects": false,
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/GHEgar/telar.git",
+        "directory": "packages/solapa"
+    },
+    "files": [
+        "dist"
+    ],
+    "exports": {
+        ".": {
+            "types": "./dist/index.d.ts",
+            "import": "./dist/index.js"
+        }
+    },
+    "dependencies": {
+        "@ghegar/lanzadera": "^0.1.0"
+    },
+    "peerDependencies": {
+        "react": ">=19"
+    }
+}

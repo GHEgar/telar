@@ -12,6 +12,9 @@ export default defineConfig({
             { find: /^@ghegar\/buzon$/, replacement: pkg('buzon/src/core/index.ts') },
             { find: /^@ghegar\/postigo\/react$/, replacement: pkg('postigo/src/react/index.ts') },
             { find: /^@ghegar\/postigo$/, replacement: pkg('postigo/src/core/index.ts') },
+            { find: /^@ghegar\/lanzadera\/react$/, replacement: pkg('lanzadera/src/react/index.ts') },
+            { find: /^@ghegar\/lanzadera$/, replacement: pkg('lanzadera/src/core/index.ts') },
+            { find: /^@ghegar\/solapa$/, replacement: pkg('solapa/src/index.ts') },
         ],
     },
     test: {
@@ -20,6 +23,8 @@ export default defineConfig({
             { test: { name: 'almanaque', include: ['packages/almanaque/test/**/*.test.{ts,tsx}'] } },
             { test: { name: 'buzon', include: ['packages/buzon/test/**/*.test.{ts,tsx}'] } },
             { test: { name: 'postigo', include: ['packages/postigo/test/**/*.test.{ts,tsx}'] } },
+            { test: { name: 'lanzadera', include: ['packages/lanzadera/test/**/*.test.{ts,tsx}'] } },
+            { test: { name: 'solapa', include: ['packages/solapa/test/**/*.test.{ts,tsx}'] } },
         ],
     },
 });
