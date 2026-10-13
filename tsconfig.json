@@ -1,0 +1,20 @@
+{
+    "extends": "./tsconfig.base.json",
+    "compilerOptions": {
+        "noEmit": true,
+        "paths": {
+            "@ghegar/almanaque/react": ["./packages/almanaque/src/react/index.ts"],
+            "@ghegar/almanaque": ["./packages/almanaque/src/core/index.ts"],
+            "@ghegar/buzon/react": ["./packages/buzon/src/react/index.ts"],
+            "@ghegar/buzon": ["./packages/buzon/src/core/index.ts"]
+        }
+    },
+    "include": [
+        "packages/*/src",
+        "packages/*/test",
+        "demo",
+        "e2e",
+        "vitest.config.ts",
+        "playwright.config.ts"
+    ]
+}
