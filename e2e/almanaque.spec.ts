@@ -70,3 +70,14 @@ test('drives the months and years views with the keyboard', async ({ page }) => 
     await page.keyboard.press('Escape');
     await expect(single.getByRole('grid')).toHaveAttribute('aria-label', 'Enero 2026');
 });
+
+test('keeps a range from crossing disabled days when asked', async ({ page }) => {
+    const [, range] = await open(page);
+    await range.getByLabel('Sin cruzar días deshabilitados').check();
+    await day(range, '2026-10-14').click();
+    await expect(day(range, '2026-10-16')).not.toHaveAttribute('aria-disabled');
+    await expect(day(range, '2026-10-19')).toHaveAttribute('aria-disabled', 'true');
+    await expect(day(range, '2026-10-12')).not.toHaveAttribute('aria-disabled');
+    await day(range, '2026-10-16').click();
+    await expect(page.getByTestId('range-value')).toHaveText('2026-10-14 → 2026-10-16');
+});

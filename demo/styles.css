@@ -111,3 +111,5 @@ p.errors { padding-left: 0; }
 .remove { color: var(--danger); font-size: 12px; }
 
 .file { display: flex; gap: 8px; align-items: center; font-size: 13px; margin: 12px 0 0; }
+
+.toggle { display: flex; gap: 6px; align-items: center; font-size: 13px; margin-bottom: 12px; }
