@@ -43,6 +43,18 @@ function SaveButton() {
 Escape is caught on `document` in the capture phase and prevented, so a tooltip inside a
 `@ghegar/postigo` dialog closes first and the dialog stays open.
 
+## Disabled controls
+
+A `disabled` button gets neither pointer events nor focus, so a tooltip on it never opens. Either keep
+the control enabled and mark it `aria-disabled="true"` (it stays focusable and announced as disabled),
+or put the trigger props on a wrapper:
+
+```tsx
+<span tabIndex={0} {...tooltip.getTriggerProps()}>
+    <button disabled>Publish</button>
+</span>
+```
+
 ## License
 
 AGPL-3.0-only

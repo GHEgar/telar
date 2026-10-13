@@ -5,6 +5,13 @@ Formato basado en [Keep a Changelog](https://keepachangelog.com/es-ES/1.1.0/) y 
 
 ## [No publicado]
 
+## [0.1.1] - 2026-10-13
+
+### Cambiado
+
+- Depende de `@ghegar/plomada` `^0.2.0`.
+- El README explica cómo poner un tooltip en un control deshabilitado.
+
 ## [0.1.0] - 2026-10-13
 
 ### Agregado
