@@ -1,0 +1,12 @@
+{
+    "extends": "../../tsconfig.base.json",
+    "compilerOptions": {
+        "composite": true,
+        "rootDir": "src",
+        "outDir": "dist",
+        "tsBuildInfoFile": "tsconfig.build.tsbuildinfo",
+        "declaration": true
+    },
+    "include": ["src"],
+    "references": [{ "path": "../lanzadera/tsconfig.build.json" }, { "path": "../plomada/tsconfig.build.json" }]
+}

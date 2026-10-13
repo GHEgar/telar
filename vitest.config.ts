@@ -17,6 +17,8 @@ export default defineConfig({
             { find: /^@ghegar\/solapa$/, replacement: pkg('solapa/src/index.ts') },
             { find: /^@ghegar\/plomada\/react$/, replacement: pkg('plomada/src/react/index.ts') },
             { find: /^@ghegar\/plomada$/, replacement: pkg('plomada/src/core/index.ts') },
+            { find: /^@ghegar\/glosa$/, replacement: pkg('glosa/src/index.ts') },
+            { find: /^@ghegar\/abanico$/, replacement: pkg('abanico/src/index.ts') },
         ],
     },
     test: {
@@ -28,6 +30,8 @@ export default defineConfig({
             { test: { name: 'lanzadera', include: ['packages/lanzadera/test/**/*.test.{ts,tsx}'] } },
             { test: { name: 'solapa', include: ['packages/solapa/test/**/*.test.{ts,tsx}'] } },
             { test: { name: 'plomada', include: ['packages/plomada/test/**/*.test.{ts,tsx}'] } },
+            { test: { name: 'glosa', include: ['packages/glosa/test/**/*.test.{ts,tsx}'] } },
+            { test: { name: 'abanico', include: ['packages/abanico/test/**/*.test.{ts,tsx}'] } },
         ],
     },
 });

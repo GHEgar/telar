@@ -10,6 +10,8 @@ state, events, ARIA and `data-*` attributes.
 | [`@ghegar/lanzadera`](packages/lanzadera) | Roving focus: arrows by orientation or grid, Home/End, disabled items, typeahead |
 | [`@ghegar/solapa`](packages/solapa) | Tabs: linked panels, automatic or manual activation, vertical orientation |
 | [`@ghegar/plomada`](packages/plomada) | Floating positioning: side and alignment, flip, shift, available space, arrow, auto update |
+| [`@ghegar/glosa`](packages/glosa) | Tooltip: hover and focus with delays, hoverable, Escape, aria-describedby |
+| [`@ghegar/abanico`](packages/abanico) | Menu button: keyboard opening, roving focus with typeahead, disabled items, Escape and outside click |
 | [`@ghegar/postigo`](packages/postigo) | Modal dialog: layer stack, focus trap and return, Escape and outside click for the top layer, counted scroll lock |
 
 ```bash

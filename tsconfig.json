@@ -13,7 +13,9 @@
             "@ghegar/lanzadera": ["./packages/lanzadera/src/core/index.ts"],
             "@ghegar/solapa": ["./packages/solapa/src/index.ts"],
             "@ghegar/plomada/react": ["./packages/plomada/src/react/index.ts"],
-            "@ghegar/plomada": ["./packages/plomada/src/core/index.ts"]
+            "@ghegar/plomada": ["./packages/plomada/src/core/index.ts"],
+            "@ghegar/glosa": ["./packages/glosa/src/index.ts"],
+            "@ghegar/abanico": ["./packages/abanico/src/index.ts"]
         }
     },
     "include": [
