@@ -1,7 +1,16 @@
 import { useCalendar, type CalendarOptions } from '@ghegar/almanaque/react';
 
+const LABELS = {
+    previousMonth: 'Previous month',
+    nextMonth: 'Next month',
+    previousYear: 'Previous year',
+    nextYear: 'Next year',
+    chooseMonth: 'Choose month',
+    chooseYear: 'Choose year',
+};
+
 export const Calendar = (options: CalendarOptions) => {
-    const calendar = useCalendar(options);
+    const calendar = useCalendar({ locale: 'en-US', labels: LABELS, ...options });
     return (
         <div className="calendar" {...calendar.getRootProps()}>
             <header className="calendar-header">

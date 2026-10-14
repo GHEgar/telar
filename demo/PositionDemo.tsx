@@ -16,7 +16,7 @@ const Popover = ({ label, placement, testId, style }: { label: string; placement
                 <div className="popover" data-testid={testId} {...position.getFloatingProps()}>
                     <span className="arrow-tip" style={position.arrowStyles} />
                     <strong>{position.position?.placement ?? '…'}</strong>
-                    <span>Espacio: {position.position?.availableHeight ?? 0} px de alto</span>
+                    <span>Room: {position.position?.availableHeight ?? 0} px high</span>
                 </div>,
                 document.body,
             )}
@@ -28,17 +28,17 @@ export const PositionDemo = () => {
     const [placement, setPlacement] = useState<Placement>('bottom');
     return (
         <section className="card tall position-card">
-            <h2>Flotantes con plomada</h2>
-            <p className="hint">Haz scroll con el panel abierto: se voltea y se recorre para no salir de la ventana.</p>
+            <h2>Floating with plomada</h2>
+            <p className="hint">Scroll with the panel open: it flips and shifts to stay inside the window.</p>
             <div className="chips placements">
                 {PLACEMENTS.map((value) => (
                     <button key={value} className="chip" aria-pressed={value === placement} onClick={() => setPlacement(value)}>{value}</button>
                 ))}
             </div>
             <div className="stage">
-                <Popover label="Abrir" placement={placement} testId="main" />
+                <Popover label="Open" placement={placement} testId="main" />
             </div>
-            <Popover label="Esquina" placement="bottom" testId="corner" style={{ position: 'fixed', right: 16, bottom: 16 }} />
+            <Popover label="Corner" placement="bottom" testId="corner" style={{ position: 'fixed', right: 16, bottom: 16 }} />
         </section>
     );
 };

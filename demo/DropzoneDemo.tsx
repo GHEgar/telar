@@ -5,26 +5,28 @@ import { useDropzone } from '@ghegar/buzon/react';
 const MB = 1024 * 1024;
 const IMAGES = 'image/png,image/jpeg,image/webp';
 
+const LABELS = { remove: 'Remove' };
+
 const REASONS: Record<RejectionCode, string> = {
-    type: 'tipo no permitido',
-    size: 'pesa más de 2 MB',
-    count: 'excede el máximo de archivos',
-    duplicate: 'ya está en la lista',
-    custom: 'no pasó la validación',
+    type: 'type not allowed',
+    size: 'larger than 2 MB',
+    count: 'over the file limit',
+    duplicate: 'already in the list',
+    custom: 'failed validation',
 };
 
 const describe = (rejection: FileRejection): string => `${rejection.file.name}: ${rejection.codes.map((code) => REASONS[code]).join(', ')}`;
 
 const Images = () => {
     const [files, setFiles] = useState<File[]>([]);
-    const zone = useDropzone({ files, onChange: setFiles, accept: IMAGES, multiple: true, maxFiles: 3, maxSize: 2 * MB, paste: 'document' });
+    const zone = useDropzone({ files, onChange: setFiles, accept: IMAGES, multiple: true, maxFiles: 3, maxSize: 2 * MB, paste: 'document', labels: LABELS });
     return (
         <section className="card">
-            <h2>Imágenes, hasta 3</h2>
+            <h2>Images, up to 3</h2>
             <div className="dropzone" data-testid="images" {...zone.getRootProps()}>
                 <input data-testid="images-input" {...zone.getInputProps()} />
-                <strong>{zone.full ? 'Ya no caben más' : 'Sube tus imágenes'}</strong>
-                <span>Da clic, arrastra o pega con Ctrl+V ({describeAccept(IMAGES)}, hasta 2 MB)</span>
+                <strong>{zone.full ? 'No room for more' : 'Upload your images'}</strong>
+                <span>Click, drag or paste with Ctrl+V ({describeAccept(IMAGES, 'en-US')}, up to 2 MB)</span>
             </div>
             {zone.rejections.length > 0 && (
                 <ul className="errors" role="alert">
@@ -44,15 +46,15 @@ const Images = () => {
 };
 
 const Document = () => {
-    const zone = useDropzone({ accept: '.pdf' });
+    const zone = useDropzone({ accept: '.pdf', labels: LABELS });
     const file = zone.files[0];
     return (
         <section className="card">
-            <h2>Un PDF</h2>
+            <h2>A PDF</h2>
             <div className="dropzone" data-testid="pdf" {...zone.getRootProps()}>
                 <input data-testid="pdf-input" {...zone.getInputProps()} />
-                <strong>Sube tu archivo</strong>
-                <span>Formato permitido {describeAccept('.pdf')}; el nuevo reemplaza al anterior</span>
+                <strong>Upload your file</strong>
+                <span>Allowed format {describeAccept('.pdf', 'en-US')}; a new one replaces the previous</span>
             </div>
             {zone.rejections.length > 0 && <p className="errors" role="alert">{zone.rejections.map(describe).join('. ')}</p>}
             {file && (

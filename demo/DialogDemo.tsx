@@ -11,13 +11,13 @@ const Confirm = ({ onConfirm }: { onConfirm: () => void }) => {
     const dialog = useDialog({ role: 'alertdialog', describedBy: true, closeOnOutsideClick: false });
     return (
         <>
-            <button className="button danger" {...dialog.getTriggerProps()}>Descartar</button>
+            <button className="button danger" {...dialog.getTriggerProps()}>Discard</button>
             <Layer dialog={dialog}>
-                <h3 {...dialog.getTitleProps()}>¿Descartar la solicitud?</h3>
-                <p {...dialog.getDescriptionProps()}>Se pierde lo capturado. Este diálogo no se cierra con un clic fuera.</p>
+                <h3 {...dialog.getTitleProps()}>Discard the request?</h3>
+                <p {...dialog.getDescriptionProps()}>What you entered will be lost. This dialog does not close on an outside click.</p>
                 <div className="actions">
-                    <button className="button" {...dialog.getCloseProps()}>Volver</button>
-                    <button className="button danger" onClick={() => { dialog.close(); onConfirm(); }}>Descartar</button>
+                    <button className="button" {...dialog.getCloseProps()}>Back</button>
+                    <button className="button danger" onClick={() => { dialog.close(); onConfirm(); }}>Discard</button>
                 </div>
             </Layer>
         </>
@@ -27,20 +27,20 @@ const Confirm = ({ onConfirm }: { onConfirm: () => void }) => {
 export const DialogDemo = () => {
     const [log, setLog] = useState<string[]>([]);
     const [date, setDate] = useState<string | null>(null);
-    const dialog = useDialog({ exit: 300, onOpenChange: (open, reason) => setLog((lines) => [`${open ? 'abre' : 'cierra'}: ${reason}`, ...lines].slice(0, 6)) });
+    const dialog = useDialog({ exit: 300, onOpenChange: (open, reason) => setLog((lines) => [`${open ? 'open' : 'close'}: ${reason}`, ...lines].slice(0, 6)) });
     return (
         <section className="card tall">
-            <h2>Solicitud</h2>
-            <p className="hint">Tab no sale del diálogo, Escape cierra solo la capa de encima, el scroll de la página queda bloqueado.</p>
-            <button className="button" {...dialog.getTriggerProps()}>Nueva solicitud</button>
+            <h2>Request</h2>
+            <p className="hint">Tab stays inside the dialog, Escape closes only the top layer, and page scroll is locked.</p>
+            <button className="button" {...dialog.getTriggerProps()}>New request</button>
             <ol className="log" data-testid="dialog-log">{log.map((line, index) => <li key={index}>{line}</li>)}</ol>
             <Layer dialog={dialog}>
-                <h3 {...dialog.getTitleProps()}>Nueva solicitud</h3>
-                <label className="field">Motivo <input name="motivo" /></label>
+                <h3 {...dialog.getTitleProps()}>New request</h3>
+                <label className="field">Reason <input name="reason" /></label>
                 <Calendar value={date} onSelect={setDate} months={1} />
                 <div className="actions">
                     <Confirm onConfirm={dialog.close} />
-                    <button className="button" {...dialog.getCloseProps()}>Guardar</button>
+                    <button className="button" {...dialog.getCloseProps()}>Save</button>
                 </div>
             </Layer>
         </section>
