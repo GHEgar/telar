@@ -66,6 +66,30 @@ Disabled days inside a range keep `inRange` and `preview`: they are part of the 
 `contiguous` to forbid that). Give
 `[data-disabled]` the last word in your styles if they should not look selected.
 
+## With zootropo
+
+Only the dates a WMS layer has, from a [zootropo](https://github.com/GHEgar/zootropo) player:
+
+```tsx
+import { useCalendar } from '@ghegar/almanaque/react';
+import { useTimePlayer, type TimePlayer } from 'zootropo/react';
+
+function LayerCalendar({ player }: { player: TimePlayer }) {
+    const t = useTimePlayer(player);
+    const extent = t.catalog.extent();
+    const calendar = useCalendar({
+        value: t.selection[0]?.slice(0, 10) ?? null,
+        onSelect: iso => (iso ? player.select(iso) : player.clearSelection()),
+        isDisabled: iso => !t.catalog.isAvailable(iso),
+        min: extent?.start.slice(0, 10) ?? null,
+        max: extent?.end.slice(0, 10) ?? null,
+    });
+    return <div {...calendar.getRootProps()} />;
+}
+```
+
+Days without data are disabled and cannot be selected; the selected day drives the layer.
+
 ## Without React
 
 `createCalendar(options)` returns the same store (`subscribe`, `getSnapshot`, `select`, `keyDown`, …), and
