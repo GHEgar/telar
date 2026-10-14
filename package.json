@@ -1,5 +1,6 @@
 {
     "name": "telar",
+    "description": "Headless React components, one package each: calendar, dropzone, dialog, tabs, tooltip, menu, combobox and more.",
     "private": true,
     "type": "module",
     "workspaces": [
