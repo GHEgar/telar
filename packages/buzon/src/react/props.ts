@@ -5,7 +5,7 @@ export interface DropzoneLabels {
     remove: string;
 }
 
-export const DEFAULT_LABELS: DropzoneLabels = { remove: 'Quitar' };
+export const DEFAULT_LABELS: DropzoneLabels = { remove: 'Remove' };
 
 export interface RootProps {
     ref: RefCallback<HTMLElement>;

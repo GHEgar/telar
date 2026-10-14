@@ -30,9 +30,9 @@ describe('creating options', () => {
         const onCreate = vi.fn((text: string) => text.toLowerCase());
         render(<Tags multiple onCreate={onCreate} />);
         type('Agua');
-        expect(screen.queryByRole('option', { name: 'Crear «Agua»' })).toBeNull();
+        expect(screen.queryByRole('option', { name: 'Create “Agua”' })).toBeNull();
         type('Río');
-        const create = screen.getByRole('option', { name: 'Crear «Río»' });
+        const create = screen.getByRole('option', { name: 'Create “Río”' });
         expect(input().getAttribute('aria-activedescendant')).toBe(create.id);
         fireEvent.keyDown(input(), { key: 'Enter' });
         expect(onCreate).toHaveBeenCalledWith('Río');
@@ -43,8 +43,8 @@ describe('creating options', () => {
         render(<Tags onCreate={(text) => text} />);
         type('b');
         fireEvent.keyDown(input(), { key: 'ArrowDown' });
-        expect(input().getAttribute('aria-activedescendant')).toBe(screen.getByRole('option', { name: 'Crear «b»' }).id);
-        fireEvent.click(screen.getByRole('option', { name: 'Crear «b»' }));
+        expect(input().getAttribute('aria-activedescendant')).toBe(screen.getByRole('option', { name: 'Create “b”' }).id);
+        fireEvent.click(screen.getByRole('option', { name: 'Create “b”' }));
         expect(input().value).toBe('b');
         expect(screen.getByText('b', { selector: 'output' })).toBeTruthy();
     });

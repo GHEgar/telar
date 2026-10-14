@@ -15,12 +15,21 @@ describe('grid', () => {
         expect(buildMonthGrid({ year: 2021, month: 2 }, true)).toHaveLength(6);
     });
 
-    it('labels in es-MX by default', () => {
+    it('labels in en-US by default', () => {
         const labels = buildLabels();
+        expect(labels.months[0]).toBe('January');
+        expect(labels.weekdays).toEqual(['Mo', 'Tu', 'We', 'Th', 'Fr', 'Sa', 'Su']);
+        expect(labels.formatDay('2026-10-13')).toBe('Tuesday, October 13, 2026');
+        expect(labels.formatTitle(2026, 10)).toBe('October 2026');
+        expect(labels.chooseMonth).toBe('Choose month');
+        expect(buildLabels('en-US', { nextMonth: 'Next' }).nextMonth).toBe('Next');
+    });
+
+    it('labels in another locale when asked', () => {
+        const labels = buildLabels('es-MX', { nextMonth: 'Mes siguiente' });
         expect(labels.months[0]).toBe('Enero');
         expect(labels.weekdays).toEqual(['Lu', 'Ma', 'Mi', 'Ju', 'Vi', 'Sá', 'Do']);
         expect(labels.formatDay('2026-10-13')).toBe('Martes, 13 de octubre de 2026');
-        expect(labels.formatTitle(2026, 10)).toBe('Octubre 2026');
-        expect(buildLabels('es-MX', { nextMonth: 'Next' }).nextMonth).toBe('Next');
+        expect(labels.nextMonth).toBe('Mes siguiente');
     });
 });

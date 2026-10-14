@@ -22,7 +22,7 @@ function Uploader({ files, onChange }: { files: File[]; onChange: (files: File[]
         <>
             <div {...zone.getRootProps()}>
                 <input {...zone.getInputProps()} />
-                Drop files or click ({describeAccept(ACCEPT, 'en')})
+                Drop files or click ({describeAccept(ACCEPT)})
             </div>
             {zone.rejections.map((r) => <p key={r.file.name}>{r.file.name}: {r.codes.join(', ')}</p>)}
             {zone.files.map((file) => (
@@ -53,7 +53,7 @@ extension rules can only be checked on drop, so they yield `unknown`.
 | `files`, `onChange` | | Controlled when `files` is passed |
 | `onReject` | | Rejections of each batch |
 | `disabled` | `false` | |
-| `labels` | `{ remove: 'Quitar' }` | Used by `getRemoveProps` |
+| `labels` | `{ remove: 'Remove' }` | Used by `getRemoveProps` |
 | `paste` | `false` | `true`: pasted files while the zone has focus; `'document'`: anywhere on the page |
 | `preventDocumentDrop` | `true` | Files dropped outside the zone do not make the browser open them |
 
@@ -62,7 +62,9 @@ Rejection codes, in check order: `type`, `size`, `duplicate`, `custom`, `count`.
 ## Without React
 
 `createDropzone(options)`, `validateFiles`, `parseAccept`, `matchesAccept`, `judgeDrag` and
-`describeAccept` are exported from `@ghegar/buzon`.
+`describeAccept` are exported from `@ghegar/buzon`. `describeAccept(accept, locale = 'en-US', kinds = DEFAULT_KINDS)`
+lists the formats with `Intl.ListFormat` (`'PNG, JPG, or PDF'`); `DEFAULT_KINDS` names `image/*`, `video/*`,
+`audio/*` and `text/*` as images, videos, audio and text.
 
 ## License
 

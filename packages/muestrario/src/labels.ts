@@ -10,12 +10,12 @@ export interface ComboboxLabels {
 }
 
 export const DEFAULT_LABELS: ComboboxLabels = {
-    noResults: 'Sin resultados',
-    loading: 'Buscando…',
-    error: 'No se pudo cargar la lista',
-    clear: 'Limpiar',
-    remove: 'Quitar',
-    create: (text) => `Crear «${text}»`,
-    typeMore: (minChars) => `Escribe al menos ${minChars} ${minChars === 1 ? 'letra' : 'letras'}`,
-    results: (count) => `${count} ${count === 1 ? 'resultado' : 'resultados'}`,
+    noResults: 'No results',
+    loading: 'Searching…',
+    error: 'Could not load the list',
+    clear: 'Clear',
+    remove: 'Remove',
+    create: (text) => `Create “${text}”`,
+    typeMore: (minChars) => `Type at least ${minChars} ${minChars === 1 ? 'character' : 'characters'}`,
+    results: (count) => `${count} ${count === 1 ? 'result' : 'results'}`,
 };

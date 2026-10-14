@@ -4,7 +4,7 @@ Headless combobox for React, following the WAI-ARIA editable combobox with list 
 filter (accents and case ignored), move with the arrows while focus stays in the input
 (`aria-activedescendant`), pick with Enter or a click. It also loads options remotely with debounce and
 cancellation, groups them, takes several values as chips and announces counts in a live region. The list
-is positioned by `@ghegar/plomada`, as wide as the field. No styles; Spanish (es-MX) messages by default.
+is positioned by `@ghegar/plomada`, as wide as the field. No styles; English messages by default.
 
 ```bash
 npm install @ghegar/muestrario
@@ -57,7 +57,7 @@ field in a `<label>`: the first remove button would take the label. Use `aria-la
 | `multiple`, `values`, `defaultValues`, `onValuesChange` | | Several values |
 | `openOnFocus` | `false` | |
 | `placement`, `offset` | `'bottom-start'` | Passed to plomada |
-| `labels` | es-MX | `noResults`, `loading`, `error`, `clear`, `remove`, `typeMore(n)`, `results(n)` |
+| `labels` | English: No results, Searching…, Type at least N characters, N results | `noResults`, `loading`, `error`, `clear`, `remove`, `typeMore(n)`, `results(n)` |
 
 Keys: ArrowDown/ArrowUp open and move, Alt+ArrowDown opens, Enter picks, Escape closes and then clears
 the text, Backspace on an empty input removes the last chip, Tab closes. On blur a single combobox goes

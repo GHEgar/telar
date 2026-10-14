@@ -52,7 +52,7 @@ describe('createCalendar single', () => {
         calendar.toggleView('months');
         let snapshot = calendar.getSnapshot();
         expect(snapshot.view).toBe('months');
-        expect(snapshot.monthCells[9]).toMatchObject({ label: 'Octubre', current: true, disabled: false });
+        expect(snapshot.monthCells[9]).toMatchObject({ label: 'October', current: true, disabled: false });
         calendar.next();
         snapshot = calendar.getSnapshot();
         expect(snapshot.year).toBe(2027);
@@ -130,7 +130,7 @@ describe('createCalendar range', () => {
     it('shows several months and steps one at a time', () => {
         const calendar = createCalendar({ mode: 'range', today: '2026-12-13', months: 2, max: '2027-01-31' });
         let snapshot = calendar.getSnapshot();
-        expect(snapshot.grids.map((grid) => grid.title)).toEqual(['Diciembre 2026', 'Enero 2027']);
+        expect(snapshot.grids.map((grid) => grid.title)).toEqual(['December 2026', 'January 2027']);
         expect(snapshot.canNext).toBe(false);
         calendar.previous();
         snapshot = calendar.getSnapshot();

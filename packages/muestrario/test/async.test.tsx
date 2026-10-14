@@ -32,9 +32,9 @@ describe('useCombobox async', () => {
         });
         render(<Search load={load} />);
         type('g');
-        expect(status()).toBe('Escribe al menos 2 letras');
+        expect(status()).toBe('Type at least 2 characters');
         type('gu');
-        expect(status()).toBe('Buscando…');
+        expect(status()).toBe('Searching…');
         expect(screen.getByRole('listbox').getAttribute('aria-busy')).toBe('true');
         act(() => vi.advanceTimersByTime(100));
         type('gua');
@@ -44,7 +44,7 @@ describe('useCombobox async', () => {
         expect(load).toHaveBeenCalledTimes(1);
         expect(load).toHaveBeenCalledWith('gua', expect.any(AbortSignal));
         expect(screen.getAllByRole('option').map((option) => option.textContent)).toEqual(['gua uno', 'gua dos']);
-        expect(status()).toBe('2 resultados');
+        expect(status()).toBe('2 results');
         expect(screen.getByRole('option', { name: 'gua uno' }).dataset.active).toBe('true');
         type('guad');
         expect(signals[0]?.aborted).toBe(true);
@@ -56,6 +56,6 @@ describe('useCombobox async', () => {
         await act(async () => {
             vi.advanceTimersByTime(200);
         });
-        expect(status()).toBe('No se pudo cargar la lista');
+        expect(status()).toBe('Could not load the list');
     });
 });

@@ -41,7 +41,7 @@ describe('useCalendar', () => {
     it('renders an accessible grid and selects', () => {
         const onSelect = vi.fn();
         render(<Picker today="2026-10-13" onSelect={onSelect} />);
-        expect(screen.getByRole('grid', { name: 'Octubre 2026' })).toBeTruthy();
+        expect(screen.getByRole('grid', { name: 'October 2026' })).toBeTruthy();
         expect(cell('2026-10-13').getAttribute('aria-current')).toBe('date');
         expect(cell('2026-10-13').tabIndex).toBe(0);
         fireEvent.click(cell('2026-10-20'));
@@ -53,7 +53,7 @@ describe('useCalendar', () => {
         render(<Picker today="2026-10-31" />);
         act(() => cell('2026-10-31').focus());
         fireEvent.keyDown(cell('2026-10-31'), { key: 'ArrowRight' });
-        expect(screen.getByRole('grid').getAttribute('aria-label')).toBe('Noviembre 2026');
+        expect(screen.getByRole('grid').getAttribute('aria-label')).toBe('November 2026');
         expect(document.activeElement).toBe(cell('2026-11-01'));
     });
 
@@ -68,18 +68,18 @@ describe('useCalendar', () => {
             );
         };
         render(<Controlled />);
-        expect(screen.getByRole('grid').getAttribute('aria-label')).toBe('Enero 2026');
+        expect(screen.getByRole('grid').getAttribute('aria-label')).toBe('January 2026');
         fireEvent.click(screen.getByText('jump'));
-        expect(screen.getByRole('grid').getAttribute('aria-label')).toBe('Mayo 2027');
+        expect(screen.getByRole('grid').getAttribute('aria-label')).toBe('May 2027');
         expect(cell('2027-05-02').dataset.selected).toBe('true');
     });
 
     it('picks a month from the months view', () => {
         render(<Picker today="2026-10-13" max="2026-12-31" />);
-        fireEvent.click(screen.getByRole('button', { name: 'Elegir mes' }));
-        expect(screen.getByRole('button', { name: 'Año siguiente' })).toHaveProperty('disabled', true);
+        fireEvent.click(screen.getByRole('button', { name: 'Choose month' }));
+        expect(screen.getByRole('button', { name: 'Next year' })).toHaveProperty('disabled', true);
         fireEvent.click(screen.getByText('Mar'));
-        expect(screen.getByRole('grid').getAttribute('aria-label')).toBe('Marzo 2026');
+        expect(screen.getByRole('grid').getAttribute('aria-label')).toBe('March 2026');
     });
 
     it('applies new limits from props', () => {
@@ -91,7 +91,7 @@ describe('useCalendar', () => {
 
     it('drives the months view from the keyboard', () => {
         render(<Picker today="2026-10-13" />);
-        fireEvent.click(screen.getByRole('button', { name: 'Elegir mes' }));
+        fireEvent.click(screen.getByRole('button', { name: 'Choose month' }));
         const october = screen.getByText('Oct');
         expect(document.activeElement).toBe(october);
         expect(october.tabIndex).toBe(0);
@@ -99,7 +99,7 @@ describe('useCalendar', () => {
         fireEvent.keyDown(october, { key: 'ArrowUp' });
         expect(document.activeElement).toBe(screen.getByText('Jul'));
         fireEvent.keyDown(document.activeElement as Element, { key: 'Enter' });
-        expect(screen.getByRole('grid').getAttribute('aria-label')).toBe('Julio 2026');
+        expect(screen.getByRole('grid').getAttribute('aria-label')).toBe('July 2026');
         expect(document.activeElement).toBe(cell('2026-07-13'));
     });
 });

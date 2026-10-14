@@ -19,16 +19,16 @@ const capitalize = (text: string): string => text.charAt(0).toLocaleUpperCase() 
 
 const utc = (year: number, month: number, day: number): Date => new Date(Date.UTC(year, month - 1, day, 12));
 
-const SPANISH = {
-    previousMonth: 'Mes anterior',
-    nextMonth: 'Mes siguiente',
-    previousYear: 'Año anterior',
-    nextYear: 'Año siguiente',
-    chooseMonth: 'Elegir mes',
-    chooseYear: 'Elegir año',
+const ENGLISH = {
+    previousMonth: 'Previous month',
+    nextMonth: 'Next month',
+    previousYear: 'Previous year',
+    nextYear: 'Next year',
+    chooseMonth: 'Choose month',
+    chooseYear: 'Choose year',
 };
 
-export const buildLabels = (locale = 'es-MX', overrides: Partial<CalendarLabels> = {}): CalendarLabels => {
+export const buildLabels = (locale = 'en-US', overrides: Partial<CalendarLabels> = {}): CalendarLabels => {
     const month = new Intl.DateTimeFormat(locale, { month: 'long', timeZone: 'UTC' });
     const monthShort = new Intl.DateTimeFormat(locale, { month: 'short', timeZone: 'UTC' });
     const weekday = new Intl.DateTimeFormat(locale, { weekday: 'short', timeZone: 'UTC' });
@@ -44,7 +44,7 @@ export const buildLabels = (locale = 'es-MX', overrides: Partial<CalendarLabels>
         monthsShort: monthNumbers.map((value) => capitalize(monthShort.format(utc(2024, value, 1)).replace('.', ''))),
         weekdays: mondays.map((date) => capitalize(weekday.format(date).replace('.', '').slice(0, 2))),
         weekdaysLong: mondays.map((date) => capitalize(weekdayLong.format(date))),
-        ...SPANISH,
+        ...ENGLISH,
         formatDay: (iso) => {
             const parts = parseIso(iso);
             return parts ? capitalize(long.format(utc(parts.year, parts.month, parts.day))) : iso;

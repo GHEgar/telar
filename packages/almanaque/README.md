@@ -1,6 +1,6 @@
 # @ghegar/almanaque
 
-Headless calendar for React, Spanish (es-MX) by default. Weeks run Monday to Sunday and every date is a
+Headless calendar for React, English (en-US) by default. Weeks run Monday to Sunday and every date is a
 plain `YYYY-MM-DD` string: no `Date` objects, no time zones, no off-by-one surprises. Day, month and
 year views, `min`/`max`/`isDisabled` limits, single dates and ranges (with `minDays`/`maxDays` and hover
 preview), several months side by side and full keyboard support. It ships no styles: only state, ARIA
@@ -51,7 +51,7 @@ Style it through the attributes: `[data-selected]`, `[data-today]`, `[data-disab
 | `fixedWeeks` | `false` | Always six weeks per month |
 | `today` | local date | Injectable for tests |
 | `yearsBack`, `yearsForward` | `100`, `10` | Year list when there are no limits |
-| `locale`, `labels` | `'es-MX'` | Names come from `Intl`; any label can be replaced |
+| `locale`, `labels` | `'en-US'` | Month and weekday names come from `Intl`; buttons say Previous month, Next month, Previous year, Next year, Choose month and Choose year; any label can be replaced |
 
 ## Keyboard
 

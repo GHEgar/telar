@@ -17,12 +17,16 @@ describe('accept', () => {
         expect(matchesAccept({ name: 'nota.txt', type: 'text/plain' }, null)).toBe(true);
     });
 
-    it('describes formats in Spanish', () => {
-        expect(describeAccept('image/png,image/jpeg,.webp')).toBe('PNG, JPG o WEBP');
+    it('describes formats in English by default', () => {
+        expect(describeAccept('image/png,image/jpeg,.webp')).toBe('PNG, JPG, or WEBP');
         expect(describeAccept('.pdf')).toBe('PDF');
-        expect(describeAccept('image/*,application/pdf')).toBe('imágenes o PDF');
+        expect(describeAccept('image/*,application/pdf')).toBe('images or PDF');
         expect(describeAccept('.jpg,image/jpeg')).toBe('JPG');
         expect(describeAccept(undefined)).toBe('');
+    });
+
+    it('describes formats in another locale when asked', () => {
+        expect(describeAccept('image/*,application/pdf', 'es-MX', { image: 'imágenes' })).toBe('imágenes o PDF');
     });
 
     it('judges a drag from item types', () => {

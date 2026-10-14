@@ -6,6 +6,8 @@ Headless React components, one package each: calendar, dropzone, dialog, tabs, t
 
 ![Picking a date, filtering a combobox, a tooltip and a keyboard menu, and a dialog stacked over another](.github/assets/demo.gif)
 
+**[Live demo](https://ghegar.github.io/telar/)**
+
 Each piece owns the behavior — state, keyboard, focus, ARIA and events — and you own every pixel: they
 ship no styles and no portals, only state, prop getters and `data-*` attributes to style against. The
 only inline styles are functional ones (`position: fixed`, `left`, `top` from the positioning layer).
@@ -19,7 +21,7 @@ npm install @ghegar/almanaque
 
 | Package | What it is | Depends on |
 |---|---|---|
-| [`@ghegar/almanaque`](packages/almanaque) | Calendar in es-MX: Monday-first weeks, timezone-free ISO dates, day/month/year views, limits and ranges | `react >= 19` |
+| [`@ghegar/almanaque`](packages/almanaque) | Calendar with any `Intl` locale: Monday-first weeks, timezone-free ISO dates, day/month/year views, limits and ranges | `react >= 19` |
 | [`@ghegar/buzon`](packages/buzon) | File dropzone: type, size, count and duplicate validation, accumulation, rejections and previews | `react >= 19` |
 | [`@ghegar/postigo`](packages/postigo) | Modal dialog: layer stack, focus trap and return, Escape and outside click for the top layer, counted scroll lock | `react >= 19` |
 | [`@ghegar/lanzadera`](packages/lanzadera) | Roving focus: arrows by orientation or grid, Home/End, disabled items, typeahead | `react >= 19` |
@@ -86,8 +88,8 @@ Each package README has a full example, the option table and the keyboard map.
 
 ## Known limitations
 
-- Labels and messages default to Spanish (es-MX); almanaque, buzon and muestrario take `labels` to
-  replace them. almanaque weeks always start on Monday.
+- Labels and messages default to English (en-US); almanaque, buzon and muestrario take `labels` and
+  `locale` to replace them. almanaque weeks always start on Monday.
 - buzon only guesses `[data-drag]` while dragging from the MIME types the browser exposes; extension
   rules can only be checked on drop.
 - glosa ignores touch pointers, and a `disabled` button never opens its tooltip: use `aria-disabled` or a

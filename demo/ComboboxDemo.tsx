@@ -1,5 +1,5 @@
 import { createPortal } from 'react-dom';
-import { filterItems, highlight, useCombobox, type ComboboxLabels, type UseCombobox } from '@ghegar/muestrario';
+import { filterItems, highlight, useCombobox, type UseCombobox } from '@ghegar/muestrario';
 
 interface Place {
     name: string;
@@ -11,16 +11,6 @@ const STATES: Place[] = [
     { name: 'Colima', region: 'West' }, { name: 'Jalisco', region: 'West' }, { name: 'Michoacán', region: 'West' },
     { name: 'Nayarit', region: 'West' }, { name: 'Chihuahua', region: 'North' }, { name: 'Sonora', region: 'North' },
 ];
-const LABELS: ComboboxLabels = {
-    noResults: 'No results',
-    loading: 'Searching…',
-    error: 'Could not load the list',
-    clear: 'Clear',
-    remove: 'Remove',
-    create: (text) => `Create “${text}”`,
-    typeMore: (minChars) => `Type at least ${minChars} ${minChars === 1 ? 'letter' : 'letters'}`,
-    results: (count) => `${count} ${count === 1 ? 'result' : 'results'}`,
-};
 const TOWNS = ['Guadalajara', 'Zapopan', 'Tlaquepaque', 'Tonalá', 'Tlajomulco', 'El Salto', 'Puerto Vallarta', 'Lagos de Moreno', 'Tepatitlán', 'Ocotlán', 'Ameca', 'Autlán'];
 
 const searchTowns = (query: string, signal: AbortSignal): Promise<string[]> => new Promise((resolve, reject) => {
@@ -53,7 +43,7 @@ const List = <T,>({ combo, label }: { combo: UseCombobox<T>; label: (item: T) =>
     : null);
 
 const StatePicker = () => {
-    const combo = useCombobox<Place>({ items: STATES, getLabel: (place) => place.name, groupBy: (place) => place.region, isDisabled: (place) => place.name === 'Sonora', labels: LABELS });
+    const combo = useCombobox<Place>({ items: STATES, getLabel: (place) => place.name, groupBy: (place) => place.region, isDisabled: (place) => place.name === 'Sonora' });
     return (
         <label className="field">State
             <span className="combo" data-testid="state" {...combo.getAnchorProps()}>
@@ -67,7 +57,7 @@ const StatePicker = () => {
 };
 
 const TownsPicker = () => {
-    const combo = useCombobox<string>({ items: TOWNS, getLabel: (town) => town, multiple: true, labels: LABELS });
+    const combo = useCombobox<string>({ items: TOWNS, getLabel: (town) => town, multiple: true });
     return (
         <div className="field">
             <span aria-hidden="true">Municipalities</span>
@@ -81,7 +71,7 @@ const TownsPicker = () => {
 };
 
 const AsyncPicker = () => {
-    const combo = useCombobox<string>({ load: searchTowns, getLabel: (town) => town, minChars: 2, labels: LABELS });
+    const combo = useCombobox<string>({ load: searchTowns, getLabel: (town) => town, minChars: 2 });
     return (
         <label className="field">Remote search
             <span className="combo" {...combo.getAnchorProps()}><input {...combo.getInputProps()} /></span>
@@ -92,7 +82,7 @@ const AsyncPicker = () => {
 };
 
 const TagsPicker = () => {
-    const combo = useCombobox<string>({ items: ['water', 'forest', 'climate'], getLabel: (tag) => tag, multiple: true, onCreate: (text) => text.toLowerCase(), labels: LABELS });
+    const combo = useCombobox<string>({ items: ['water', 'forest', 'climate'], getLabel: (tag) => tag, multiple: true, onCreate: (text) => text.toLowerCase() });
     return (
         <div className="field">
             <span aria-hidden="true">Tags</span>
@@ -114,7 +104,7 @@ const TagsPicker = () => {
 const MANY = Array.from({ length: 2000 }, (_, index) => `Block ${String(index + 1).padStart(4, '0')}`);
 
 const VirtualPicker = () => {
-    const combo = useCombobox<string>({ items: MANY, getLabel: (item) => item, virtual: { itemHeight: 32, height: 240 }, labels: LABELS });
+    const combo = useCombobox<string>({ items: MANY, getLabel: (item) => item, virtual: { itemHeight: 32, height: 240 } });
     return (
         <label className="field">Long list (2000)
             <span className="combo" {...combo.getAnchorProps()}><input {...combo.getInputProps()} /></span>

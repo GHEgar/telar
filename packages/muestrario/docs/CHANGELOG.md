@@ -5,6 +5,11 @@ Formato basado en [Keep a Changelog](https://keepachangelog.com/es-ES/1.1.0/) y 
 
 ## [No publicado]
 
+### Cambiado
+
+- Etiquetas y locale por defecto en inglés (`en-US`); quien dependa de los textos en español debe
+  pasarlos con `labels`.
+
 ## [0.1.0] - 2026-10-13
 
 ### Agregado

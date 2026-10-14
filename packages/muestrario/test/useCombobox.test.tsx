@@ -41,7 +41,7 @@ describe('useCombobox single', () => {
         expect(screen.getAllByRole('option')).toHaveLength(1);
         expect(input().getAttribute('aria-activedescendant')).toBe(option.id);
         expect(input().getAttribute('aria-expanded')).toBe('true');
-        expect(screen.getByRole('status').textContent).toBe('1 resultado');
+        expect(screen.getByRole('status').textContent).toBe('1 result');
         key('Enter');
         expect(onChange).toHaveBeenCalledWith('Michoacán');
         expect(input().value).toBe('Michoacán');
@@ -73,7 +73,7 @@ describe('useCombobox single', () => {
         render(<Combo defaultValue="Nayarit" />);
         type('xyz');
         expect(screen.queryAllByRole('option')).toHaveLength(0);
-        expect(screen.getByRole('status').textContent).toBe('Sin resultados');
+        expect(screen.getByRole('status').textContent).toBe('No results');
         fireEvent.blur(input());
         expect(input().value).toBe('Nayarit');
         expect(screen.getByRole('status').textContent).toBe('');
@@ -112,7 +112,7 @@ describe('useCombobox multiple', () => {
         expect(screen.getByRole('listbox')).toBeTruthy();
         fireEvent.click(screen.getByRole('option', { name: 'Nayarit' }));
         expect(screen.getByRole('option', { name: 'Nayarit' }).getAttribute('aria-selected')).toBe('true');
-        fireEvent.click(screen.getByRole('button', { name: 'Quitar Jalisco' }));
+        fireEvent.click(screen.getByRole('button', { name: 'Remove Jalisco' }));
         expect(onValuesChange).toHaveBeenLastCalledWith(['Nayarit']);
         key('Backspace');
         expect(onValuesChange).toHaveBeenLastCalledWith([]);

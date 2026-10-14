@@ -27,10 +27,10 @@ const KNOWN: Record<string, string> = {
 };
 
 export const DEFAULT_KINDS: Readonly<Record<string, string>> = {
-    image: 'imágenes',
+    image: 'images',
     video: 'videos',
     audio: 'audio',
-    text: 'texto',
+    text: 'text',
 };
 
 const tokens = (accept: Accept): string[] => (typeof accept === 'string' ? accept.split(',') : [...accept])
@@ -69,7 +69,7 @@ const mimeLabel = (mime: string): string => {
 
 export const describeAccept = (
     accept: Accept | null | undefined,
-    locale = 'es-MX',
+    locale = 'en-US',
     kinds: Readonly<Record<string, string>> = DEFAULT_KINDS,
 ): string => {
     if (!accept) return '';

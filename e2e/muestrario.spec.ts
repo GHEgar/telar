@@ -39,7 +39,7 @@ test('collects several towns as chips', async ({ page }) => {
 test('searches remotely after two letters', async ({ page }) => {
     const input = page.getByRole('combobox', { name: 'Remote search' });
     await input.fill('g');
-    await expect(page.getByTestId('async-status')).toHaveText('Type at least 2 letters');
+    await expect(page.getByTestId('async-status')).toHaveText('Type at least 2 characters');
     await input.fill('gua');
     await expect(page.getByTestId('async-status')).toHaveText('Searching…');
     await expect(page.getByRole('option', { name: 'Guadalajara' })).toBeVisible();

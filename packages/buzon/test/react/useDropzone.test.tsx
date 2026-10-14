@@ -71,7 +71,7 @@ describe('useDropzone', () => {
             return <Zone multiple files={files} onChange={setFiles} />;
         };
         render(<Controlled />);
-        fireEvent.click(screen.getByRole('button', { name: 'Quitar one.png' }));
+        fireEvent.click(screen.getByRole('button', { name: 'Remove one.png' }));
         expect(screen.queryByText('one.png')).toBeNull();
     });
 
