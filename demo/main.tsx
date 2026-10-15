@@ -1,4 +1,4 @@
-import '@npmegar/rotulo';
+import 'rotulo';
 import { StrictMode, useEffect, useState } from 'react';
 import { createRoot } from 'react-dom/client';
 import { CalendarDemo } from './CalendarDemo.js';
