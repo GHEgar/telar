@@ -28,10 +28,10 @@ test('collects several towns as chips', async ({ page }) => {
     await page.keyboard.press('Enter');
     await page.getByRole('option', { name: 'Tlajomulco' }).click();
     const field = page.getByTestId('towns');
-    await expect(field.locator('.tag')).toHaveText(['Tlaquepaque✕', 'Tlajomulco✕']);
+    await expect(field.locator('.tag')).toHaveText(['Tlaquepaque', 'Tlajomulco']);
     await expect(input).toBeFocused();
     await page.keyboard.press('Backspace');
-    await expect(field.locator('.tag')).toHaveText(['Tlaquepaque✕']);
+    await expect(field.locator('.tag')).toHaveText(['Tlaquepaque']);
     await field.getByRole('button', { name: 'Remove Tlaquepaque' }).click();
     await expect(field.locator('.tag')).toHaveCount(0);
 });
@@ -51,7 +51,7 @@ test('creates a new tag from the typed text', async ({ page }) => {
     await input.fill('River');
     await expect(page.getByRole('option', { name: 'Create “River”' })).toHaveAttribute('data-active', 'true');
     await page.keyboard.press('Enter');
-    await expect(page.getByTestId('tags').locator('.tag')).toHaveText(['river✕']);
+    await expect(page.getByTestId('tags').locator('.tag')).toHaveText(['river']);
 });
 
 test('scrolls a virtual list of 2000 options with the keyboard', async ({ page }) => {

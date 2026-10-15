@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { describeAccept, type FileRejection, type RejectionCode } from '@ghegar/buzon';
 import { useDropzone } from '@ghegar/buzon/react';
+import { Close } from 'tesela/react';
 
 const MB = 1024 * 1024;
 const IMAGES = 'image/png,image/jpeg,image/webp';
@@ -35,7 +36,7 @@ const Images = () => {
                 {zone.files.map((file) => (
                     <li key={`${file.name}-${file.lastModified}`}>
                         <img src={zone.previewUrl(file) ?? ''} alt={file.name} />
-                        <button className="remove" {...zone.getRemoveProps(file)}>✕</button>
+                        <button className="remove" {...zone.getRemoveProps(file)}><Close size={14} /></button>
                     </li>
                 ))}
             </ul>
@@ -58,7 +59,7 @@ const Document = () => {
             {file && (
                 <p className="file" data-testid="pdf-file">
                     {file.name}
-                    <button className="remove" {...zone.getRemoveProps(file)}>✕</button>
+                    <button className="remove" {...zone.getRemoveProps(file)}><Close size={14} /></button>
                 </p>
             )}
         </section>

@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { createPortal } from 'react-dom';
 import { useMenu } from '@ghegar/abanico';
 import { useTooltip } from '@ghegar/glosa';
+import { Check, ChevronDown, ChevronRight } from 'tesela/react';
 
 const ACTIONS = ['Edit', 'Duplicate', 'Share', 'Export', 'Archive', 'Delete'];
 
@@ -38,14 +39,14 @@ const Actions = ({ onPick }: { onPick: (action: string) => void }) => {
     const exports = useMenu({ count: EXPORTS.length, getLabel: (index) => EXPORTS[index] ?? '', parent: { link: menu.link, index: exportIndex }, onSelect: (index) => onPick(`Export ${EXPORTS[index]}`) });
     return (
         <>
-            <button className="button" {...menu.getButtonProps()}>Actions ▾</button>
+            <button className="button" {...menu.getButtonProps()}>Actions <ChevronDown size={16} /></button>
             {menu.open && createPortal(
                 <div className="menu" {...menu.getMenuProps()}>
                     {ACTIONS.map((action, index) => (index === exportIndex
-                        ? <div key={action} className="menu-item submenu" {...exports.getTriggerProps()}>{action} ▸</div>
+                        ? <div key={action} className="menu-item submenu" {...exports.getTriggerProps()}>{action}<ChevronRight size={16} /></div>
                         : <div key={action} className={action === 'Delete' ? 'menu-item danger' : 'menu-item'} {...menu.getItemProps(index)}>{action}</div>))}
                     <div className="menu-separator" {...menu.getSeparatorProps()} />
-                    <div className="menu-item" {...menu.getItemProps(ACTIONS.length, { type: 'checkbox', checked: pinned })}>{pinned ? '✓ ' : ''}Pin</div>
+                    <div className="menu-item" {...menu.getItemProps(ACTIONS.length, { type: 'checkbox', checked: pinned })}>{pinned && <Check size={16} />}Pin</div>
                 </div>,
                 document.body,
             )}

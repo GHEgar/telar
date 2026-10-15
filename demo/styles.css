@@ -261,3 +261,11 @@ p.errors { padding-left: 0; }
 .listbox.virtual { height: 240px; box-sizing: border-box; padding: 0; }
 
 .listbox.virtual .option { box-sizing: border-box; display: flex; align-items: center; border-radius: 0; }
+
+.arrow, .remove, .clear, .tag button { display: inline-flex; align-items: center; justify-content: center; }
+
+.button { display: inline-flex; align-items: center; gap: 4px; }
+
+.menu-item { display: flex; align-items: center; gap: 6px; }
+
+.menu-item.submenu { justify-content: space-between; }

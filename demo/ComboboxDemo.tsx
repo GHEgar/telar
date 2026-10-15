@@ -1,5 +1,6 @@
 import { createPortal } from 'react-dom';
 import { filterItems, highlight, useCombobox, type UseCombobox } from '@ghegar/muestrario';
+import { Close } from 'tesela/react';
 
 interface Place {
     name: string;
@@ -48,7 +49,7 @@ const StatePicker = () => {
         <label className="field">State
             <span className="combo" data-testid="state" {...combo.getAnchorProps()}>
                 <input {...combo.getInputProps()} />
-                {combo.value && <button className="clear" {...combo.getClearProps()}>✕</button>}
+                {combo.value && <button className="clear" {...combo.getClearProps()}><Close size={14} /></button>}
             </span>
             <List combo={combo} label={(place) => place.name} />
             <span className="sr-only" {...combo.getStatusProps()}>{combo.statusText}</span>
@@ -62,7 +63,7 @@ const TownsPicker = () => {
         <div className="field">
             <span aria-hidden="true">Municipalities</span>
             <span className="combo chips-field" data-testid="towns" {...combo.getAnchorProps()}>
-                {combo.values.map((town) => <span key={town} className="tag">{town}<button {...combo.getRemoveProps(town)}>✕</button></span>)}
+                {combo.values.map((town) => <span key={town} className="tag">{town}<button {...combo.getRemoveProps(town)}><Close size={14} /></button></span>)}
                 <input aria-label="Municipalities" {...combo.getInputProps()} />
             </span>
             <List combo={combo} label={(town) => town} />
@@ -87,7 +88,7 @@ const TagsPicker = () => {
         <div className="field">
             <span aria-hidden="true">Tags</span>
             <span className="combo chips-field" data-testid="tags" {...combo.getAnchorProps()}>
-                {combo.values.map((tag) => <span key={tag} className="tag">{tag}<button {...combo.getRemoveProps(tag)}>✕</button></span>)}
+                {combo.values.map((tag) => <span key={tag} className="tag">{tag}<button {...combo.getRemoveProps(tag)}><Close size={14} /></button></span>)}
                 <input aria-label="Tags" {...combo.getInputProps()} />
             </span>
             {combo.open && createPortal(

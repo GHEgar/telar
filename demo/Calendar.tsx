@@ -1,18 +1,19 @@
 import { useCalendar, type CalendarOptions } from '@ghegar/almanaque/react';
+import { ChevronLeft, ChevronRight } from 'tesela/react';
 
 export const Calendar = (options: CalendarOptions) => {
     const calendar = useCalendar(options);
     return (
         <div className="calendar" {...calendar.getRootProps()}>
             <header className="calendar-header">
-                <button className="arrow" {...calendar.getPreviousProps()}>‹</button>
+                <button className="arrow" {...calendar.getPreviousProps()}><ChevronLeft size={20} /></button>
                 <div className="calendar-title">
                     <button className="title-button" {...calendar.getViewProps('months')}>
                         {calendar.labels.months[calendar.month - 1]}
                     </button>
                     <button className="title-button" {...calendar.getViewProps('years')}>{calendar.year}</button>
                 </div>
-                <button className="arrow" {...calendar.getNextProps()}>›</button>
+                <button className="arrow" {...calendar.getNextProps()}><ChevronRight size={20} /></button>
             </header>
             {calendar.view === 'days' && (
                 <div className="months">
