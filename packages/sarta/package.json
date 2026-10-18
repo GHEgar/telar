@@ -1,0 +1,38 @@
+{
+    "name": "@npmegar/sarta",
+    "version": "0.1.0",
+    "description": "Headless sortable list for React: drag by handle or long press, keyboard reordering and live region announcements.",
+    "license": "AGPL-3.0-only",
+    "author": "Edgar Villarreal",
+    "type": "module",
+    "sideEffects": false,
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/GHEgar/telar.git",
+        "directory": "packages/sarta"
+    },
+    "files": [
+        "dist"
+    ],
+    "exports": {
+        ".": {
+            "types": "./dist/core/index.d.ts",
+            "import": "./dist/core/index.js"
+        },
+        "./react": {
+            "types": "./dist/react/index.d.ts",
+            "import": "./dist/react/index.js"
+        }
+    },
+    "dependencies": {
+        "@npmegar/lanzadera": "^0.1.0"
+    },
+    "peerDependencies": {
+        "react": ">=19"
+    },
+    "peerDependenciesMeta": {
+        "react": {
+            "optional": true
+        }
+    }
+}

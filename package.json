@@ -11,7 +11,10 @@
         "tabs",
         "tooltip",
         "menu",
-        "combobox"
+        "combobox",
+        "slider",
+        "toast",
+        "sortable"
     ],
     "private": true,
     "type": "module",

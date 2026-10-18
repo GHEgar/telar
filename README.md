@@ -28,12 +28,15 @@ npm install @npmegar/almanaque
 | [`@npmegar/solapa`](packages/solapa) | Tabs: linked panels, automatic or manual activation, vertical orientation | lanzadera |
 | [`@npmegar/plomada`](packages/plomada) | Floating positioning: side and alignment, flip, shift, available space, arrow, auto update | `react >= 19` |
 | [`@npmegar/glosa`](packages/glosa) | Tooltip: hover and focus with delays, hoverable, Escape, aria-describedby | plomada |
-| [`@npmegar/abanico`](packages/abanico) | Menu button: keyboard opening, roving focus with typeahead, disabled items, Escape and outside click | lanzadera, plomada |
+| [`@npmegar/abanico`](packages/abanico) | Menu button and radial menu: keyboard opening, roving focus with typeahead, disabled items, Escape and outside click | lanzadera, plomada |
 | [`@npmegar/muestrario`](packages/muestrario) | Combobox: accent-insensitive filter, async loading, groups, multiple values with chips | lanzadera, plomada |
+| [`@npmegar/nonio`](packages/nonio) | Slider: one value or a two-thumb range, steps, keyboard, pointer drag, draggable range, vertical | `react >= 19` |
+| [`@npmegar/pregon`](packages/pregon) | Toasts: queue and visible limit, durations, pause on hover and focus, actions, live region announcements | `react >= 19` |
+| [`@npmegar/sarta`](packages/sarta) | Sortable list: drag by handle or long press, keyboard reordering, announcements | lanzadera |
 | [`@npmegar/grana`](packages/grana) | Design tokens as CSS custom properties: coral accent, data ramp, time-of-day tones, glass, type and z bands | nothing |
 
-React 19 is a peer of every component. almanaque, buzon, postigo, lanzadera and plomada export a
-framework-free core from the package root and the hooks from `/react`; solapa, glosa, abanico and
+React 19 is a peer of every component. almanaque, buzon, postigo, lanzadera, plomada, nonio, pregon and
+sarta export a framework-free core from the package root and the hooks from `/react`; solapa, glosa, abanico and
 muestrario are React only and export their hook from the root. grana is not a component: it ships CSS
 custom properties and a TypeScript module with the same values. Each package README has the full option
 table.
@@ -85,8 +88,11 @@ Each package README has a full example, the option table and the keyboard map.
 | [solapa](packages/solapa#readme) | `useTabs` | Panels linked by ids and ARIA; inactive panels get `hidden`; `activation: 'manual'` waits for Enter or Space |
 | [plomada](packages/plomada#readme) | `usePosition` from `/react` | Flips, shifts back into the viewport, reports available height and arrow offset, follows the reference on scroll and resize |
 | [glosa](packages/glosa#readme) | `useTooltip` | Opens on hover after `delay` (600 ms) and at once on focus, stays open while hovered, the next tooltip opens without delay |
-| [abanico](packages/abanico#readme) | `useMenu` | WAI-ARIA menu button: arrows open on the first or last item, typeahead, disabled items, selection returns focus to the button |
+| [abanico](packages/abanico#readme) | `useMenu`, `useRadialMenu` | WAI-ARIA menu button: arrows open on the first or last item, typeahead, disabled items, selection returns focus to the button; the radial menu opens at a right click or long press with the items on a circle |
 | [muestrario](packages/muestrario#readme) | `useCombobox` | Focus stays in the input (`aria-activedescendant`), accent- and case-insensitive filter, `load(query, signal)` with debounce and abort |
+| [nonio](packages/nonio#readme) | `useSlider` from `/react` | WAI-ARIA slider and multi-thumb slider; thumbs never cross, `dragRange` slides a whole window, `onChangeEnd` for expensive work; percentages instead of styles |
+| [pregon](packages/pregon#readme) | `useToaster` from `/react` | Live regions that are always mounted; assertive toasts jump the queue; pauses while hovered, focused or hidden; never steals focus; a store you can call from anywhere |
+| [sarta](packages/sarta#readme) | `useSortable` from `/react` | Handles with roving focus; Space, arrows and Escape; mouse threshold and touch long press; the DOM does not move while dragging, offsets go to `transform` |
 | [grana](packages/grana#readme) | none: `grana.css` and `tonos.css` | `--grana-*` tokens; `dia`, `tarde` and `noche` tones on any `[data-grana-tono]` container with `tonoPorHora`; glass that turns opaque with reduced transparency; z bands named like biombo's |
 
 ## Known limitations
@@ -97,6 +103,7 @@ Each package README has a full example, the option table and the keyboard map.
   rules can only be checked on drop.
 - glosa ignores touch pointers, and a `disabled` button never opens its tooltip: use `aria-disabled` or a
   focusable wrapper.
+- sarta does not scroll its container while dragging nor move items between lists.
 
 ## Development
 
@@ -112,7 +119,9 @@ npm run e2e
 ```
 
 The demo is one Vite app with a page per piece (`#almanaque`, `#buzon`, `#postigo`, `#solapa`,
-`#plomada`, `#abanico`, `#muestrario`); lanzadera shows up under solapa and glosa under abanico. The e2e
+`#plomada`, `#abanico`, `#muestrario`, `#nonio`, `#pregon`, `#sarta`); lanzadera shows up under solapa
+and glosa under abanico. The pages of nonio, pregon and sarta, and the radial menu, wear a skin built on
+the grana tokens. The e2e
 suite runs Playwright against it on port 5195 and connects over CDP to a Chrome on `127.0.0.1:9222` when
 one is listening.
 

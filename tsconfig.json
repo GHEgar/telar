@@ -17,6 +17,12 @@
             "@npmegar/glosa": ["./packages/glosa/src/index.ts"],
             "@npmegar/abanico": ["./packages/abanico/src/index.ts"],
             "@npmegar/muestrario": ["./packages/muestrario/src/index.ts"],
+            "@npmegar/nonio/react": ["./packages/nonio/src/react/index.ts"],
+            "@npmegar/nonio": ["./packages/nonio/src/core/index.ts"],
+            "@npmegar/pregon/react": ["./packages/pregon/src/react/index.ts"],
+            "@npmegar/pregon": ["./packages/pregon/src/core/index.ts"],
+            "@npmegar/sarta/react": ["./packages/sarta/src/react/index.ts"],
+            "@npmegar/sarta": ["./packages/sarta/src/core/index.ts"],
             "@npmegar/grana": ["./packages/grana/src/index.ts"]
         }
     },

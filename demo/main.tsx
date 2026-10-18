@@ -7,7 +7,18 @@ import { DialogDemo } from './DialogDemo.js';
 import { DropzoneDemo } from './DropzoneDemo.js';
 import { MenuDemo } from './MenuDemo.js';
 import { PositionDemo } from './PositionDemo.js';
+import { RadialDemo } from './RadialDemo.js';
+import { SliderDemo } from './SliderDemo.js';
+import { SortableDemo } from './SortableDemo.js';
 import { TabsDemo } from './TabsDemo.js';
+import { ToastDemo } from './ToastDemo.js';
+
+const AbanicoDemo = () => (
+    <>
+        <MenuDemo />
+        <RadialDemo />
+    </>
+);
 
 const PAGES = {
     almanaque: CalendarDemo,
@@ -15,8 +26,11 @@ const PAGES = {
     postigo: DialogDemo,
     solapa: TabsDemo,
     plomada: PositionDemo,
-    abanico: MenuDemo,
+    abanico: AbanicoDemo,
     muestrario: ComboboxDemo,
+    nonio: SliderDemo,
+    pregon: ToastDemo,
+    sarta: SortableDemo,
 };
 
 type Page = keyof typeof PAGES;

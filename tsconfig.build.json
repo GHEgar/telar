@@ -10,6 +10,9 @@
         { "path": "./packages/plomada/tsconfig.build.json" },
         { "path": "./packages/glosa/tsconfig.build.json" },
         { "path": "./packages/abanico/tsconfig.build.json" },
-        { "path": "./packages/muestrario/tsconfig.build.json" }
+        { "path": "./packages/muestrario/tsconfig.build.json" },
+        { "path": "./packages/nonio/tsconfig.build.json" },
+        { "path": "./packages/pregon/tsconfig.build.json" },
+        { "path": "./packages/sarta/tsconfig.build.json" }
     ]
 }

@@ -1,4 +1,4 @@
-import type { KeyboardEvent, RefCallback } from 'react';
+import type { KeyboardEvent, MouseEvent, PointerEvent, RefCallback } from 'react';
 import type { FloatingProps } from '@npmegar/plomada/react';
 
 export interface MenuButtonProps {
@@ -51,4 +51,25 @@ export interface SeparatorProps {
 export interface GroupProps {
     role: 'group';
     'aria-label': string;
+}
+
+export interface RadialTargetProps {
+    onContextMenu: (event: MouseEvent) => void;
+    onKeyDown: (event: KeyboardEvent) => void;
+    onPointerDown: (event: PointerEvent) => void;
+}
+
+export interface RadialMenuProps {
+    ref: RefCallback<HTMLElement>;
+    id: string;
+    role: 'menu';
+    tabIndex: -1;
+    'aria-label': string;
+    'data-state': 'open' | 'closed';
+    'data-layout': 'radial';
+    onKeyDown: (event: KeyboardEvent) => void;
+}
+
+export interface RadialItemProps extends MenuItemProps {
+    'data-angle': number;
 }

@@ -1,7 +1,7 @@
 {
     "name": "@npmegar/abanico",
-    "version": "0.2.0",
-    "description": "Headless menu button for React: keyboard opening, roving focus with typeahead, disabled items, Escape and outside click, positioning by plomada.",
+    "version": "0.3.0",
+    "description": "Headless menu button and radial menu for React: keyboard opening, roving focus with typeahead, disabled items, Escape and outside click.",
     "license": "AGPL-3.0-only",
     "author": "Edgar Villarreal",
     "type": "module",

@@ -8,7 +8,7 @@ export default [
     ...react,
     ...ts,
     {
-        files: ['packages/glosa/test/disabled.test.tsx'],
+        files: ['packages/glosa/test/disabled.test.tsx', 'packages/abanico/test/radial.test.tsx', 'demo/RadialDemo.tsx'],
         rules: { 'jsx-a11y/no-noninteractive-tabindex': 'off' },
     },
 ];

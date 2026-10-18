@@ -69,3 +69,27 @@ test('opens a submenu from the keyboard and toggles a checkbox item', async ({ p
     await page.getByRole('menuitemcheckbox', { name: /Pin/ }).click();
     await expect(page.getByRole('menuitemcheckbox', { name: /Pin/ })).toHaveAttribute('aria-checked', 'true');
 });
+
+test('opens the radial menu at a right click and drives it around the circle', async ({ page }) => {
+    const map = page.getByRole('application', { name: 'Map' });
+    const box = await map.boundingBox();
+    if (!box) throw new Error('no map');
+    await map.click({ button: 'right', position: { x: box.width / 2, y: box.height / 2 } });
+    const menu = page.getByRole('menu', { name: 'Tools' });
+    await expect(menu.getByRole('menuitem', { name: 'Measure' })).toBeFocused();
+    const top = await menu.getByRole('menuitem', { name: 'Measure' }).boundingBox();
+    const bottom = await menu.getByRole('menuitem', { name: 'Table' }).boundingBox();
+    expect((top?.y ?? 0) + (top?.height ?? 0)).toBeLessThan(bottom?.y ?? 0);
+    await page.keyboard.press('ArrowLeft');
+    await expect(menu.getByRole('menuitem', { name: 'Share' })).toBeFocused();
+    await page.keyboard.press('ArrowLeft');
+    await expect(menu.getByRole('menuitem', { name: 'Table' })).toBeFocused();
+    await page.keyboard.press('Enter');
+    await expect(menu).toHaveCount(0);
+    await expect(page.getByTestId('radial-value')).toHaveText('Table');
+    await expect(map).toBeFocused();
+    await page.keyboard.press('Shift+F10');
+    await expect(menu.getByRole('menuitem', { name: 'Measure' })).toBeFocused();
+    await page.keyboard.press('Escape');
+    await expect(menu).toHaveCount(0);
+});
