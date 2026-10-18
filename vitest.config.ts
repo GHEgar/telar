@@ -20,6 +20,9 @@ export default defineConfig({
             { find: /^@npmegar\/glosa$/, replacement: pkg('glosa/src/index.ts') },
             { find: /^@npmegar\/abanico$/, replacement: pkg('abanico/src/index.ts') },
             { find: /^@npmegar\/muestrario$/, replacement: pkg('muestrario/src/index.ts') },
+            { find: /^@npmegar\/grana\/grana\.css$/, replacement: pkg('grana/grana.css') },
+            { find: /^@npmegar\/grana\/tonos\.css$/, replacement: pkg('grana/tonos.css') },
+            { find: /^@npmegar\/grana$/, replacement: pkg('grana/src/index.ts') },
         ],
     },
     test: {
@@ -34,6 +37,7 @@ export default defineConfig({
             { test: { name: 'glosa', include: ['packages/glosa/test/**/*.test.{ts,tsx}'] } },
             { test: { name: 'abanico', include: ['packages/abanico/test/**/*.test.{ts,tsx}'] } },
             { test: { name: 'muestrario', include: ['packages/muestrario/test/**/*.test.{ts,tsx}'] } },
+            { test: { name: 'grana', include: ['packages/grana/test/**/*.test.ts'] } },
         ],
     },
 });

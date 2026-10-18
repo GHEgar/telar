@@ -1,0 +1,73 @@
+@import './tonos.css';
+
+:root {
+    --grana-acento: oklch(0.68 0.18 32);
+    --grana-acento-suave: color-mix(in oklch, var(--grana-acento) 22%, transparent);
+    --grana-acento-fuerte: oklch(from var(--grana-acento) calc(l - 0.1) c h);
+    --grana-acento-tinta: #ffffff;
+
+    --grana-datos-1: oklch(0.86 0.06 50);
+    --grana-datos-2: oklch(0.78 0.11 42);
+    --grana-datos-3: oklch(0.7 0.16 34);
+    --grana-datos-4: oklch(0.6 0.2 28);
+
+    --grana-vidrio-desenfoque: 24px;
+    --grana-vidrio-saturacion: 1.5;
+    --grana-vidrio-filtro: blur(var(--grana-vidrio-desenfoque)) saturate(var(--grana-vidrio-saturacion));
+
+    --grana-font: 'Rotulo', system-ui, sans-serif;
+    --grana-font-mono: ui-monospace, 'SF Mono', 'Cascadia Mono', Menlo, Consolas, monospace;
+    --grana-texto-2xs: 10px;
+    --grana-texto-xs: 11px;
+    --grana-texto-s: 12px;
+    --grana-texto-m: 13px;
+    --grana-texto-l: 15px;
+    --grana-texto-xl: 18px;
+    --grana-texto-2xl: 22px;
+    --grana-texto-3xl: 28px;
+    --grana-peso-normal: 400;
+    --grana-peso-medio: 500;
+    --grana-peso-fuerte: 600;
+    --grana-interlineado-apretado: 1.2;
+    --grana-interlineado-normal: 1.45;
+
+    --grana-radio-chico: 4px;
+    --grana-radio-control: 8px;
+    --grana-radio-fila: 11px;
+    --grana-radio-vidrio: 16px;
+    --grana-radio-pildora: 999px;
+
+    --grana-espacio-1: 4px;
+    --grana-espacio-2: 8px;
+    --grana-espacio-3: 12px;
+    --grana-espacio-4: 16px;
+    --grana-espacio-5: 24px;
+    --grana-espacio-6: 32px;
+
+    --grana-sombra-vidrio: 0 10px 30px rgba(0, 0, 0, 0.3);
+    --grana-sombra-flotante: 0 6px 18px rgba(0, 0, 0, 0.3);
+    --grana-foco-ancho: 2px;
+    --grana-foco-separacion: 2px;
+
+    --grana-duracion-rapida: 150ms;
+    --grana-duracion-media: 250ms;
+    --grana-duracion-lenta: 350ms;
+    --grana-duracion-tono: 600ms;
+    --grana-curva: ease;
+    --grana-curva-salida: cubic-bezier(0.2, 0, 0, 1);
+
+    --grana-z-overlay: 5;
+    --grana-z-docked: 20;
+    --grana-z-floating: 30;
+    --grana-z-menu: 50;
+    --grana-z-modal: 60;
+}
+
+@media (prefers-reduced-motion: reduce) {
+    :root {
+        --grana-duracion-rapida: 0.01ms;
+        --grana-duracion-media: 0.01ms;
+        --grana-duracion-lenta: 0.01ms;
+        --grana-duracion-tono: 0.01ms;
+    }
+}

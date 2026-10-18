@@ -16,7 +16,8 @@
             "@npmegar/plomada": ["./packages/plomada/src/core/index.ts"],
             "@npmegar/glosa": ["./packages/glosa/src/index.ts"],
             "@npmegar/abanico": ["./packages/abanico/src/index.ts"],
-            "@npmegar/muestrario": ["./packages/muestrario/src/index.ts"]
+            "@npmegar/muestrario": ["./packages/muestrario/src/index.ts"],
+            "@npmegar/grana": ["./packages/grana/src/index.ts"]
         }
     },
     "include": [

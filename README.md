@@ -30,10 +30,12 @@ npm install @npmegar/almanaque
 | [`@npmegar/glosa`](packages/glosa) | Tooltip: hover and focus with delays, hoverable, Escape, aria-describedby | plomada |
 | [`@npmegar/abanico`](packages/abanico) | Menu button: keyboard opening, roving focus with typeahead, disabled items, Escape and outside click | lanzadera, plomada |
 | [`@npmegar/muestrario`](packages/muestrario) | Combobox: accent-insensitive filter, async loading, groups, multiple values with chips | lanzadera, plomada |
+| [`@npmegar/grana`](packages/grana) | Design tokens as CSS custom properties: coral accent, data ramp, time-of-day tones, glass, type and z bands | nothing |
 
-React 19 is a peer of every piece. almanaque, buzon, postigo, lanzadera and plomada export a
+React 19 is a peer of every component. almanaque, buzon, postigo, lanzadera and plomada export a
 framework-free core from the package root and the hooks from `/react`; solapa, glosa, abanico and
-muestrario are React only and export their hook from the root. Each package README has the full option
+muestrario are React only and export their hook from the root. grana is not a component: it ships CSS
+custom properties and a TypeScript module with the same values. Each package README has the full option
 table.
 
 ## Quick start
@@ -85,6 +87,7 @@ Each package README has a full example, the option table and the keyboard map.
 | [glosa](packages/glosa#readme) | `useTooltip` | Opens on hover after `delay` (600 ms) and at once on focus, stays open while hovered, the next tooltip opens without delay |
 | [abanico](packages/abanico#readme) | `useMenu` | WAI-ARIA menu button: arrows open on the first or last item, typeahead, disabled items, selection returns focus to the button |
 | [muestrario](packages/muestrario#readme) | `useCombobox` | Focus stays in the input (`aria-activedescendant`), accent- and case-insensitive filter, `load(query, signal)` with debounce and abort |
+| [grana](packages/grana#readme) | none: `grana.css` and `tonos.css` | `--grana-*` tokens; `dia`, `tarde` and `noche` tones on any `[data-grana-tono]` container with `tonoPorHora`; glass that turns opaque with reduced transparency; z bands named like biombo's |
 
 ## Known limitations
 

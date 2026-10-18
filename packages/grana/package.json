@@ -1,0 +1,38 @@
+{
+    "name": "@npmegar/grana",
+    "version": "0.1.0",
+    "description": "Design tokens as CSS custom properties: coral accent, data ramp, time-of-day tones, glass, type and z bands.",
+    "keywords": [
+        "design-tokens",
+        "css-custom-properties",
+        "theme",
+        "oklch",
+        "glassmorphism",
+        "dark-mode"
+    ],
+    "license": "AGPL-3.0-only",
+    "author": "Edgar Villarreal",
+    "type": "module",
+    "sideEffects": [
+        "*.css"
+    ],
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/GHEgar/telar.git",
+        "directory": "packages/grana"
+    },
+    "files": [
+        "dist",
+        "grana.css",
+        "tonos.css"
+    ],
+    "style": "./grana.css",
+    "exports": {
+        ".": {
+            "types": "./dist/index.d.ts",
+            "import": "./dist/index.js"
+        },
+        "./grana.css": "./grana.css",
+        "./tonos.css": "./tonos.css"
+    }
+}

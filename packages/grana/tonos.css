@@ -1,0 +1,94 @@
+:root {
+    color-scheme: light;
+    --grana-mapa-tierra: #e8edef;
+    --grana-mapa-manzanas: #dbe2e6;
+    --grana-mapa-calles: #ffffff;
+    --grana-mapa-avenidas: #ffd38a;
+    --grana-mapa-agua: #a9c9e6;
+    --grana-mapa-parques: #cde3cf;
+    --grana-mapa-brillo: transparent;
+    --grana-vidrio-fondo: rgba(250, 252, 255, 0.44);
+    --grana-vidrio-solido: rgba(250, 252, 255, 0.8);
+    --grana-vidrio-tinta: #10202c;
+    --grana-vidrio-tinta-tenue: #4c5d6d;
+    --grana-vidrio-linea: rgba(20, 40, 60, 0.14);
+    --grana-vidrio-borde: rgba(255, 255, 255, 0.6);
+}
+
+@media (prefers-color-scheme: dark) {
+    :root {
+        color-scheme: dark;
+        --grana-mapa-tierra: #141a2e;
+        --grana-mapa-manzanas: #1e2640;
+        --grana-mapa-calles: #2a3352;
+        --grana-mapa-avenidas: #ffcf7a;
+        --grana-mapa-agua: #0a1530;
+        --grana-mapa-parques: #17302a;
+        --grana-mapa-brillo: #ffb54d;
+        --grana-vidrio-fondo: rgba(18, 22, 34, 0.38);
+        --grana-vidrio-solido: rgba(18, 22, 34, 0.72);
+        --grana-vidrio-tinta: #f3eef2;
+        --grana-vidrio-tinta-tenue: #c3b6c8;
+        --grana-vidrio-linea: rgba(255, 255, 255, 0.14);
+        --grana-vidrio-borde: rgba(255, 255, 255, 0.18);
+    }
+}
+
+[data-grana-tono='dia'] {
+    color-scheme: light;
+    --grana-mapa-tierra: #e8edef;
+    --grana-mapa-manzanas: #dbe2e6;
+    --grana-mapa-calles: #ffffff;
+    --grana-mapa-avenidas: #ffd38a;
+    --grana-mapa-agua: #a9c9e6;
+    --grana-mapa-parques: #cde3cf;
+    --grana-mapa-brillo: transparent;
+    --grana-vidrio-fondo: rgba(250, 252, 255, 0.44);
+    --grana-vidrio-solido: rgba(250, 252, 255, 0.8);
+    --grana-vidrio-tinta: #10202c;
+    --grana-vidrio-tinta-tenue: #4c5d6d;
+    --grana-vidrio-linea: rgba(20, 40, 60, 0.14);
+    --grana-vidrio-borde: rgba(255, 255, 255, 0.6);
+}
+
+[data-grana-tono='tarde'] {
+    color-scheme: dark;
+    --grana-mapa-tierra: #2a2440;
+    --grana-mapa-manzanas: #352d4f;
+    --grana-mapa-calles: #463c63;
+    --grana-mapa-avenidas: #ffb36b;
+    --grana-mapa-agua: #1c2547;
+    --grana-mapa-parques: #2c3f45;
+    --grana-mapa-brillo: #ffcf8a;
+    --grana-vidrio-fondo: rgba(18, 22, 34, 0.38);
+    --grana-vidrio-solido: rgba(18, 22, 34, 0.72);
+    --grana-vidrio-tinta: #f3eef2;
+    --grana-vidrio-tinta-tenue: #c3b6c8;
+    --grana-vidrio-linea: rgba(255, 255, 255, 0.14);
+    --grana-vidrio-borde: rgba(255, 255, 255, 0.18);
+}
+
+[data-grana-tono='noche'] {
+    color-scheme: dark;
+    --grana-mapa-tierra: #141a2e;
+    --grana-mapa-manzanas: #1e2640;
+    --grana-mapa-calles: #2a3352;
+    --grana-mapa-avenidas: #ffcf7a;
+    --grana-mapa-agua: #0a1530;
+    --grana-mapa-parques: #17302a;
+    --grana-mapa-brillo: #ffb54d;
+    --grana-vidrio-fondo: rgba(18, 22, 34, 0.38);
+    --grana-vidrio-solido: rgba(18, 22, 34, 0.72);
+    --grana-vidrio-tinta: #f3eef2;
+    --grana-vidrio-tinta-tenue: #c3b6c8;
+    --grana-vidrio-linea: rgba(255, 255, 255, 0.14);
+    --grana-vidrio-borde: rgba(255, 255, 255, 0.18);
+}
+
+@media (prefers-reduced-transparency: reduce) {
+    :root,
+    [data-grana-tono] {
+        --grana-vidrio-fondo: var(--grana-vidrio-solido);
+        --grana-vidrio-filtro: none;
+    }
+}
