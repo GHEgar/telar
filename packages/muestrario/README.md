@@ -1,18 +1,18 @@
-# @ghegar/muestrario
+# @npmegar/muestrario
 
 Headless combobox for React, following the WAI-ARIA editable combobox with list autocomplete. Type to
 filter (accents and case ignored), move with the arrows while focus stays in the input
 (`aria-activedescendant`), pick with Enter or a click. It also loads options remotely with debounce and
 cancellation, groups them, takes several values as chips and announces counts in a live region. The list
-is positioned by `@ghegar/plomada`, as wide as the field. No styles; English messages by default.
+is positioned by `@npmegar/plomada`, as wide as the field. No styles; English messages by default.
 
 ```bash
-npm install @ghegar/muestrario
+npm install @npmegar/muestrario
 ```
 
 ```tsx
 import { createPortal } from 'react-dom';
-import { highlight, useCombobox } from '@ghegar/muestrario';
+import { highlight, useCombobox } from '@npmegar/muestrario';
 
 function StatePicker({ states }: { states: string[] }) {
     const combo = useCombobox({ items: states, getLabel: (state) => state });

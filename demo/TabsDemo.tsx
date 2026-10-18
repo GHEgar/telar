@@ -1,5 +1,5 @@
-import { useRovingFocus } from '@ghegar/lanzadera/react';
-import { useTabs } from '@ghegar/solapa';
+import { useRovingFocus } from '@npmegar/lanzadera/react';
+import { useTabs } from '@npmegar/solapa';
 
 const SECTIONS = ['Summary', 'Map', 'Open data', 'History'];
 const STATES = ['Aguascalientes', 'Baja California', 'Campeche', 'Chiapas', 'Colima', 'Jalisco', 'Michoacán', 'Nayarit', 'Zacatecas'];

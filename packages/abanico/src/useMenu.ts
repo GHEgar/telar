@@ -1,6 +1,6 @@
 import { useCallback, useEffect, useId, useLayoutEffect, useRef, useState, type KeyboardEvent } from 'react';
-import { useRovingFocus } from '@ghegar/lanzadera/react';
-import { usePosition, type Placement, type Position } from '@ghegar/plomada/react';
+import { useRovingFocus } from '@npmegar/lanzadera/react';
+import { usePosition, type Placement, type Position } from '@npmegar/plomada/react';
 import { ROLES, type ItemOptions, type MenuLink, type MenuParent } from './link.js';
 import type { GroupProps, MenuButtonProps, MenuItemProps, MenuProps, SeparatorProps, SubmenuTriggerProps } from './props.js';
 

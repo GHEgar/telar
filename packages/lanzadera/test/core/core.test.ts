@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { createTypeahead, moveIndex } from '@ghegar/lanzadera';
+import { createTypeahead, moveIndex } from '@npmegar/lanzadera';
 
 describe('moveIndex', () => {
     it('moves along the orientation and loops', () => {

@@ -1,4 +1,4 @@
-import { useCalendar, type CalendarOptions } from '@ghegar/almanaque/react';
+import { useCalendar, type CalendarOptions } from '@npmegar/almanaque/react';
 import { ChevronLeft, ChevronRight } from 'tesela/react';
 
 export const Calendar = (options: CalendarOptions) => {

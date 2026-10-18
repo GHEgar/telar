@@ -1,5 +1,5 @@
 import { afterEach, describe, expect, it, vi } from 'vitest';
-import { createDropzone } from '@ghegar/buzon';
+import { createDropzone } from '@npmegar/buzon';
 import { makeFile } from './helpers.js';
 
 afterEach(() => vi.restoreAllMocks());

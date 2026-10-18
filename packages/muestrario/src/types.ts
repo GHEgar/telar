@@ -1,5 +1,5 @@
 import type { CSSProperties } from 'react';
-import type { Placement, Position } from '@ghegar/plomada/react';
+import type { Placement, Position } from '@npmegar/plomada/react';
 import type { Group } from './filter.js';
 import type { ComboboxLabels } from './labels.js';
 import type {

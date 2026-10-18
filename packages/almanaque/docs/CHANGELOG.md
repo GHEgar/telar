@@ -9,6 +9,7 @@ Formato basado en [Keep a Changelog](https://keepachangelog.com/es-ES/1.1.0/) y 
 
 - Etiquetas y locale por defecto en inglés (`en-US`); quien dependa de los textos en español debe
   pasarlos con `labels` y `locale`.
+- Se publica como `@npmegar/almanaque` en lugar de `@ghegar/almanaque`.
 
 ## [0.3.0] - 2026-10-13
 

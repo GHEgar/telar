@@ -1,7 +1,7 @@
 import { cleanup, fireEvent, render, screen } from '@testing-library/react';
 import { useState } from 'react';
 import { afterEach, describe, expect, it, vi } from 'vitest';
-import { useMenu } from '@ghegar/abanico';
+import { useMenu } from '@npmegar/abanico';
 
 const ROOT = ['Nuevo', 'Exportar', 'Cuadrícula', 'Cerrar'];
 const EXPORT = ['PNG', 'PDF', 'CSV'];

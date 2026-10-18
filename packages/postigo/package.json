@@ -1,5 +1,5 @@
 {
-    "name": "@ghegar/postigo",
+    "name": "@npmegar/postigo",
     "version": "0.2.0",
     "description": "Headless modal dialog for React: layer stack, focus trap and return, Escape and outside click for the top layer only, counted scroll lock.",
     "license": "AGPL-3.0-only",

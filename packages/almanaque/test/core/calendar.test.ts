@@ -1,5 +1,5 @@
 import { describe, expect, it, vi } from 'vitest';
-import { createCalendar, type CalendarSnapshot, type DayCell } from '@ghegar/almanaque';
+import { createCalendar, type CalendarSnapshot, type DayCell } from '@npmegar/almanaque';
 
 const day = (snapshot: CalendarSnapshot, iso: string): DayCell => {
     const found = snapshot.grids.flatMap((grid) => grid.weeks.flat()).find((cell) => cell.iso === iso && !cell.outside);

@@ -1,5 +1,5 @@
 {
-    "name": "@ghegar/almanaque",
+    "name": "@npmegar/almanaque",
     "version": "0.3.0",
     "description": "Headless calendar for React in es-MX: Monday-first weeks, timezone-free ISO dates, day/month/year views, limits and ranges.",
     "license": "AGPL-3.0-only",

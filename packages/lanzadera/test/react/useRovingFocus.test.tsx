@@ -1,6 +1,6 @@
 import { cleanup, fireEvent, render, screen } from '@testing-library/react';
 import { afterEach, describe, expect, it, vi } from 'vitest';
-import { useRovingFocus, type UseRovingFocusOptions } from '@ghegar/lanzadera/react';
+import { useRovingFocus, type UseRovingFocusOptions } from '@npmegar/lanzadera/react';
 
 const NAMES = ['Uno', 'Dos', 'Tres', 'Cuatro'];
 

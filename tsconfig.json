@@ -3,20 +3,20 @@
     "compilerOptions": {
         "noEmit": true,
         "paths": {
-            "@ghegar/almanaque/react": ["./packages/almanaque/src/react/index.ts"],
-            "@ghegar/almanaque": ["./packages/almanaque/src/core/index.ts"],
-            "@ghegar/buzon/react": ["./packages/buzon/src/react/index.ts"],
-            "@ghegar/buzon": ["./packages/buzon/src/core/index.ts"],
-            "@ghegar/postigo/react": ["./packages/postigo/src/react/index.ts"],
-            "@ghegar/postigo": ["./packages/postigo/src/core/index.ts"],
-            "@ghegar/lanzadera/react": ["./packages/lanzadera/src/react/index.ts"],
-            "@ghegar/lanzadera": ["./packages/lanzadera/src/core/index.ts"],
-            "@ghegar/solapa": ["./packages/solapa/src/index.ts"],
-            "@ghegar/plomada/react": ["./packages/plomada/src/react/index.ts"],
-            "@ghegar/plomada": ["./packages/plomada/src/core/index.ts"],
-            "@ghegar/glosa": ["./packages/glosa/src/index.ts"],
-            "@ghegar/abanico": ["./packages/abanico/src/index.ts"],
-            "@ghegar/muestrario": ["./packages/muestrario/src/index.ts"]
+            "@npmegar/almanaque/react": ["./packages/almanaque/src/react/index.ts"],
+            "@npmegar/almanaque": ["./packages/almanaque/src/core/index.ts"],
+            "@npmegar/buzon/react": ["./packages/buzon/src/react/index.ts"],
+            "@npmegar/buzon": ["./packages/buzon/src/core/index.ts"],
+            "@npmegar/postigo/react": ["./packages/postigo/src/react/index.ts"],
+            "@npmegar/postigo": ["./packages/postigo/src/core/index.ts"],
+            "@npmegar/lanzadera/react": ["./packages/lanzadera/src/react/index.ts"],
+            "@npmegar/lanzadera": ["./packages/lanzadera/src/core/index.ts"],
+            "@npmegar/solapa": ["./packages/solapa/src/index.ts"],
+            "@npmegar/plomada/react": ["./packages/plomada/src/react/index.ts"],
+            "@npmegar/plomada": ["./packages/plomada/src/core/index.ts"],
+            "@npmegar/glosa": ["./packages/glosa/src/index.ts"],
+            "@npmegar/abanico": ["./packages/abanico/src/index.ts"],
+            "@npmegar/muestrario": ["./packages/muestrario/src/index.ts"]
         }
     },
     "include": [

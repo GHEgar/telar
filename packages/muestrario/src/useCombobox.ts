@@ -1,6 +1,6 @@
 import { useEffect, useId, useState, type KeyboardEvent, type MouseEvent } from 'react';
-import { moveIndex } from '@ghegar/lanzadera';
-import { usePosition } from '@ghegar/plomada/react';
+import { moveIndex } from '@npmegar/lanzadera';
+import { usePosition } from '@npmegar/plomada/react';
 import { filterItems, groupItems, normalize } from './filter.js';
 import { DEFAULT_LABELS } from './labels.js';
 import type { UseCombobox, UseComboboxOptions } from './types.js';

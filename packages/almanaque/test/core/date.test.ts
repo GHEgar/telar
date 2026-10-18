@@ -2,7 +2,7 @@ import { describe, expect, it } from 'vitest';
 import {
     addDays, addMonths, diffDays, endOfWeek, fromDays, isIso, normalizeIso, parseIso, shiftMonth, startOfWeek,
     toDays, weekdayOf,
-} from '@ghegar/almanaque';
+} from '@npmegar/almanaque';
 
 describe('date', () => {
     it('round-trips days since epoch', () => {

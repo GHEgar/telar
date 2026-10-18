@@ -9,6 +9,8 @@ Formato basado en [Keep a Changelog](https://keepachangelog.com/es-ES/1.1.0/) y 
 
 - Etiquetas y locale por defecto en inglés (`en-US`); quien dependa de los textos en español debe
   pasarlos con `labels`.
+- Se publica como `@npmegar/muestrario` en lugar de `@ghegar/muestrario`.
+- Depende de `@npmegar/lanzadera` y `@npmegar/plomada`.
 
 ## [0.1.0] - 2026-10-13
 

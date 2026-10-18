@@ -1,6 +1,6 @@
 import { cleanup, fireEvent, render, screen } from '@testing-library/react';
 import { afterEach, describe, expect, it, vi } from 'vitest';
-import { useTabs, type UseTabsOptions } from '@ghegar/solapa';
+import { useTabs, type UseTabsOptions } from '@npmegar/solapa';
 
 const VALUES = ['general', 'mapa', 'datos abiertos', 'historial'];
 

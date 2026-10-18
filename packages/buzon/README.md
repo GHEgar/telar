@@ -1,4 +1,4 @@
-# @ghegar/buzon
+# @npmegar/buzon
 
 Headless file dropzone for React. It validates what is dropped, not just what the file dialog lets
 through: type (`accept` syntax), size, count, duplicates and your own rule, and it reports every
@@ -7,12 +7,12 @@ state does not flicker over child elements, and image previews are created on de
 you. It ships no styles: only state, ARIA and `data-*` attributes.
 
 ```bash
-npm install @ghegar/buzon
+npm install @npmegar/buzon
 ```
 
 ```tsx
-import { describeAccept } from '@ghegar/buzon';
-import { useDropzone } from '@ghegar/buzon/react';
+import { describeAccept } from '@npmegar/buzon';
+import { useDropzone } from '@npmegar/buzon/react';
 
 const ACCEPT = 'image/png,image/jpeg,.pdf';
 
@@ -62,7 +62,7 @@ Rejection codes, in check order: `type`, `size`, `duplicate`, `custom`, `count`.
 ## Without React
 
 `createDropzone(options)`, `validateFiles`, `parseAccept`, `matchesAccept`, `judgeDrag` and
-`describeAccept` are exported from `@ghegar/buzon`. `describeAccept(accept, locale = 'en-US', kinds = DEFAULT_KINDS)`
+`describeAccept` are exported from `@npmegar/buzon`. `describeAccept(accept, locale = 'en-US', kinds = DEFAULT_KINDS)`
 lists the formats with `Intl.ListFormat` (`'PNG, JPG, or PDF'`); `DEFAULT_KINDS` names `image/*`, `video/*`,
 `audio/*` and `text/*` as images, videos, audio and text.
 

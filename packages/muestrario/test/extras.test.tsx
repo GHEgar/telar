@@ -1,6 +1,6 @@
 import { cleanup, fireEvent, render, screen } from '@testing-library/react';
 import { afterEach, describe, expect, it, vi } from 'vitest';
-import { useCombobox, virtualRange, type UseComboboxOptions } from '@ghegar/muestrario';
+import { useCombobox, virtualRange, type UseComboboxOptions } from '@npmegar/muestrario';
 
 const TAGS = ['agua', 'bosque', 'clima'];
 

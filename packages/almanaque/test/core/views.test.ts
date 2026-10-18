@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { createCalendar } from '@ghegar/almanaque';
+import { createCalendar } from '@npmegar/almanaque';
 
 describe('keyboard in months and years', () => {
     it('moves through months and picks one', () => {

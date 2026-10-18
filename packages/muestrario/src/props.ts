@@ -1,5 +1,5 @@
 import type { ChangeEvent, FocusEvent, KeyboardEvent, MouseEvent, RefCallback, UIEvent } from 'react';
-import type { FloatingProps } from '@ghegar/plomada/react';
+import type { FloatingProps } from '@npmegar/plomada/react';
 
 export interface AnchorProps {
     ref: RefCallback<Element>;

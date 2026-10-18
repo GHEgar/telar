@@ -1,7 +1,7 @@
 import { act, cleanup, fireEvent, render, screen } from '@testing-library/react';
 import { createPortal } from 'react-dom';
 import { afterEach, describe, expect, it, vi } from 'vitest';
-import { useDialog, type UseDialogOptions } from '@ghegar/postigo/react';
+import { useDialog, type UseDialogOptions } from '@npmegar/postigo/react';
 
 const Dialog = (options: UseDialogOptions) => {
     const dialog = useDialog(options);

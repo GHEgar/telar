@@ -2,7 +2,7 @@ import { act, cleanup, fireEvent, render, screen } from '@testing-library/react'
 import { useRef, useState, type ReactNode } from 'react';
 import { createPortal } from 'react-dom';
 import { afterEach, describe, expect, it, vi } from 'vitest';
-import { useDialog, type UseDialogOptions } from '@ghegar/postigo/react';
+import { useDialog, type UseDialogOptions } from '@npmegar/postigo/react';
 
 const Dialog = ({ name, children, ...options }: UseDialogOptions & { name: string; children?: ReactNode }) => {
     const dialog = useDialog(options);

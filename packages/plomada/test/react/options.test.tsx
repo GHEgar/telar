@@ -1,6 +1,6 @@
 import { cleanup, render, screen } from '@testing-library/react';
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
-import { usePosition, type UsePositionOptions } from '@ghegar/plomada/react';
+import { usePosition, type UsePositionOptions } from '@npmegar/plomada/react';
 
 const rect = (left: number, top: number, width: number, height: number) => ({
     left, top, width, height, right: left + width, bottom: top + height, x: left, y: top, toJSON: () => ({}),

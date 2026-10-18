@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { createPortal } from 'react-dom';
-import { useMenu } from '@ghegar/abanico';
-import { useTooltip } from '@ghegar/glosa';
+import { useMenu } from '@npmegar/abanico';
+import { useTooltip } from '@npmegar/glosa';
 import { Check, ChevronDown, ChevronRight } from 'tesela/react';
 
 const ACTIONS = ['Edit', 'Duplicate', 'Share', 'Export', 'Archive', 'Delete'];

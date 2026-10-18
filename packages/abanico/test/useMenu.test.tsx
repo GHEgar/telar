@@ -1,6 +1,6 @@
 import { cleanup, fireEvent, render, screen } from '@testing-library/react';
 import { afterEach, describe, expect, it, vi } from 'vitest';
-import { useMenu, type UseMenuOptions } from '@ghegar/abanico';
+import { useMenu, type UseMenuOptions } from '@npmegar/abanico';
 
 const ITEMS = ['Editar', 'Duplicar', 'Archivar', 'Eliminar'];
 

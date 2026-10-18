@@ -1,5 +1,5 @@
 import { useCallback, useId, useState, type FocusEvent, type KeyboardEvent, type RefCallback } from 'react';
-import { useRovingFocus } from '@ghegar/lanzadera/react';
+import { useRovingFocus } from '@npmegar/lanzadera/react';
 
 export type Activation = 'automatic' | 'manual';
 

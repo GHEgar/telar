@@ -1,6 +1,6 @@
 import { act, cleanup, fireEvent, render, screen } from '@testing-library/react';
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
-import { useCombobox, type Loader } from '@ghegar/muestrario';
+import { useCombobox, type Loader } from '@npmegar/muestrario';
 
 const Search = ({ load }: { load: Loader<string> }) => {
     const combo = useCombobox<string>({ load, getLabel: (item) => item, minChars: 2, debounce: 200 });

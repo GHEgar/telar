@@ -1,5 +1,5 @@
 import { useCallback, useEffect, useId, useLayoutEffect, useRef, useState, type CSSProperties, type FocusEvent, type PointerEvent } from 'react';
-import { usePosition, type FloatingProps, type Position, type ReferenceProps, type UsePositionOptions } from '@ghegar/plomada/react';
+import { usePosition, type FloatingProps, type Position, type ReferenceProps, type UsePositionOptions } from '@npmegar/plomada/react';
 
 const WARM_UP = 300;
 let lastClosed = Number.NEGATIVE_INFINITY;

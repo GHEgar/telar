@@ -9,6 +9,7 @@ Formato basado en [Keep a Changelog](https://keepachangelog.com/es-ES/1.1.0/) y 
 
 - Etiquetas y locale por defecto en inglés (`en-US`); quien dependa de los textos en español debe
   pasarlos con `labels` y, en `describeAccept`, `locale` y `kinds`.
+- Se publica como `@npmegar/buzon` en lugar de `@ghegar/buzon`.
 
 ## [0.2.0] - 2026-10-13
 

@@ -1,17 +1,17 @@
-# @ghegar/glosa
+# @npmegar/glosa
 
-Headless tooltip for React, positioned by `@ghegar/plomada`. It opens on hover after a delay and at
+Headless tooltip for React, positioned by `@npmegar/plomada`. It opens on hover after a delay and at
 once on keyboard focus, stays open while the pointer moves onto it, closes on leave, blur, click and
 Escape, and wires `role="tooltip"` and `aria-describedby`. Right after one tooltip closes, the next
 opens without delay. Touch pointers are ignored. No styles.
 
 ```bash
-npm install @ghegar/glosa
+npm install @npmegar/glosa
 ```
 
 ```tsx
 import { createPortal } from 'react-dom';
-import { useTooltip } from '@ghegar/glosa';
+import { useTooltip } from '@npmegar/glosa';
 
 function SaveButton() {
     const tooltip = useTooltip({ delay: 500 });
@@ -41,7 +41,7 @@ function SaveButton() {
 | `placement`, `offset`, `padding`, `flip`, `shift` | `'top'` | Passed to plomada |
 
 Escape is caught on `document` in the capture phase and prevented, so a tooltip inside a
-`@ghegar/postigo` dialog closes first and the dialog stays open.
+`@npmegar/postigo` dialog closes first and the dialog stays open.
 
 ## Disabled controls
 

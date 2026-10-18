@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { filterItems, groupItems, highlight, matches, normalize } from '@ghegar/muestrario';
+import { filterItems, groupItems, highlight, matches, normalize } from '@npmegar/muestrario';
 
 describe('filter helpers', () => {
     it('ignores accents, case and surrounding space', () => {

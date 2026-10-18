@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { validateFiles } from '@ghegar/buzon';
+import { validateFiles } from '@npmegar/buzon';
 import { makeFile } from './helpers.js';
 
 describe('validateFiles', () => {

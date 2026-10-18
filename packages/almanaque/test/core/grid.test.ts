@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { buildLabels, buildMonthGrid } from '@ghegar/almanaque';
+import { buildLabels, buildMonthGrid } from '@npmegar/almanaque';
 
 describe('grid', () => {
     it('builds Monday-first full weeks with outside days', () => {

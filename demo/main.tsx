@@ -39,7 +39,7 @@ const App = () => {
             <nav className="nav">
                 <strong>telar</strong>
                 {(Object.keys(PAGES) as Page[]).map((name) => (
-                    <a key={name} href={`#${name}`} aria-current={name === page ? 'page' : undefined}>@ghegar/{name}</a>
+                    <a key={name} href={`#${name}`} aria-current={name === page ? 'page' : undefined}>@npmegar/{name}</a>
                 ))}
             </nav>
             <main className="main">

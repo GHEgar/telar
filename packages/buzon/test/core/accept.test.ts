@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { describeAccept, judgeDrag, matchesAccept, parseAccept } from '@ghegar/buzon';
+import { describeAccept, judgeDrag, matchesAccept, parseAccept } from '@npmegar/buzon';
 
 describe('accept', () => {
     it('parses the input syntax', () => {

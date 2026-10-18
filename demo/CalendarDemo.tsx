@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { addDays, todayIso, weekdayOf, type DateRange, type IsoDate } from '@ghegar/almanaque';
+import { addDays, todayIso, weekdayOf, type DateRange, type IsoDate } from '@npmegar/almanaque';
 import { Calendar } from './Calendar.js';
 
 const today = todayIso();

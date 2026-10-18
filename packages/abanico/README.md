@@ -1,17 +1,17 @@
-# @ghegar/abanico
+# @npmegar/abanico
 
 Headless menu button for React, following the WAI-ARIA menu button pattern. Keyboard opening on the
-first or last item, roving focus with typeahead (`@ghegar/lanzadera`), disabled items, selection that
+first or last item, roving focus with typeahead (`@npmegar/lanzadera`), disabled items, selection that
 returns focus to the button, Escape, Tab and outside click to close, and positioning by
-`@ghegar/plomada`. No styles.
+`@npmegar/plomada`. No styles.
 
 ```bash
-npm install @ghegar/abanico
+npm install @npmegar/abanico
 ```
 
 ```tsx
 import { createPortal } from 'react-dom';
-import { useMenu } from '@ghegar/abanico';
+import { useMenu } from '@npmegar/abanico';
 
 const ACTIONS = ['Edit', 'Duplicate', 'Delete'];
 

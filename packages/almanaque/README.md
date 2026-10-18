@@ -1,4 +1,4 @@
-# @ghegar/almanaque
+# @npmegar/almanaque
 
 Headless calendar for React, English (en-US) by default. Weeks run Monday to Sunday and every date is a
 plain `YYYY-MM-DD` string: no `Date` objects, no time zones, no off-by-one surprises. Day, month and
@@ -7,11 +7,11 @@ preview), several months side by side and full keyboard support. It ships no sty
 and `data-*` attributes.
 
 ```bash
-npm install @ghegar/almanaque
+npm install @npmegar/almanaque
 ```
 
 ```tsx
-import { useCalendar } from '@ghegar/almanaque/react';
+import { useCalendar } from '@npmegar/almanaque/react';
 
 function DatePicker({ value, onChange }: { value: string | null; onChange: (iso: string | null) => void }) {
     const calendar = useCalendar({ value, onSelect: onChange, min: '2026-01-01' });
@@ -71,7 +71,7 @@ Disabled days inside a range keep `inRange` and `preview`: they are part of the 
 Only the dates a WMS layer has, from a [zootropo](https://github.com/GHEgar/zootropo) player:
 
 ```tsx
-import { useCalendar } from '@ghegar/almanaque/react';
+import { useCalendar } from '@npmegar/almanaque/react';
 import { useTimePlayer, type TimePlayer } from 'zootropo/react';
 
 function LayerCalendar({ player }: { player: TimePlayer }) {
@@ -94,7 +94,7 @@ Days without data are disabled and cannot be selected; the selected day drives t
 
 `createCalendar(options)` returns the same store (`subscribe`, `getSnapshot`, `select`, `keyDown`, …), and
 the date helpers (`addDays`, `addMonths`, `diffDays`, `weekdayOf`, `buildMonthGrid`, …) are exported from
-`@ghegar/almanaque`.
+`@npmegar/almanaque`.
 
 ## License
 

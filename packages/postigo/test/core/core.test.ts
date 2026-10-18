@@ -1,5 +1,5 @@
 import { afterEach, describe, expect, it, vi } from 'vitest';
-import { getTabbables, inertOthers, layerCount, lockScroll, pushLayer, scrollLocks, trapFocus } from '@ghegar/postigo';
+import { getTabbables, inertOthers, layerCount, lockScroll, pushLayer, scrollLocks, trapFocus } from '@npmegar/postigo';
 
 afterEach(() => {
     document.body.innerHTML = '';

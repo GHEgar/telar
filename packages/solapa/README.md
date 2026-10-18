@@ -1,16 +1,16 @@
-# @ghegar/solapa
+# @npmegar/solapa
 
-Headless tabs for React, built on `@ghegar/lanzadera`. Tabs and panels are linked with ids and ARIA,
+Headless tabs for React, built on `@npmegar/lanzadera`. Tabs and panels are linked with ids and ARIA,
 the tab list has a single tab stop, arrows follow the orientation, disabled tabs are skipped and
 activation is automatic (select on focus) or manual (Enter or Space). Inactive panels get `hidden`; it
 ships no styles.
 
 ```bash
-npm install @ghegar/solapa
+npm install @npmegar/solapa
 ```
 
 ```tsx
-import { useTabs } from '@ghegar/solapa';
+import { useTabs } from '@npmegar/solapa';
 
 const SECTIONS = ['summary', 'map', 'history'];
 

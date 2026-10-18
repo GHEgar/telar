@@ -1,5 +1,5 @@
 import type { KeyboardEvent, RefCallback } from 'react';
-import type { FloatingProps } from '@ghegar/plomada/react';
+import type { FloatingProps } from '@npmegar/plomada/react';
 
 export interface MenuButtonProps {
     ref: RefCallback<Element>;

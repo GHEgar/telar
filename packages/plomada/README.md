@@ -1,4 +1,4 @@
-# @ghegar/plomada
+# @npmegar/plomada
 
 Headless positioning for floating elements in React: tooltips, menus, listboxes and popovers. Pick a
 side and an alignment; plomada flips to the other side when there is not enough room, shifts the
@@ -7,13 +7,13 @@ and follows the reference on scroll and resize. The only styles it returns are f
 `position: fixed`, `left`, `top` and, with `sameWidth`, `width`.
 
 ```bash
-npm install @ghegar/plomada
+npm install @npmegar/plomada
 ```
 
 ```tsx
 import { useState } from 'react';
 import { createPortal } from 'react-dom';
-import { usePosition } from '@ghegar/plomada/react';
+import { usePosition } from '@npmegar/plomada/react';
 
 function Popover() {
     const [open, setOpen] = useState(false);
@@ -52,7 +52,7 @@ Style by side with `[data-side="top|right|bottom|left"]`; cap a list with
 ## Without React
 
 `computePosition(reference, floating, viewport, options)` is pure; `autoUpdate`, `rectOf`, `sizeOf` and
-`viewportRect` wire it to the DOM. All exported from `@ghegar/plomada`.
+`viewportRect` wire it to the DOM. All exported from `@npmegar/plomada`.
 
 ## License
 

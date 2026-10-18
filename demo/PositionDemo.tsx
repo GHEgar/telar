@@ -1,6 +1,6 @@
 import { useState, type CSSProperties } from 'react';
 import { createPortal } from 'react-dom';
-import { usePosition, type Placement } from '@ghegar/plomada/react';
+import { usePosition, type Placement } from '@npmegar/plomada/react';
 
 const PLACEMENTS: Placement[] = ['top', 'right', 'bottom-start', 'bottom', 'bottom-end', 'left'];
 

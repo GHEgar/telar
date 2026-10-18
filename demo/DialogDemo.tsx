@@ -1,6 +1,6 @@
 import { useState, type ReactNode } from 'react';
 import { createPortal } from 'react-dom';
-import { useDialog, type UseDialog } from '@ghegar/postigo/react';
+import { useDialog, type UseDialog } from '@npmegar/postigo/react';
 import { Calendar } from './Calendar.js';
 
 const Layer = ({ dialog, children }: { dialog: UseDialog; children: ReactNode }) => (dialog.mounted

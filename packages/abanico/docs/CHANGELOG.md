@@ -5,6 +5,11 @@ Formato basado en [Keep a Changelog](https://keepachangelog.com/es-ES/1.1.0/) y 
 
 ## [No publicado]
 
+### Cambiado
+
+- Se publica como `@npmegar/abanico` en lugar de `@ghegar/abanico`.
+- Depende de `@npmegar/lanzadera` y `@npmegar/plomada`.
+
 ## [0.1.0] - 2026-10-13
 
 ### Agregado

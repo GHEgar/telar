@@ -1,7 +1,7 @@
 import { cleanup, fireEvent, render, screen } from '@testing-library/react';
 import { useState } from 'react';
 import { afterEach, describe, expect, it, vi } from 'vitest';
-import { useDropzone, type UseDropzoneOptions } from '@ghegar/buzon/react';
+import { useDropzone, type UseDropzoneOptions } from '@npmegar/buzon/react';
 import { makeFile } from '../core/helpers.js';
 
 const Zone = (options: UseDropzoneOptions) => {

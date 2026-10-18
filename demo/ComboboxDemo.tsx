@@ -1,5 +1,5 @@
 import { createPortal } from 'react-dom';
-import { filterItems, highlight, useCombobox, type UseCombobox } from '@ghegar/muestrario';
+import { filterItems, highlight, useCombobox, type UseCombobox } from '@npmegar/muestrario';
 import { Close } from 'tesela/react';
 
 interface Place {

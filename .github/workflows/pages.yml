@@ -22,7 +22,6 @@ jobs:
             - uses: actions/setup-node@v4
               with:
                   node-version: 24
-            - run: npm pkg delete "devDependencies.@ghegar/eslint-config"
             - run: npm install --no-audit --no-fund
             - run: npm test
             - run: npm run demo:build

@@ -1,5 +1,5 @@
 {
-    "name": "@ghegar/muestrario",
+    "name": "@npmegar/muestrario",
     "version": "0.2.0",
     "description": "Headless combobox for React: accent-insensitive filtering, async loading with debounce and abort, groups, multiple selection with chips, aria-activedescendant and positioning by plomada.",
     "license": "AGPL-3.0-only",
@@ -21,8 +21,8 @@
         }
     },
     "dependencies": {
-        "@ghegar/lanzadera": "^0.1.0",
-        "@ghegar/plomada": "^0.2.0"
+        "@npmegar/lanzadera": "^0.1.0",
+        "@npmegar/plomada": "^0.2.0"
     },
     "peerDependencies": {
         "react": ">=19"

@@ -1,5 +1,5 @@
 {
-    "name": "@ghegar/lanzadera",
+    "name": "@npmegar/lanzadera",
     "version": "0.1.0",
     "description": "Headless roving focus for React: arrow keys by orientation or grid, Home/End, looping, disabled items and typeahead.",
     "license": "AGPL-3.0-only",

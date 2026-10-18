@@ -1,4 +1,4 @@
-# @ghegar/postigo
+# @npmegar/postigo
 
 Headless modal dialog for React. Dialogs stack: Escape and outside clicks reach only the top one, Tab
 stays inside it, focus goes back where it came from, and the page scroll is locked with a counter so
@@ -7,12 +7,12 @@ ARIA and `data-*` attributes. The only things it touches outside the dialog are 
 `padding-right` on `body` and the `inert` attribute on the rest of the page while a modal is open.
 
 ```bash
-npm install @ghegar/postigo
+npm install @npmegar/postigo
 ```
 
 ```tsx
 import { createPortal } from 'react-dom';
-import { useDialog } from '@ghegar/postigo/react';
+import { useDialog } from '@npmegar/postigo/react';
 
 function EditDialog() {
     const dialog = useDialog({ onOpenChange: (open, reason) => console.log(open, reason) });
@@ -63,7 +63,7 @@ and ends outside does not close it. Components inside the dialog keep Escape for
 ## Without React
 
 `pushLayer`, `trapFocus`, `getTabbables`, `focusFirst`, `lockScroll` and `inertOthers` are exported from
-`@ghegar/postigo`.
+`@npmegar/postigo`.
 
 ## License
 

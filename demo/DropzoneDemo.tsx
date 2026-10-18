@@ -1,6 +1,6 @@
 import { useState } from 'react';
-import { describeAccept, type FileRejection, type RejectionCode } from '@ghegar/buzon';
-import { useDropzone } from '@ghegar/buzon/react';
+import { describeAccept, type FileRejection, type RejectionCode } from '@npmegar/buzon';
+import { useDropzone } from '@npmegar/buzon/react';
 import { Close } from 'tesela/react';
 
 const MB = 1024 * 1024;

@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { computePosition, parsePlacement } from '@ghegar/plomada';
+import { computePosition, parsePlacement } from '@npmegar/plomada';
 
 const viewport = { left: 0, top: 0, width: 800, height: 600 };
 const button = { left: 100, top: 100, width: 80, height: 30 };

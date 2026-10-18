@@ -1,6 +1,6 @@
 import { act, cleanup, fireEvent, render, screen } from '@testing-library/react';
 import { afterEach, describe, expect, it } from 'vitest';
-import { useTooltip } from '@ghegar/glosa';
+import { useTooltip } from '@npmegar/glosa';
 
 const Wrapped = () => {
     const tooltip = useTooltip({ delay: 0 });

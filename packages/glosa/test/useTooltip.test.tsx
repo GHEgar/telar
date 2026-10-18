@@ -1,6 +1,6 @@
 import { act, cleanup, fireEvent, render, screen } from '@testing-library/react';
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
-import { useTooltip, type UseTooltipOptions } from '@ghegar/glosa';
+import { useTooltip, type UseTooltipOptions } from '@npmegar/glosa';
 
 const Tip = ({ label = 'save', ...options }: UseTooltipOptions & { label?: string }) => {
     const tooltip = useTooltip(options);

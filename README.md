@@ -11,25 +11,25 @@ Headless React components, one package each: calendar, dropzone, dialog, tabs, t
 Each piece owns the behavior — state, keyboard, focus, ARIA and events — and you own every pixel: they
 ship no styles and no portals, only state, prop getters and `data-*` attributes to style against. The
 only inline styles are functional ones (`position: fixed`, `left`, `top` from the positioning layer).
-Every piece is published on its own under `@ghegar/`, with its own version and changelog.
+Every piece is published on its own under `@npmegar/`, with its own version and changelog.
 
 ## Install
 
 ```bash
-npm install @ghegar/almanaque
+npm install @npmegar/almanaque
 ```
 
 | Package | What it is | Depends on |
 |---|---|---|
-| [`@ghegar/almanaque`](packages/almanaque) | Calendar with any `Intl` locale: Monday-first weeks, timezone-free ISO dates, day/month/year views, limits and ranges | `react >= 19` |
-| [`@ghegar/buzon`](packages/buzon) | File dropzone: type, size, count and duplicate validation, accumulation, rejections and previews | `react >= 19` |
-| [`@ghegar/postigo`](packages/postigo) | Modal dialog: layer stack, focus trap and return, Escape and outside click for the top layer, counted scroll lock | `react >= 19` |
-| [`@ghegar/lanzadera`](packages/lanzadera) | Roving focus: arrows by orientation or grid, Home/End, disabled items, typeahead | `react >= 19` |
-| [`@ghegar/solapa`](packages/solapa) | Tabs: linked panels, automatic or manual activation, vertical orientation | lanzadera |
-| [`@ghegar/plomada`](packages/plomada) | Floating positioning: side and alignment, flip, shift, available space, arrow, auto update | `react >= 19` |
-| [`@ghegar/glosa`](packages/glosa) | Tooltip: hover and focus with delays, hoverable, Escape, aria-describedby | plomada |
-| [`@ghegar/abanico`](packages/abanico) | Menu button: keyboard opening, roving focus with typeahead, disabled items, Escape and outside click | lanzadera, plomada |
-| [`@ghegar/muestrario`](packages/muestrario) | Combobox: accent-insensitive filter, async loading, groups, multiple values with chips | lanzadera, plomada |
+| [`@npmegar/almanaque`](packages/almanaque) | Calendar with any `Intl` locale: Monday-first weeks, timezone-free ISO dates, day/month/year views, limits and ranges | `react >= 19` |
+| [`@npmegar/buzon`](packages/buzon) | File dropzone: type, size, count and duplicate validation, accumulation, rejections and previews | `react >= 19` |
+| [`@npmegar/postigo`](packages/postigo) | Modal dialog: layer stack, focus trap and return, Escape and outside click for the top layer, counted scroll lock | `react >= 19` |
+| [`@npmegar/lanzadera`](packages/lanzadera) | Roving focus: arrows by orientation or grid, Home/End, disabled items, typeahead | `react >= 19` |
+| [`@npmegar/solapa`](packages/solapa) | Tabs: linked panels, automatic or manual activation, vertical orientation | lanzadera |
+| [`@npmegar/plomada`](packages/plomada) | Floating positioning: side and alignment, flip, shift, available space, arrow, auto update | `react >= 19` |
+| [`@npmegar/glosa`](packages/glosa) | Tooltip: hover and focus with delays, hoverable, Escape, aria-describedby | plomada |
+| [`@npmegar/abanico`](packages/abanico) | Menu button: keyboard opening, roving focus with typeahead, disabled items, Escape and outside click | lanzadera, plomada |
+| [`@npmegar/muestrario`](packages/muestrario) | Combobox: accent-insensitive filter, async loading, groups, multiple values with chips | lanzadera, plomada |
 
 React 19 is a peer of every piece. almanaque, buzon, postigo, lanzadera and plomada export a
 framework-free core from the package root and the hooks from `/react`; solapa, glosa, abanico and
@@ -40,8 +40,8 @@ table.
 
 ```tsx
 import { createPortal } from 'react-dom';
-import { useTooltip } from '@ghegar/glosa';
-import { useTabs } from '@ghegar/solapa';
+import { useTooltip } from '@npmegar/glosa';
+import { useTabs } from '@npmegar/solapa';
 
 const VIEWS = ['Map', 'Table'];
 

@@ -1,15 +1,15 @@
-# @ghegar/lanzadera
+# @npmegar/lanzadera
 
 Headless roving focus for React: one tab stop for a group, arrow keys that follow its orientation (or
 both axes in a grid), Home/End, looping, right-to-left, disabled items and typeahead that ignores
-accents. It is the keyboard layer under `@ghegar/solapa` and the other telar pieces.
+accents. It is the keyboard layer under `@npmegar/solapa` and the other telar pieces.
 
 ```bash
-npm install @ghegar/lanzadera
+npm install @npmegar/lanzadera
 ```
 
 ```tsx
-import { useRovingFocus } from '@ghegar/lanzadera/react';
+import { useRovingFocus } from '@npmegar/lanzadera/react';
 
 function Toolbar({ items }: { items: string[] }) {
     const roving = useRovingFocus({ count: items.length, orientation: 'horizontal', getLabel: (i) => items[i] ?? '' });
@@ -60,7 +60,7 @@ function ViewSwitch({ value, onChange }: { value: number; onChange: (index: numb
 
 ## Without React
 
-`moveIndex(current, key, options)` and `createTypeahead()` are exported from `@ghegar/lanzadera`.
+`moveIndex(current, key, options)` and `createTypeahead()` are exported from `@npmegar/lanzadera`.
 
 ## License
 

@@ -1,5 +1,5 @@
 {
-    "name": "@ghegar/glosa",
+    "name": "@npmegar/glosa",
     "version": "0.1.1",
     "description": "Headless tooltip for React: hover and focus with delays and warm-up, hoverable content, Escape, aria-describedby and positioning by plomada.",
     "license": "AGPL-3.0-only",
@@ -21,7 +21,7 @@
         }
     },
     "dependencies": {
-        "@ghegar/plomada": "^0.2.0"
+        "@npmegar/plomada": "^0.2.0"
     },
     "peerDependencies": {
         "react": ">=19"

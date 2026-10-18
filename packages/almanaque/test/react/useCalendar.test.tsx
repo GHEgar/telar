@@ -1,7 +1,7 @@
 import { act, cleanup, fireEvent, render, screen } from '@testing-library/react';
 import { useState } from 'react';
 import { afterEach, describe, expect, it, vi } from 'vitest';
-import { useCalendar, type CalendarOptions, type IsoDate } from '@ghegar/almanaque/react';
+import { useCalendar, type CalendarOptions, type IsoDate } from '@npmegar/almanaque/react';
 
 const Picker = (options: CalendarOptions) => {
     const calendar = useCalendar(options);

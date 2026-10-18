@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { createCalendar, weekdayOf, type CalendarSnapshot } from '@ghegar/almanaque';
+import { createCalendar, weekdayOf, type CalendarSnapshot } from '@npmegar/almanaque';
 
 const disabled = (snapshot: CalendarSnapshot, iso: string): boolean | undefined => snapshot.grids
     .flatMap((grid) => grid.weeks.flat())
