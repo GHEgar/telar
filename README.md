@@ -110,7 +110,7 @@ npm run e2e
 
 The demo is one Vite app with a page per piece (`#almanaque`, `#buzon`, `#postigo`, `#solapa`,
 `#plomada`, `#abanico`, `#muestrario`); lanzadera shows up under solapa and glosa under abanico. The e2e
-suite runs Playwright against it on port 5181 and connects over CDP to a Chrome on `127.0.0.1:9222` when
+suite runs Playwright against it on port 5195 and connects over CDP to a Chrome on `127.0.0.1:9222` when
 one is listening.
 
 ## Contributing
