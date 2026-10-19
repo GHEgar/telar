@@ -1,6 +1,6 @@
 {
     "name": "@npmegar/muestrario",
-    "version": "0.2.0",
+    "version": "0.3.0",
     "description": "Headless combobox for React: accent-insensitive filtering, async loading with debounce and abort, groups, multiple selection with chips, aria-activedescendant and positioning by plomada.",
     "license": "AGPL-3.0-only",
     "author": "Edgar Villarreal",

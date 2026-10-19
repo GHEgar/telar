@@ -20,6 +20,9 @@ export interface UseComboboxOptions<T> {
     value?: T | null;
     defaultValue?: T | null;
     onChange?: (value: T | null) => void;
+    onSelect?: (item: T) => void;
+    selectBehavior?: 'fill' | 'command';
+    closeOnSelect?: boolean;
     values?: readonly T[];
     defaultValues?: readonly T[];
     onValuesChange?: (values: T[]) => void;
@@ -29,6 +32,7 @@ export interface UseComboboxOptions<T> {
     minChars?: number;
     debounce?: number;
     openOnFocus?: boolean;
+    position?: boolean;
     placement?: Placement;
     offset?: number;
     labels?: Partial<ComboboxLabels>;
@@ -59,6 +63,7 @@ export interface UseCombobox<T> {
     virtualItems: VirtualOption<T>[] | null;
     position: Position | null;
     setOpen(open: boolean): void;
+    setInputValue(text: string): void;
     select(item: T): void;
     clear(): void;
     getAnchorProps(): AnchorProps;

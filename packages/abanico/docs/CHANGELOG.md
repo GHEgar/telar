@@ -5,6 +5,19 @@ Formato basado en [Keep a Changelog](https://keepachangelog.com/es-ES/1.1.0/) y 
 
 ## [No publicado]
 
+## [0.4.0] - 2026-10-19
+
+### Agregado
+
+- `useRadialMenu({ openOn: 'release' })`: con el ratón, el radial abre al soltar el botón derecho si no
+  hubo arrastre (más de 6 px), así que arrastrar con clic derecho sigue girando o inclinando el mapa.
+  Sirve con el `contextmenu` antes de soltar (Linux, macOS) y después (Windows); la tecla de menú, el
+  toque largo y un `contextmenu` sin `pointerdown` previo abren como antes.
+- `rightPress`, `RELEASE_TOLERANCE` y `RELEASE_WINDOW`: la lógica pura de ese gesto.
+- `escapeStack` y `escapePriority` (200 por omisión): mientras el radial está abierto registra una capa
+  en una pila de Escape estructural (`push(layer) → quitar`), como la de biombo, para que Escape lo
+  cierre y regrese el foco aunque esa pila escuche en captura antes que el menú.
+
 ## [0.3.0] - 2026-10-18
 
 ### Agregado

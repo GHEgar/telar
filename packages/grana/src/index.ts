@@ -18,3 +18,4 @@ export {
 } from './tokens.js';
 export { HORAS, tonoPorHora } from './tono.js';
 export { variablesDeTono, variablesGlobales } from './variables.js';
+export { acentoHex, acentoRgb, datosHex, datosRgb, leerOklch, oklchARgb, rgbAHex, type Oklch, type Rgb } from './rgb.js';

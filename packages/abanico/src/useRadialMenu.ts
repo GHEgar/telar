@@ -1,8 +1,10 @@
 import { useCallback, useEffect, useId, useLayoutEffect, useRef, useState, type KeyboardEvent } from 'react';
 import { useRovingFocus } from '@npmegar/lanzadera/react';
 import { ROLES, type ItemOptions } from './link.js';
+import { MENU_ESCAPE_PRIORITY, type EscapeStackLike } from './escape.js';
 import type { RadialItemProps, RadialMenuProps, RadialTargetProps } from './props.js';
 import { clampCenter, radialLayout, type Point, type RadialPosition } from './radial.js';
+import { rightPress, type RightPress } from './release.js';
 
 export interface UseRadialMenuOptions {
     count: number;
@@ -19,6 +21,9 @@ export interface UseRadialMenuOptions {
     sweep?: number;
     padding?: number;
     longPress?: number;
+    openOn?: 'contextmenu' | 'release';
+    escapeStack?: EscapeStackLike;
+    escapePriority?: number;
 }
 
 export interface UseRadialMenu {
@@ -37,7 +42,8 @@ export interface UseRadialMenu {
 const TOLERANCE = 8;
 
 export const useRadialMenu = (options: UseRadialMenuOptions): UseRadialMenu => {
-    const { count, isDisabled, getLabel, closeOnSelect = true, radius = 80, padding = 40 } = options;
+    const { count, isDisabled, getLabel, closeOnSelect = true, radius = 80, padding = 40, escapeStack } = options;
+    const escapePriority = options.escapePriority ?? MENU_ESCAPE_PRIORITY;
     const menuId = `${useId()}-menu`;
     const [inner, setInner] = useState(options.defaultOpen ?? false);
     const [point, setPoint] = useState<Point | null>(null);
@@ -106,8 +112,40 @@ export const useRadialMenu = (options: UseRadialMenuOptions): UseRadialMenu => {
         return () => document.removeEventListener('pointerdown', onPointerDown, true);
     }, [open, close]);
 
+    useEffect(() => {
+        if (!open || !escapeStack) return undefined;
+        return escapeStack.push({ id: `abanico:${menuId}`, priority: escapePriority, onEscape: () => close() });
+    }, [open, escapeStack, escapePriority, menuId, close]);
+
     const press = useRef<(() => void) | null>(null);
-    useEffect(() => () => press.current?.(), []);
+    const right = useRef<RightPress | null>(null);
+    const tracking = useRef<(() => void) | null>(null);
+    useEffect(() => () => {
+        press.current?.();
+        tracking.current?.();
+    }, []);
+
+    const trackRight = (): void => {
+        tracking.current?.();
+        const onMove = (event: PointerEvent): void => {
+            right.current = rightPress.move(right.current, event);
+        };
+        const onUp = (event: PointerEvent): void => {
+            if (event.button !== 2) return;
+            stop();
+            const step = rightPress.up(right.current, event);
+            right.current = step.press;
+            if (step.open) openAt(step.open);
+        };
+        const stop = (): void => {
+            document.removeEventListener('pointermove', onMove, true);
+            document.removeEventListener('pointerup', onUp, true);
+            tracking.current = null;
+        };
+        document.addEventListener('pointermove', onMove, true);
+        document.addEventListener('pointerup', onUp, true);
+        tracking.current = stop;
+    };
 
     const select = (index: number, kind: ItemOptions['type'] = 'item'): void => {
         if (isDisabled?.(index)) return;
@@ -150,6 +188,12 @@ export const useRadialMenu = (options: UseRadialMenuOptions): UseRadialMenu => {
                     skip.current = false;
                     return;
                 }
+                if (options.openOn === 'release') {
+                    const step = rightPress.contextMenu(right.current, event, performance.now());
+                    right.current = step.press;
+                    if (step.open) openAt(step.open);
+                    if (!step.fallback) return;
+                }
                 const keyboard = event.clientX === 0 && event.clientY === 0;
                 openAt(keyboard ? centerOf(event.currentTarget) : { x: event.clientX, y: event.clientY });
             },
@@ -164,6 +208,10 @@ export const useRadialMenu = (options: UseRadialMenuOptions): UseRadialMenu => {
             },
             onPointerDown: (event) => {
                 skip.current = false;
+                if (options.openOn === 'release' && event.pointerType === 'mouse' && event.button === 2) {
+                    right.current = rightPress.down(right.current, event, performance.now());
+                    trackRight();
+                }
                 if (event.pointerType !== 'touch' || event.button !== 0) return;
                 press.current?.();
                 const start = { x: event.clientX, y: event.clientY, id: event.pointerId };

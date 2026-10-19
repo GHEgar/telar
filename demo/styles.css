@@ -259,6 +259,7 @@ p.errors { padding-left: 0; }
 .option.create { color: var(--accent); font-style: italic; }
 
 .listbox.virtual { height: 240px; box-sizing: border-box; padding: 0; }
+.listbox.inline { margin-top: 4px; max-height: 200px; }
 
 .listbox.virtual .option { box-sizing: border-box; display: flex; align-items: center; border-radius: 0; }
 

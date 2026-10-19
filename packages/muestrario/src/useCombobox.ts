@@ -12,6 +12,9 @@ const keep = (event: MouseEvent): void => event.preventDefault();
 
 export const useCombobox = <T>(options: UseComboboxOptions<T>): UseCombobox<T> => {
     const { getLabel, isDisabled, multiple = false, minChars = 0, debounce = 200, groupBy } = options;
+    const command = options.selectBehavior === 'command';
+    const positioned = options.position !== false;
+    const closeOnSelect = options.closeOnSelect ?? !multiple;
     const getKey = options.getKey ?? getLabel;
     const labels = { ...DEFAULT_LABELS, ...options.labels };
     const base = useId();
@@ -58,7 +61,7 @@ export const useCombobox = <T>(options: UseComboboxOptions<T>): UseCombobox<T> =
     const isChosen = (item: T): boolean => (multiple ? values.some((other) => getKey(other) === getKey(item)) : !!value && getKey(value) === getKey(item));
     const optionId = (index: number): string => (index === createIndex ? createId : `${base}-option-${index}`);
 
-    const position = usePosition({ open, sameWidth: true, placement: options.placement ?? 'bottom-start', ...(options.offset === undefined ? {} : { offset: options.offset }) });
+    const position = usePosition({ open: open && positioned, sameWidth: true, placement: options.placement ?? 'bottom-start', ...(options.offset === undefined ? {} : { offset: options.offset }) });
     const virtual = useVirtual(options.virtual, items.length, activeIndex);
 
     useEffect(() => {
@@ -80,15 +83,26 @@ export const useCombobox = <T>(options: UseComboboxOptions<T>): UseCombobox<T> =
 
     const select = (item: T): void => {
         if (isDisabled?.(item)) return;
+        options.onSelect?.(item);
+        if (command) {
+            if (closeOnSelect) setOpen(false);
+            return;
+        }
         setFiltering(false);
         if (multiple) {
             setMany(isChosen(item) ? values.filter((other) => getKey(other) !== getKey(item)) : [...values, item]);
             setInput('');
-            return;
+        } else {
+            setSingle(item);
+            setInput(getLabel(item));
         }
-        setSingle(item);
-        setInput(getLabel(item));
-        setOpen(false);
+        if (closeOnSelect) setOpen(false);
+    };
+
+    const setInputValue = (next: string): void => {
+        setInput(next);
+        setFiltering(true);
+        if (open) setActive(FIRST);
     };
 
     const create = (): void => {
@@ -148,7 +162,7 @@ export const useCombobox = <T>(options: UseComboboxOptions<T>): UseCombobox<T> =
     })();
 
     const reference = position.getReferenceProps();
-    const floating = position.getFloatingProps();
+    const floating = positioned ? position.getFloatingProps() : { ref: () => undefined, style: {} };
     const optionProps = (index: number, chosen: boolean, disabled: boolean, onClick: () => void) => ({
         id: optionId(index),
         role: 'option' as const,
@@ -181,6 +195,7 @@ export const useCombobox = <T>(options: UseComboboxOptions<T>): UseCombobox<T> =
         }) : null,
         position: position.position,
         setOpen: (next) => setOpen(next),
+        setInputValue,
         select,
         clear,
         getAnchorProps: () => reference,

@@ -88,12 +88,12 @@ Each package README has a full example, the option table and the keyboard map.
 | [solapa](packages/solapa#readme) | `useTabs` | Panels linked by ids and ARIA; inactive panels get `hidden`; `activation: 'manual'` waits for Enter or Space |
 | [plomada](packages/plomada#readme) | `usePosition` from `/react` | Flips, shifts back into the viewport, reports available height and arrow offset, follows the reference on scroll and resize |
 | [glosa](packages/glosa#readme) | `useTooltip` | Opens on hover after `delay` (600 ms) and at once on focus, stays open while hovered, the next tooltip opens without delay |
-| [abanico](packages/abanico#readme) | `useMenu`, `useRadialMenu` | WAI-ARIA menu button: arrows open on the first or last item, typeahead, disabled items, selection returns focus to the button; the radial menu opens at a right click or long press with the items on a circle |
-| [muestrario](packages/muestrario#readme) | `useCombobox` | Focus stays in the input (`aria-activedescendant`), accent- and case-insensitive filter, `load(query, signal)` with debounce and abort |
+| [abanico](packages/abanico#readme) | `useMenu`, `useRadialMenu` | WAI-ARIA menu button: arrows open on the first or last item, typeahead, disabled items, selection returns focus to the button; the radial menu opens at a right click (or on its release, so a right drag stays with the map) or long press with the items on a circle |
+| [muestrario](packages/muestrario#readme) | `useCombobox` | Focus stays in the input (`aria-activedescendant`), accent- and case-insensitive filter, `load(query, signal)` with debounce and abort; a command mode that runs options without filling the input |
 | [nonio](packages/nonio#readme) | `useSlider` from `/react` | WAI-ARIA slider and multi-thumb slider; thumbs never cross, `dragRange` slides a whole window, `onChangeEnd` for expensive work; percentages instead of styles |
 | [pregon](packages/pregon#readme) | `useToaster` from `/react` | Live regions that are always mounted; assertive toasts jump the queue; pauses while hovered, focused or hidden; never steals focus; a store you can call from anywhere |
 | [sarta](packages/sarta#readme) | `useSortable` from `/react` | Handles with roving focus; Space, arrows and Escape; mouse threshold and touch long press; the DOM does not move while dragging, offsets go to `transform` |
-| [grana](packages/grana#readme) | none: `grana.css` and `tonos.css` | `--grana-*` tokens; `dia`, `tarde` and `noche` tones on any `[data-grana-tono]` container with `tonoPorHora`; glass that turns opaque with reduced transparency; z bands named like biombo's |
+| [grana](packages/grana#readme) | none: `grana.css` and `tonos.css` | `--grana-*` tokens; `dia`, `tarde` and `noche` tones on any `[data-grana-tono]` container with `tonoPorHora`; glass that turns opaque with reduced transparency; z bands named like biombo's; data ramp and accent also in sRGB for deck.gl |
 
 ## Known limitations
 

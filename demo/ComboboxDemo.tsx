@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import { createPortal } from 'react-dom';
 import { filterItems, highlight, useCombobox, type UseCombobox } from '@npmegar/muestrario';
 import { Close } from 'tesela/react';
@@ -120,6 +121,33 @@ const VirtualPicker = () => {
     );
 };
 
+const COMMANDS = ['Measure distance', 'Export map', 'Open table', 'Share link'];
+
+const CommandPicker = () => {
+    const [ran, setRan] = useState('nothing');
+    const combo = useCombobox<string>({
+        items: COMMANDS,
+        getLabel: (item) => item,
+        selectBehavior: 'command',
+        position: false,
+        onSelect: (item) => {
+            setRan(item);
+            combo.setInputValue('');
+        },
+    });
+    return (
+        <label className="field">Command
+            <span className="combo" {...combo.getAnchorProps()}><input {...combo.getInputProps()} /></span>
+            {combo.open && (
+                <ul className="listbox inline" data-testid="commands" {...combo.getListboxProps()}>
+                    {combo.items.map((item, index) => <li key={item} className="option" {...combo.getOptionProps(item, index)}>{item}</li>)}
+                </ul>
+            )}
+            <output data-testid="command-ran">{ran}</output>
+        </label>
+    );
+};
+
 export const ComboboxDemo = () => (
     <section className="card combobox-card">
         <h2>Combobox</h2>
@@ -129,5 +157,6 @@ export const ComboboxDemo = () => (
         <AsyncPicker />
         <TagsPicker />
         <VirtualPicker />
+        <CommandPicker />
     </section>
 );

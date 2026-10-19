@@ -10,6 +10,7 @@ export const RadialDemo = () => {
         count: TOOLS.length,
         label: 'Tools',
         radius: 76,
+        openOn: 'release',
         getLabel: (index) => TOOLS[index] ?? '',
         isDisabled: (index) => TOOLS[index] === 'Hexbin',
         onSelect: (index) => setTool(TOOLS[index] ?? ''),
@@ -17,7 +18,7 @@ export const RadialDemo = () => {
     return (
         <section className="card piel" data-grana-tono="dia">
             <h2>Radial menu</h2>
-            <p className="hint">Right click the map, hold a finger on it, or focus it and press the menu key (Shift+F10).</p>
+            <p className="hint">Right click the map (a right drag does not open it), hold a finger on it, or focus it and press the menu key (Shift+F10).</p>
             <div {...menu.getTargetProps()} className="map-area" role="application" aria-label="Map" tabIndex={0}>Map</div>
             <output data-testid="radial-value">{tool}</output>
             {menu.open && menu.center && createPortal(

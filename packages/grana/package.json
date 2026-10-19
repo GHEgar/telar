@@ -1,6 +1,6 @@
 {
     "name": "@npmegar/grana",
-    "version": "0.1.0",
+    "version": "0.2.0",
     "description": "Design tokens as CSS custom properties: coral accent, data ramp, time-of-day tones, glass, type and z bands.",
     "keywords": [
         "design-tokens",

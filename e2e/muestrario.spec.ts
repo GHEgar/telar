@@ -64,3 +64,15 @@ test('scrolls a virtual list of 2000 options with the keyboard', async ({ page }
     await expect(last).toHaveAttribute('aria-posinset', '2000');
     await expect(last).toHaveAttribute('aria-setsize', '2000');
 });
+
+test('runs a command without filling the input and lays the list out in the flow', async ({ page }) => {
+    const input = page.getByRole('combobox', { name: 'Command' });
+    await input.fill('exp');
+    const list = page.getByTestId('commands');
+    await expect(list.getByRole('option')).toHaveText(['Export map']);
+    expect(await list.getAttribute('style')).toBeNull();
+    await page.keyboard.press('Enter');
+    await expect(page.getByTestId('command-ran')).toHaveText('Export map');
+    await expect(input).toHaveValue('');
+    await expect(input).toBeFocused();
+});

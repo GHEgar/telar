@@ -5,12 +5,33 @@ Formato basado en [Keep a Changelog](https://keepachangelog.com/es-ES/1.1.0/) y 
 
 ## [No publicado]
 
+## [0.3.0] - 2026-10-19
+
+### Agregado
+
+- Modo comando (`selectBehavior: 'command'`): elegir una opción llama a `onSelect(item)` sin llenar el
+  input ni tocar `value` o `values`; el texto se queda como estaba.
+- `onSelect(item)`, en los dos modos, y `closeOnSelect` (por omisión `true` con un valor y `false` con
+  varios) para dejar la lista abierta después de elegir.
+- `setInputValue(text)`: escribe en el input y filtra como si se hubiera tecleado; si la lista está
+  abierta, apunta a la primera coincidencia. No abre una lista cerrada.
+- `position: false`: no usa plomada; la lista no recibe `style` ni `data-placement` y `position` queda
+  en `null`, para el consumidor que la coloca él mismo.
+
 ### Cambiado
 
 - Etiquetas y locale por defecto en inglés (`en-US`); quien dependa de los textos en español debe
   pasarlos con `labels`.
 - Se publica como `@npmegar/muestrario` en lugar de `@ghegar/muestrario`.
 - Depende de `@npmegar/lanzadera` y `@npmegar/plomada`.
+
+## [0.2.0] - 2026-10-13
+
+### Agregado
+
+- `onCreate(text)`: una opción más al final cuando nada coincide exacto; lo que devuelve se elige.
+- `freeText`: con un valor, el texto escrito se queda al perder el foco.
+- Lista virtual (`virtual: { itemHeight, height, overscan }`) con `aria-setsize` y `aria-posinset`.
 
 ## [0.1.0] - 2026-10-13
 

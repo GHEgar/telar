@@ -93,3 +93,21 @@ test('opens the radial menu at a right click and drives it around the circle', a
     await page.keyboard.press('Escape');
     await expect(menu).toHaveCount(0);
 });
+
+test('keeps the radial menu closed after a right drag and opens it on a still release', async ({ page }) => {
+    const map = page.getByRole('application', { name: 'Map' });
+    const box = await map.boundingBox();
+    if (!box) throw new Error('no map');
+    const x = box.x + box.width / 2;
+    const y = box.y + box.height / 2;
+    await page.mouse.move(x, y);
+    await page.mouse.down({ button: 'right' });
+    await page.mouse.move(x + 40, y + 10, { steps: 4 });
+    await page.mouse.up({ button: 'right' });
+    await expect(page.getByRole('menu', { name: 'Tools' })).toHaveCount(0);
+    await page.mouse.move(x, y);
+    await page.mouse.down({ button: 'right' });
+    await expect(page.getByRole('menu', { name: 'Tools' })).toHaveCount(0);
+    await page.mouse.up({ button: 'right' });
+    await expect(page.getByRole('menuitem', { name: 'Measure' })).toBeFocused();
+});

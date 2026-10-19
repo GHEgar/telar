@@ -101,6 +101,24 @@ The z bands share their names and bases with the default bands of the biombo pan
 Colors are CSS strings. The accent's soft and strong variants keep their `color-mix` and relative OKLCH
 form, so they work in CSS and canvas but not in renderers that only parse hex or `rgb()`.
 
+For renderers that only read sRGB (deck.gl, WebGL, some chart libraries), the data ramp and the
+accent also come converted:
+
+| Export | What it holds |
+|---|---|
+| `datosRgb`, `datosHex` | The four data classes as `[r, g, b]` (0–255) and `#rrggbb` |
+| `acentoRgb`, `acentoHex` | `{ base, fuerte, tinta }` in the same two forms |
+| `oklchARgb(oklch)`, `leerOklch(css)`, `rgbAHex(rgb)` | The pure conversion, without canvas or DOM |
+
+```ts
+import { datosRgb } from '@npmegar/grana';
+
+new HexagonLayer({ id: 'hexbin', data, colorRange: [...datosRgb] });
+```
+
+Channels outside sRGB are clipped, as Chrome paints them; tests keep the values within one step of
+what the browser renders for the CSS variables.
+
 ## Known limitations
 
 - Derived values (`--grana-acento-suave`, `-fuerte`, `--grana-vidrio-filtro`) resolve on `:root`.

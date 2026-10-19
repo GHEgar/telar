@@ -95,10 +95,37 @@ had it before opening; Tab and an outside press only close.
 | `sweep` | `360` | Below 360 the items spread over an arc from end to end |
 | `padding` | `40` | Room kept around the circle when the center is shifted into the viewport |
 | `longPress` | `500` | Milliseconds a finger holds still before opening |
+| `openOn` | `'contextmenu'` | `'release'` opens on the right button's release, and only if the mouse did not drag |
+| `escapeStack` | | A shared Escape stack to register with while open |
+| `escapePriority` | `200` | Priority of that layer (biombo's menu band) |
 
 The hook returns `point` (where it was opened), `center` (shifted to fit) and `openAt({ x, y })`.
 `radialLayout(count, options)` is the pure geometry, also exported. On iOS add
 `-webkit-touch-callout: none` to the area so the long press does not open the system callout.
+
+### Right drag on a map
+
+Maps often rotate or tilt with a right drag. With `openOn: 'release'` a mouse right press does not open
+the menu; releasing it does, at the press point, unless the pointer moved more than 6 px in between. It
+works whether the browser sends `contextmenu` on press (Linux, macOS) or after release (Windows); the
+context menu key, Shift+F10 and the long touch press open as before. The pure state machine is exported
+as `rightPress`.
+
+### Escape with another library
+
+The menu closes on Escape from its own `keydown`. A library that listens for Escape on `window` in the
+capture phase and stops it (a panel manager, a modal stack) gets there first. Pass that library's stack
+as `escapeStack`: any object with `push({ id, priority, onEscape }) => remove` works. The menu pushes a
+layer while it is open, and Escape closes it and returns focus. With biombo inside a `BiomboProvider`:
+
+```tsx
+import { useManager } from 'biombo/react';
+
+const menu = useRadialMenu({ count, label: 'Tools', openOn: 'release', escapeStack: useManager().escape });
+```
+
+Outside a provider, register the close with that library's own hook instead, for example
+`useEscape(() => menu.close(), { priority: ESCAPE_PRIORITY.menu, enabled: menu.open })`.
 
 ## License
 

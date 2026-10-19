@@ -54,14 +54,39 @@ field in a `<label>`: the first remove button would take the label. Use `aria-la
 | `groupBy(item)` | | Group label; options are reordered by group |
 | `isDisabled(item)` | | |
 | `value`, `defaultValue`, `onChange` | | Single value, controlled when `value` is passed |
+| `onSelect(item)` | | Called whenever an option is picked, in both behaviors |
+| `selectBehavior` | `'fill'` | `'command'` runs `onSelect` without filling the input or touching the value |
+| `closeOnSelect` | `true`, `false` with `multiple` | Keep the list open after a pick |
 | `multiple`, `values`, `defaultValues`, `onValuesChange` | | Several values |
 | `openOnFocus` | `false` | |
+| `position` | `true` | `false` skips plomada: the listbox gets no `style` and `position` stays `null` |
 | `placement`, `offset` | `'bottom-start'` | Passed to plomada |
 | `labels` | English: No results, Searching…, Type at least N characters, N results | `noResults`, `loading`, `error`, `clear`, `remove`, `typeMore(n)`, `results(n)` |
 
 Keys: ArrowDown/ArrowUp open and move, Alt+ArrowDown opens, Enter picks, Escape closes and then clears
 the text, Backspace on an empty input removes the last chip, Tab closes. On blur a single combobox goes
 back to the chosen label.
+
+## Command palette
+
+With `selectBehavior: 'command'` the combobox is a launcher: picking an option calls `onSelect(item)`
+and leaves the typed text alone, so the query survives the action. `setInputValue(text)` writes into the
+input and filters as if it had been typed (it does not open a closed list); call it with `''` to clear
+after running a command. With `position: false` the list is laid out by you, for example inside a card
+above the field.
+
+```tsx
+const combo = useCombobox({
+    items: commands,
+    getLabel: (command) => command.title,
+    selectBehavior: 'command',
+    position: false,
+    onSelect: (command) => {
+        command.run();
+        combo.setInputValue('');
+    },
+});
+```
 
 Helpers `normalize`, `matches`, `filterItems`, `highlight` and `groupItems` are exported too.
 
