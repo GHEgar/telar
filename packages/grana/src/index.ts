@@ -2,7 +2,9 @@ export {
     acento,
     bandas,
     datos,
+    escala,
     espacios,
+    estado,
     foco,
     movimiento,
     radios,
@@ -18,4 +20,17 @@ export {
 } from './tokens.js';
 export { HORAS, tonoPorHora } from './tono.js';
 export { variablesDeTono, variablesGlobales } from './variables.js';
-export { acentoHex, acentoRgb, datosHex, datosRgb, leerOklch, oklchARgb, rgbAHex, type Oklch, type Rgb } from './rgb.js';
+export {
+    acentoHex,
+    acentoRgb,
+    datosHex,
+    datosRgb,
+    estadoHex,
+    estadoRgb,
+    leerOklch,
+    oklchARgb,
+    rgbAHex,
+    type ColoresDeEstado,
+    type Oklch,
+    type Rgb,
+} from './rgb.js';

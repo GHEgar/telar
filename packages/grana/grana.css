@@ -11,9 +11,15 @@
     --grana-datos-3: oklch(0.7 0.16 34);
     --grana-datos-4: oklch(0.6 0.2 28);
 
+    --grana-peligro: oklch(0.62 0.21 25);
+    --grana-peligro-tinta: #ffffff;
+    --grana-exito: oklch(0.62 0.15 155);
+    --grana-exito-tinta: #ffffff;
+
+    --grana-escala: 1;
+
     --grana-vidrio-desenfoque: 24px;
     --grana-vidrio-saturacion: 1.5;
-    --grana-vidrio-filtro: blur(var(--grana-vidrio-desenfoque)) saturate(var(--grana-vidrio-saturacion));
 
     --grana-font: 'Rotulo', system-ui, sans-serif;
     --grana-font-mono: ui-monospace, 'SF Mono', 'Cascadia Mono', Menlo, Consolas, monospace;
@@ -44,7 +50,6 @@
     --grana-espacio-5: 24px;
     --grana-espacio-6: 32px;
 
-    --grana-sombra-vidrio: 0 10px 30px rgba(0, 0, 0, 0.3);
     --grana-sombra-flotante: 0 6px 18px rgba(0, 0, 0, 0.3);
     --grana-foco-ancho: 2px;
     --grana-foco-separacion: 2px;
@@ -61,6 +66,20 @@
     --grana-z-floating: 30;
     --grana-z-menu: 50;
     --grana-z-modal: 60;
+}
+
+:where(*),
+::before,
+::after {
+    --grana-vidrio-filtro: blur(var(--grana-vidrio-desenfoque)) saturate(var(--grana-vidrio-saturacion));
+}
+
+@media (prefers-reduced-transparency: reduce) {
+    :where(*),
+    ::before,
+    ::after {
+        --grana-vidrio-filtro: none;
+    }
 }
 
 @media (prefers-reduced-motion: reduce) {

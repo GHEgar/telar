@@ -1,5 +1,6 @@
 import { useCallback, useEffect, useId, useLayoutEffect, useRef, useState, type CSSProperties, type FocusEvent, type PointerEvent } from 'react';
 import { usePosition, type FloatingProps, type Position, type ReferenceProps, type UsePositionOptions } from '@npmegar/plomada/react';
+import { mergeTriggerProps, type MergedRefCache } from './merge.js';
 
 const WARM_UP = 300;
 let lastClosed = Number.NEGATIVE_INFINITY;
@@ -22,6 +23,8 @@ export interface TooltipTriggerProps extends ReferenceProps {
     onBlur: () => void;
 }
 
+export type MergedTriggerProps<P extends object> = Omit<P, keyof TooltipTriggerProps> & TooltipTriggerProps;
+
 export interface TooltipProps extends FloatingProps {
     id: string;
     role: 'tooltip';
@@ -37,6 +40,7 @@ export interface UseTooltip {
     show(): void;
     hide(): void;
     getTriggerProps(): TooltipTriggerProps;
+    getTriggerProps<P extends object>(props: P): MergedTriggerProps<P>;
     getTooltipProps(): TooltipProps;
 }
 
@@ -56,6 +60,7 @@ export const useTooltip = (options: UseTooltipOptions = {}): UseTooltip => {
     const timer = useRef<ReturnType<typeof setTimeout> | undefined>(undefined);
     const current = useRef(open);
     const notify = useRef(onOpenChange);
+    const [refs] = useState<MergedRefCache>(() => new WeakMap());
 
     useLayoutEffect(() => {
         current.current = open;
@@ -104,19 +109,23 @@ export const useTooltip = (options: UseTooltipOptions = {}): UseTooltip => {
         arrowStyles: position.arrowStyles,
         show: () => show(true),
         hide: () => set(false),
-        getTriggerProps: () => ({
-            ...position.getReferenceProps(),
-            ...(open ? { 'aria-describedby': id } : {}),
-            onPointerEnter: (event) => {
-                if (event.pointerType !== 'touch' && !disabled) show();
-            },
-            onPointerLeave: hide,
-            onPointerDown: () => set(false),
-            onFocus: (event) => {
-                if (!disabled && focusVisible(event.currentTarget)) show(true);
-            },
-            onBlur: () => set(false),
-        }),
+        getTriggerProps: <P extends object>(props?: P) => {
+            const own: TooltipTriggerProps = {
+                ...position.getReferenceProps(),
+                ...(open ? { 'aria-describedby': id } : {}),
+                onPointerEnter: (event) => {
+                    if (event.pointerType !== 'touch' && !disabled) show();
+                },
+                onPointerLeave: hide,
+                onPointerDown: () => set(false),
+                onFocus: (event) => {
+                    if (!disabled && focusVisible(event.currentTarget)) show(true);
+                },
+                onBlur: () => set(false),
+            };
+            if (!props) return own;
+            return mergeTriggerProps(props as Record<string, unknown>, own as unknown as Record<string, unknown>, refs) as unknown as MergedTriggerProps<P>;
+        },
         getTooltipProps: () => ({
             ...position.getFloatingProps(),
             id,

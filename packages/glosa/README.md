@@ -40,6 +40,32 @@ function SaveButton() {
 | `disabled` | `false` | |
 | `placement`, `offset`, `padding`, `flip`, `shift` | `'top'` | Passed to plomada |
 
+## Merging your props
+
+The trigger often carries props of its own: a menu button's handlers, a ref, a description. Pass them
+to `getTriggerProps` instead of spreading two objects that overwrite each other:
+
+```tsx
+const menu = useMenu({ count: 3 });
+const tooltip = useTooltip();
+const ref = useRef<HTMLButtonElement>(null);
+
+<button {...tooltip.getTriggerProps({ ...menu.getButtonProps(), ref, 'aria-describedby': 'hint' })}>
+    Options
+</button>
+```
+
+| Prop | How it is merged |
+|---|---|
+| `on*` handlers | Yours run first; the tooltip's run after, unless yours call `event.preventDefault()` |
+| `aria-describedby` | Your ids and the tooltip id, space-separated, while it is open |
+| `ref` | Both your ref (object or callback) and the positioning ref receive the element |
+| Anything else | Kept as you passed it |
+
+The merged ref is cached per ref you pass, so it keeps its identity across renders and the trigger is
+not detached and measured again. Keep your ref stable (`useRef`, or a callback from `useCallback`); an
+inline callback is a new ref on every render.
+
 Escape is caught on `document` in the capture phase and prevented, so a tooltip inside a
 `@npmegar/postigo` dialog closes first and the dialog stays open.
 

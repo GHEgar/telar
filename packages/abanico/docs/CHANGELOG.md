@@ -5,6 +5,28 @@ Formato basado en [Keep a Changelog](https://keepachangelog.com/es-ES/1.1.0/) y 
 
 ## [No publicado]
 
+## [0.5.0] - 2026-10-19
+
+### Agregado
+
+- `useMenu({ grid: true })`: navegación en rejilla para menús agrupados en columnas. Izquierda y derecha
+  recorren el orden de lectura con vuelta; arriba y abajo van a la opción más cercana de la fila de
+  arriba o de abajo según la posición en pantalla, también entre grupos y con columnas de
+  `auto-fill`. Inicio, Fin y typeahead siguen igual.
+- `verticalNeighbor(boxes, from, direction, isDisabled)` y el tipo `Box`: la geometría pura de esa
+  navegación.
+- `useMenu({ floating: false })`: el menú no se posiciona con plomada; `getMenuProps()` no trae `style`
+  ni `data-side`, así que la posición queda en el CSS o en el `style` propio sin descartar nada. El
+  foco entra al abrir sin esperar a una posición.
+- `soon` en las opciones de `getItemProps(index, { soon: true })`, en `useMenu` y en `useRadialMenu`:
+  marca la acción con `data-soon` para pintarla como «pronto» sin deshabilitarla.
+
+### Cambiado
+
+- La ref de `getButtonProps()` es estable entre renders, así que mezclarla con otra (por ejemplo, con
+  el `getTriggerProps(props)` de glosa) no reengancha el botón en cada render.
+- Con `grid`, la flecha izquierda en un submenú se mueve en vez de cerrarlo; Escape lo sigue cerrando.
+
 ## [0.4.0] - 2026-10-19
 
 ### Agregado

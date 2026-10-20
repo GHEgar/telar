@@ -22,6 +22,7 @@
 
 .glass, .glass-button, .toast, .stack-row, .radial-item {
     background: var(--grana-vidrio-fondo);
+    -webkit-backdrop-filter: var(--grana-vidrio-filtro);
     backdrop-filter: var(--grana-vidrio-filtro);
     border: 1px solid var(--grana-vidrio-borde);
     color: var(--grana-vidrio-tinta);

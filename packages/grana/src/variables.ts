@@ -2,7 +2,9 @@ import {
     acento,
     bandas,
     datos,
+    escala,
     espacios,
+    estado,
     foco,
     movimiento,
     radios,
@@ -25,9 +27,13 @@ export function variablesGlobales(): Record<string, string> {
         '--grana-acento-fuerte': acento.fuerte,
         '--grana-acento-tinta': acento.tinta,
         ...Object.fromEntries(datos.map((color, index) => [`--grana-datos-${index + 1}`, color])),
+        '--grana-peligro': estado.peligro,
+        '--grana-peligro-tinta': estado.peligroTinta,
+        '--grana-exito': estado.exito,
+        '--grana-exito-tinta': estado.exitoTinta,
+        '--grana-escala': String(escala),
         '--grana-vidrio-desenfoque': vidrio.desenfoque,
         '--grana-vidrio-saturacion': vidrio.saturacion,
-        '--grana-vidrio-filtro': vidrio.filtro,
         '--grana-font': tipografia.familia,
         '--grana-font-mono': tipografia.mono,
         ...prefixed('texto', tipografia.tamanos),
@@ -48,6 +54,12 @@ export function variablesGlobales(): Record<string, string> {
 }
 
 export function variablesDeTono(tono: Tono): Record<string, string> {
-    const { mapa, vidrio: capa } = tonos[tono];
-    return { ...prefixed('mapa', { ...mapa }), ...prefixed('vidrio', { ...capa }) };
+    const { mapa, vidrio: capa, superficie, halo, sombra } = tonos[tono];
+    return {
+        ...prefixed('mapa', { ...mapa }),
+        ...prefixed('vidrio', { ...capa }),
+        '--grana-superficie': superficie,
+        '--grana-halo': halo,
+        '--grana-sombra-vidrio': sombra,
+    };
 }

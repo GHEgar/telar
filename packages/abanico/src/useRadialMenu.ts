@@ -257,6 +257,7 @@ export const useRadialMenu = (options: UseRadialMenuOptions): UseRadialMenu => {
                 role: ROLES[kind],
                 ...(kind === 'item' ? {} : { 'aria-checked': item.checked ?? false }),
                 ...(disabled ? { 'aria-disabled': true as const, 'data-disabled': true as const } : {}),
+                ...(item.soon ? { 'data-soon': true as const } : {}),
                 'data-angle': layout[index]?.angle ?? 0,
                 onClick: () => select(index, kind),
                 onKeyDown: (event) => {

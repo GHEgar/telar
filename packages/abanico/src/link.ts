@@ -18,6 +18,7 @@ export type ItemKind = 'item' | 'checkbox' | 'radio';
 export interface ItemOptions {
     type?: ItemKind;
     checked?: boolean;
+    soon?: boolean;
 }
 
 export const ROLES = { item: 'menuitem', checkbox: 'menuitemcheckbox', radio: 'menuitemradio' } as const;

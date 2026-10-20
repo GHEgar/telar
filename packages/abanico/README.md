@@ -49,6 +49,37 @@ Style the highlighted item with `[data-active]` and disabled ones with `[data-di
 | `closeOnSelect` | `true` | |
 | `loop` | `true` | |
 | `placement`, `offset` | `'bottom-start'` | Passed to plomada |
+| `floating` | `true` | `false` skips plomada: `getMenuProps()` carries no `style` or `data-side`, and you place the menu |
+| `grid` | `false` | Two-axis arrows for items laid out in columns; see [Grid menus](#grid-menus) |
+
+`getItemProps(index, item)` takes `{ type: 'checkbox' | 'radio', checked }` for checkable items and
+`{ soon: true }` to mark an action that is not ready yet with `data-soon`; it stays focusable and
+selectable, so `onSelect` can tell the user it is coming.
+
+## Grid menus
+
+A start menu often groups its actions under headings, each group a grid of tiles. With `grid: true`,
+Left and Right walk the items in reading order and wrap around; Up and Down jump to the nearest item in
+the row above or below, measured on screen, so they cross from one group to the next and follow
+`grid-template-columns: repeat(auto-fill, …)` as it reflows. Home, End and typeahead work as usual.
+
+```tsx
+const menu = useMenu({ count: ITEMS.length, grid: true, floating: false, getLabel: (i) => ITEMS[i]?.label ?? '' });
+
+<div {...menu.getMenuProps()} className="start-menu" style={{ bottom: 72 }}>
+    {GROUPS.map((group) => (
+        <div key={group} {...menu.getGroupProps(group)}>
+            <span aria-hidden="true">{group}</span>
+            <div className="tiles">
+                {ITEMS.map((item, i) => item.group === group && <div key={item.id} {...menu.getItemProps(i)}>{item.label}</div>)}
+            </div>
+        </div>
+    ))}
+</div>
+```
+
+Up and Down need layout: without it (no rendered boxes) they do nothing. The geometry is exported as
+`verticalNeighbor(boxes, from, direction, isDisabled)`.
 
 ## Radial menu
 
@@ -82,7 +113,8 @@ function MapArea({ onTool }: { onTool: (tool: string) => void }) {
 }
 ```
 
-Give `.radial` `position: fixed` and center each item on it. Selecting and Escape return focus to what
+Give `.radial` `position: fixed` and center each item on it. `getItemProps(i, { soon: true })` adds
+`data-soon` here too. Selecting and Escape return focus to what
 had it before opening; Tab and an outside press only close.
 
 | Option | Default | |

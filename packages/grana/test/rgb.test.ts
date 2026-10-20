@@ -1,5 +1,7 @@
 import { describe, expect, it } from 'vitest';
-import { acento, acentoHex, acentoRgb, datos, datosHex, datosRgb, leerOklch, oklchARgb, rgbAHex, type Rgb } from '../src/index.js';
+import {
+    acento, acentoHex, acentoRgb, datos, datosHex, datosRgb, estado, estadoHex, estadoRgb, leerOklch, oklchARgb, rgbAHex, type Rgb,
+} from '../src/index.js';
 import { buscar, leer, reglas } from './css.js';
 
 const CHROME: Record<string, Rgb> = {
@@ -54,5 +56,18 @@ describe('RGB exports', () => {
         expect(acentoRgb.tinta).toEqual([255, 255, 255]);
         expect(acentoHex).toEqual({ base: '#f3654c', fuerte: '#cf432c', tinta: '#ffffff' });
         expect(rgbAHex([0, 15, 255])).toBe('#000fff');
+    });
+
+    it('convert the state colors and their ink', () => {
+        expect(estadoRgb.peligro).toEqual(oklchARgb(leerOklch(estado.peligro)));
+        expect(estadoRgb.exito).toEqual(oklchARgb(leerOklch(estado.exito)));
+        expect(estadoRgb.peligroTinta).toEqual([255, 255, 255]);
+        expect(estadoHex.exitoTinta).toBe('#ffffff');
+        expect(estadoHex.peligro).toBe(rgbAHex(estadoRgb.peligro));
+        expect(raiz['--grana-peligro']).toBe(estado.peligro);
+        const [rojo = 0, verde = 0] = estadoRgb.peligro;
+        expect(rojo).toBeGreaterThan(verde);
+        const [r = 0, g = 0] = estadoRgb.exito;
+        expect(g).toBeGreaterThan(r);
     });
 });

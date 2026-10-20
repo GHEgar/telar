@@ -5,6 +5,16 @@ Formato basado en [Keep a Changelog](https://keepachangelog.com/es-ES/1.1.0/) y 
 
 ## [No publicado]
 
+## [0.2.0] - 2026-10-19
+
+### Agregado
+
+- `getTriggerProps(props)`: mezcla las props del disparador con las del usuario. Corre primero los
+  manejadores del usuario y salta los propios si llaman a `preventDefault()`, une `aria-describedby`
+  y llena la ref del usuario (objeto o función) junto con la de plomada. La ref mezclada se guarda por
+  ref del usuario, así que no cambia entre renders ni vuelve a disparar el posicionamiento.
+- Tipo `MergedTriggerProps<P>`.
+
 ### Cambiado
 
 - Se publica como `@npmegar/glosa` en lugar de `@ghegar/glosa`.

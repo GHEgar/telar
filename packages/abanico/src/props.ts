@@ -1,4 +1,4 @@
-import type { KeyboardEvent, MouseEvent, PointerEvent, RefCallback } from 'react';
+import type { CSSProperties, KeyboardEvent, MouseEvent, PointerEvent, RefCallback } from 'react';
 import type { FloatingProps } from '@npmegar/plomada/react';
 
 export interface MenuButtonProps {
@@ -12,7 +12,8 @@ export interface MenuButtonProps {
     onKeyDown: (event: KeyboardEvent) => void;
 }
 
-export interface MenuProps extends FloatingProps {
+export interface MenuProps extends Omit<FloatingProps, 'style'> {
+    style?: CSSProperties;
     id: string;
     role: 'menu';
     tabIndex: -1;
@@ -31,6 +32,7 @@ export interface MenuItemProps {
     'aria-disabled'?: true;
     'data-active'?: true;
     'data-disabled'?: true;
+    'data-soon'?: true;
     onClick: () => void;
     onKeyDown: (event: KeyboardEvent) => void;
     onFocus: () => void;

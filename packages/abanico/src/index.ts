@@ -3,6 +3,8 @@ export type { UseMenu, UseMenuOptions } from './useMenu.js';
 export { useRadialMenu } from './useRadialMenu.js';
 export type { UseRadialMenu, UseRadialMenuOptions } from './useRadialMenu.js';
 export { clampCenter, radialLayout } from './radial.js';
+export { verticalNeighbor } from './grid.js';
+export type { Box } from './grid.js';
 export type { Point, RadialLayoutOptions, RadialPosition } from './radial.js';
 export { RELEASE_TOLERANCE, RELEASE_WINDOW, rightPress } from './release.js';
 export type { RightPress, RightPressStep } from './release.js';

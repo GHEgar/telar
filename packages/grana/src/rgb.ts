@@ -1,4 +1,4 @@
-import { acento, datos } from './tokens.js';
+import { acento, datos, estado } from './tokens.js';
 
 export type Rgb = readonly [number, number, number];
 
@@ -58,4 +58,27 @@ export const acentoHex: Readonly<{ base: string; fuerte: string; tinta: string }
     base: rgbAHex(acentoRgb.base),
     fuerte: rgbAHex(acentoRgb.fuerte),
     tinta: rgbAHex(acentoRgb.tinta),
+};
+
+export interface ColoresDeEstado<T> {
+    peligro: T;
+    peligroTinta: T;
+    exito: T;
+    exitoTinta: T;
+}
+
+const aRgb = (css: string): Rgb => (css.startsWith('#') ? hexARgb(css) : oklchARgb(leerOklch(css)));
+
+export const estadoRgb: Readonly<ColoresDeEstado<Rgb>> = {
+    peligro: aRgb(estado.peligro),
+    peligroTinta: aRgb(estado.peligroTinta),
+    exito: aRgb(estado.exito),
+    exitoTinta: aRgb(estado.exitoTinta),
+};
+
+export const estadoHex: Readonly<ColoresDeEstado<string>> = {
+    peligro: rgbAHex(estadoRgb.peligro),
+    peligroTinta: rgbAHex(estadoRgb.peligroTinta),
+    exito: rgbAHex(estadoRgb.exito),
+    exitoTinta: rgbAHex(estadoRgb.exitoTinta),
 };

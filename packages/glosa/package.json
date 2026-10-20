@@ -1,6 +1,6 @@
 {
     "name": "@npmegar/glosa",
-    "version": "0.1.1",
+    "version": "0.2.0",
     "description": "Headless tooltip for React: hover and focus with delays and warm-up, hoverable content, Escape, aria-describedby and positioning by plomada.",
     "license": "AGPL-3.0-only",
     "author": "Edgar Villarreal",

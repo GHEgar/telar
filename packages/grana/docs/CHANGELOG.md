@@ -5,6 +5,28 @@ Formato basado en [Keep a Changelog](https://keepachangelog.com/es-ES/1.1.0/) y 
 
 ## [No publicado]
 
+## [0.3.0] - 2026-10-19
+
+### Agregado
+
+- `--grana-escala` (1 por omisión): factor de tamaño de interfaz para multiplicar tamaños con `calc()`
+  o aplicarlo con `zoom`; redefinirlo en un contenedor escala todo lo que hay dentro. `escala` en el
+  módulo.
+- Colores de estado `--grana-peligro` y `--grana-exito` con su tinta `--grana-peligro-tinta` y
+  `--grana-exito-tinta`; `estado`, `estadoRgb` y `estadoHex` en el módulo.
+- Por tono: superficie sólida `--grana-superficie`, halo de texto `--grana-halo` para leer sobre el
+  mapa y `--grana-sombra-vidrio`; `superficie`, `halo` y `sombra` en `tonos`.
+
+### Cambiado
+
+- `--grana-sombra-vidrio` pasa a cada tono con tres capas (`0 1px 2px`, `0 6px 12px -2px` y
+  `0 22px 44px -10px`) que separan más el vidrio del fondo: fuerza 0.3 de día y 0.42 de tarde y de
+  noche. `sombras` ya no trae `vidrio`.
+- `--grana-vidrio-filtro` se resuelve en cada elemento y no en `:root`: redefinir
+  `--grana-vidrio-desenfoque` o `--grana-vidrio-saturacion` en un contenedor ya surte efecto. Con
+  `prefers-reduced-transparency: reduce` lo anula `grana.css` y no `tonos.css`. `variablesGlobales()` ya
+  no lo incluye; su valor resuelto sigue en `vidrio.filtro`.
+
 ## [0.2.0] - 2026-10-19
 
 ### Agregado

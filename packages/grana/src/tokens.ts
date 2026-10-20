@@ -23,6 +23,9 @@ export interface ValoresDeTono {
     esquema: 'light' | 'dark';
     mapa: MapaBase;
     vidrio: Vidrio;
+    superficie: string;
+    halo: string;
+    sombra: string;
 }
 
 export const TONOS: readonly Tono[] = ['dia', 'tarde', 'noche'];
@@ -34,6 +37,13 @@ const VIDRIO_OSCURO: Vidrio = {
     tintaTenue: '#c3b6c8',
     linea: 'rgba(255, 255, 255, 0.14)',
     borde: 'rgba(255, 255, 255, 0.18)',
+};
+
+const halo = (color: string): string => `0 0 6px rgba(${color}, 0.85), 0 0 1px rgba(${color}, 0.9)`;
+
+const sombra = (color: string, fuerza: number): string => {
+    const media = Math.round(fuerza * 50) / 100;
+    return `0 1px 2px rgba(${color}, ${media}), 0 6px 12px -2px rgba(${color}, ${media}), 0 22px 44px -10px rgba(${color}, ${fuerza})`;
 };
 
 export const tonos: Readonly<Record<Tono, ValoresDeTono>> = {
@@ -56,6 +66,9 @@ export const tonos: Readonly<Record<Tono, ValoresDeTono>> = {
             linea: 'rgba(20, 40, 60, 0.14)',
             borde: 'rgba(255, 255, 255, 0.6)',
         },
+        superficie: '#ffffff',
+        halo: halo('255, 255, 255'),
+        sombra: sombra('26, 38, 100', 0.3),
     },
     tarde: {
         esquema: 'dark',
@@ -69,6 +82,9 @@ export const tonos: Readonly<Record<Tono, ValoresDeTono>> = {
             brillo: '#ffcf8a',
         },
         vidrio: VIDRIO_OSCURO,
+        superficie: '#2e2846',
+        halo: halo('18, 12, 34'),
+        sombra: sombra('10, 6, 24', 0.42),
     },
     noche: {
         esquema: 'dark',
@@ -82,6 +98,9 @@ export const tonos: Readonly<Record<Tono, ValoresDeTono>> = {
             brillo: '#ffb54d',
         },
         vidrio: VIDRIO_OSCURO,
+        superficie: '#1b2236',
+        halo: halo('2, 4, 14'),
+        sombra: sombra('0, 2, 10', 0.42),
     },
 };
 
@@ -93,6 +112,15 @@ export const acento = {
     fuerte: `oklch(from ${ACENTO_BASE} calc(l - 0.1) c h)`,
     tinta: '#ffffff',
 } as const;
+
+export const estado = {
+    peligro: 'oklch(0.62 0.21 25)',
+    peligroTinta: '#ffffff',
+    exito: 'oklch(0.62 0.15 155)',
+    exitoTinta: '#ffffff',
+} as const;
+
+export const escala = 1;
 
 export const datos = [
     'oklch(0.86 0.06 50)',
@@ -149,7 +177,6 @@ export const espacios = {
 } as const;
 
 export const sombras = {
-    vidrio: '0 10px 30px rgba(0, 0, 0, 0.3)',
     flotante: '0 6px 18px rgba(0, 0, 0, 0.3)',
 } as const;
 

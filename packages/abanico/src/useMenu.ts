@@ -1,6 +1,7 @@
 import { useCallback, useEffect, useId, useLayoutEffect, useRef, useState, type KeyboardEvent } from 'react';
 import { useRovingFocus } from '@npmegar/lanzadera/react';
 import { usePosition, type Placement, type Position } from '@npmegar/plomada/react';
+import { verticalNeighbor } from './grid.js';
 import { ROLES, type ItemOptions, type MenuLink, type MenuParent } from './link.js';
 import type { GroupProps, MenuButtonProps, MenuItemProps, MenuProps, SeparatorProps, SubmenuTriggerProps } from './props.js';
 
@@ -16,6 +17,8 @@ export interface UseMenuOptions {
     loop?: boolean;
     placement?: Placement;
     offset?: number;
+    floating?: boolean;
+    grid?: boolean;
     parent?: MenuParent;
 }
 
@@ -38,7 +41,7 @@ export interface UseMenu {
 type Target = 'first' | 'last' | null;
 
 export const useMenu = (options: UseMenuOptions): UseMenu => {
-    const { count, isDisabled, getLabel, closeOnSelect = true, parent } = options;
+    const { count, isDisabled, getLabel, closeOnSelect = true, floating = true, grid = false, parent } = options;
     const id = useId();
     const buttonId = `${id}-button`;
     const menuId = `${id}-menu`;
@@ -51,6 +54,7 @@ export const useMenu = (options: UseMenuOptions): UseMenu => {
     const menu = useRef<HTMLElement | null>(null);
     const button = useRef<HTMLElement | null>(null);
     const children = useRef(new Set<(node: Node) => boolean>());
+    const elements = useRef(new Map<number, HTMLElement>());
     const settings = useRef(options);
 
     useLayoutEffect(() => {
@@ -79,19 +83,19 @@ export const useMenu = (options: UseMenuOptions): UseMenu => {
 
     const roving = useRovingFocus({
         count,
-        orientation: 'vertical',
+        orientation: grid ? 'horizontal' : 'vertical',
         ...(isDisabled ? { isDisabled } : {}),
         ...(getLabel ? { getLabel } : {}),
         ...(options.loop === undefined ? {} : { loop: options.loop }),
     });
     const position = usePosition({
-        open,
+        open: open && floating,
         placement: options.placement ?? (parent ? 'right-start' : 'bottom-start'),
         offset: options.offset ?? (parent ? 0 : 8),
     });
 
     const { setActiveIndex } = roving;
-    const positioned = position.position !== null;
+    const positioned = !floating || position.position !== null;
     useEffect(() => {
         const wanted = target.current;
         if (!open || !positioned || !wanted) return;
@@ -130,7 +134,7 @@ export const useMenu = (options: UseMenuOptions): UseMenu => {
     };
 
     const menuKey = (event: KeyboardEvent): void => {
-        if (event.key === 'Escape' || (parent && event.key === 'ArrowLeft')) {
+        if (event.key === 'Escape' || (parent && !grid && event.key === 'ArrowLeft')) {
             event.preventDefault();
             event.stopPropagation();
             close();
@@ -145,14 +149,27 @@ export const useMenu = (options: UseMenuOptions): UseMenu => {
         const kind = item.type ?? 'item';
         return {
             ...base,
+            ref: (element) => {
+                base.ref(element);
+                if (element) elements.current.set(index, element);
+                else elements.current.delete(index);
+            },
             role: ROLES[kind],
             ...(kind === 'item' ? {} : { 'aria-checked': item.checked ?? false }),
             ...(disabled ? { 'aria-disabled': true as const, 'data-disabled': true as const } : {}),
+            ...(item.soon ? { 'data-soon': true as const } : {}),
             onClick: () => select(index, kind),
             onKeyDown: (event) => {
                 if (event.key === 'Enter' || event.key === ' ') {
                     event.preventDefault();
                     select(index, kind);
+                    return;
+                }
+                if (grid && (event.key === 'ArrowDown' || event.key === 'ArrowUp')) {
+                    event.preventDefault();
+                    const boxes = Array.from({ length: count }, (_, at) => elements.current.get(at)?.getBoundingClientRect());
+                    const next = verticalNeighbor(boxes, index, event.key === 'ArrowDown' ? 1 : -1, isDisabled);
+                    if (next !== null) setActiveIndex(next, true);
                     return;
                 }
                 base.onKeyDown(event);
@@ -173,12 +190,12 @@ export const useMenu = (options: UseMenuOptions): UseMenu => {
         },
         itemProps,
     };
-    const reference = position.getReferenceProps();
-    const floating = position.getFloatingProps();
-    const attachButton = (element: Element | null): void => {
+    const { setReference } = position;
+    const attachButton = useCallback((element: Element | null): void => {
         button.current = element instanceof HTMLElement ? element : null;
-        reference.ref(element);
-    };
+        setReference(element);
+    }, [setReference]);
+    const floatingProps = floating ? position.getFloatingProps() : null;
 
     return {
         open,
@@ -234,10 +251,10 @@ export const useMenu = (options: UseMenuOptions): UseMenu => {
             };
         },
         getMenuProps: () => ({
-            ...floating,
+            ...floatingProps,
             ref: (element: HTMLElement | null) => {
                 menu.current = element;
-                floating.ref(element);
+                floatingProps?.ref(element);
             },
             id: menuId,
             role: 'menu',
