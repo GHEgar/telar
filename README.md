@@ -125,6 +125,22 @@ the grana tokens. The e2e
 suite runs Playwright against it on port 5195 and connects over CDP to a Chrome on `127.0.0.1:9222` when
 one is listening.
 
+## Releasing
+
+Each piece is released on its own with an annotated tag `<piece>-v<x.y.z>`, for example `grana-v0.3.0`:
+
+```bash
+git tag -a grana-v0.3.0 -m 'grana 0.3.0'
+git push origin grana-v0.3.0
+```
+
+`.github/workflows/release.yml` checks that the tag matches `packages/<piece>/package.json`, runs the
+tests and the build, creates the GitHub release with the notes of that version from
+`packages/<piece>/docs/CHANGELOG.md` and publishes only that piece with
+`npm publish --workspace packages/<piece> --provenance`, plus a copy as `@ghegar/<piece>` on GitHub
+Packages. A version already on the registry is skipped, so re-running the workflow is safe. Pieces that
+depend on another one (glosa on plomada, for example) need that version published first.
+
 ## Contributing
 
 Issues are welcome. Open one before sending a pull request.
